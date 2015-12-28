@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="light_font">#FBFBFB</color>
+    <color name="grey_font">#ff9e9e9e</color>
+    <color name="text_shadow">#7F000000</color>
+    <color name="text_shadow_white">#FFFFFF</color>
+
+    <!-- Palette de couleur tendance 2015 :) -->
+    <color name="Vichy">#EFFFCD</color>
+    <color name="Hex">#DCE9BE</color>
+    <color name="Dirt">#555152</color>
+    <color name="Evening">#2E2633</color>
+    <color name="Helio">#99173C</color>
+
+    <color name="GreyTc">#f9ffec</color>
+</resources>

@@ -1,6 +1,39 @@
 <resources>
-    <string name="app_name">Sociadee</string>
-
+    <string name="app_name">PictureContest</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="registerFacebookButton">Signup with Facebook</string>
+    <string name="registerEmailButton">Signup with Email</string>
+    <string name="loginButton">Log in with Email</string>
+    <string name="title_activity_register">RegisterActivity</string>
+    <string name="registerFinishButton">Create account</string>
+    <string name="connectButton">Connect</string>
+    <string name="backButton">Back</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Error String Area -->
+
+    <string name="error_login_nocredential">Please complete the form</string>
+    <string name="error_login_nousername">Please enter your username</string>
+    <string name="error_login_nopassword">Please enter your password</string>
+    <string name="error_notImplemented">Not implemented yet</string>
+    <string name="title_activity_contest_list">ContestListActivity</string>
+    <string name="title_activity_intro">IntroActivity</string>
+
+
+    <string name="error_network_1000" >User with the given email already exists.</string>
+    <string name="error_network_1001" >User with the given username already exists.</string>
+    <string name="error_network_1002" >The email address is in a wrong format.</string>
+    <string name="error_network_1003" >The username is in a wrong format.</string>
+    <string name="error_network_1004" >The given email and password do not match.</string>
+    <string name="error_network_2000" >Authorization required.</string>
+    <string name="error_network_9000" >Unknown error.</string>
+    <string name="title_activity_main">MainActivity</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+
 </resources>
