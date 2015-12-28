@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android"
+        android:fillBefore="true"
+    android:interpolator="@android:anim/accelerate_interpolator">
+
+
+    <alpha
+
+        android:fromAlpha="1.0"
+        android:toAlpha="0.0"
+        android:duration="300" />
+
+    <rotate
+        android:duration="1200"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:pivotX="50%"
+        android:pivotY="50%"
+        android:repeatCount="infinite"
+        android:repeatMode="restart"
+        android:toDegrees="360" />
+
+  <!--    android:fillAfter="true"
+   old effect -maybe to implement in the contest list
+  <translate
+        android:fromXDelta="0"
+        android:toXDelta="0"
+        android:toYDelta="10%p"
+        android:duration="200" />
+    <translate
+        android:fromXDelta="0"
+        android:startOffset="220"
+        android:toXDelta="0"
+        android:fromYDelta="0"
+        android:toYDelta="-100%p"
+        android:duration="300" />
+-->
+
+</set>
