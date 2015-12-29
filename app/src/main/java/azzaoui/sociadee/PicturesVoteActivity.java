@@ -31,18 +31,21 @@ public class PicturesVoteActivity extends AppCompatActivity {
 
     private void addCards()
     {
-        CardModel card = new CardModel("Title1", "Description goes here", getResources().getDrawable(R.drawable.picture1));
-        card.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
-            @Override
-            public void onLike() {
-                Log.d("Swipeable Card", "I liked it");
-            }
 
-            @Override
-            public void onDislike() {
-                Log.d("Swipeable Card", "I did not liked it");
-            }
-        });
+        for(int i =0; i < imagesArray.length;i++) {
+            CardModel card = new CardModel("Title1", "Description goes here", getResources().getDrawable(R.drawable.picture1));
+            card.setOnCardDismissedListener(new CardModel.OnCardDismissedListener() {
+                @Override
+                public void onLike() {
+                    Log.d("Swipeable Card", "I liked it");
+                }
+
+                @Override
+                public void onDislike() {
+                    Log.d("Swipeable Card", "I did not liked it");
+                }
+            });
+        }
     }
 
 }

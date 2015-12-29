@@ -2,6 +2,8 @@
     <string name="app_name">Sociadee</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">128329117541528</string>
+
     <string name="registerFacebookButton">Signup with Facebook</string>
     <string name="registerEmailButton">Inscription</string>
     <string name="loginButton">Connection</string>
@@ -11,6 +13,13 @@
     <string name="backButton">Back</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
+
+    <!-- Strings array -->
+    <string-array name="artists_array">
+        <item>code1 example</item>
+        <item>code2 example</item>
+    </string-array>
+
 
     <!-- Error String Area -->
 
