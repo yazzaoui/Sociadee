@@ -8,15 +8,6 @@
     android:paddingBottom="0dp"
     tools:context=".LoginActivity">
 
-
-    <!--
-        <ImageView
-
-            android:scaleType = "centerCrop"
-            android:id="@+id/wallpaperLoginImageView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-      android:src="@drawable/wallpaper1" -->
     <ImageView
         android:scaleType = "centerCrop"
         android:id="@+id/wallpaperLoginImageWallpaper"
@@ -28,11 +19,11 @@
     <ImageView
         android:layout_width="300dp"
         android:layout_marginTop="0dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginRight="60dp"
         android:padding="0dp"
         android:id="@+id/logoImage"
         android:transitionName="logo"
-        android:layout_gravity="top|left"
+        android:layout_gravity="top|right"
         android:layout_height="wrap_content"
         android:src="@drawable/logo"
         />
@@ -71,13 +62,7 @@
             android:shadowDy="1"
             android:shadowRadius="2" />
 
-        <Button
-            android:id="@+id/buttonFacebook"
-            android:onClick="goFacebook"
-            android:text="@string/registerFacebookButton"
-            android:layout_width="270dp"
-            android:layout_height="35dp"
-            />
+
         <Button
             android:layout_marginTop="6dp"
             android:text="@string/registerEmailButton"
@@ -161,12 +146,6 @@
             />
     </LinearLayout>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="70dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/epfl_logo"
-        android:layout_gravity="center_horizontal|bottom" />
 
 
 </FrameLayout>

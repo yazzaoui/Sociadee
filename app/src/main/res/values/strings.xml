@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">PictureContest</string>
+    <string name="app_name">Sociadee</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="registerFacebookButton">Signup with Facebook</string>
-    <string name="registerEmailButton">Signup with Email</string>
-    <string name="loginButton">Log in with Email</string>
+    <string name="registerEmailButton">Inscription</string>
+    <string name="loginButton">Connection</string>
     <string name="title_activity_register">RegisterActivity</string>
     <string name="registerFinishButton">Create account</string>
     <string name="connectButton">Connect</string>
@@ -33,6 +33,7 @@
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_pictures_vote">PicturesVoteActivity</string>
 
 
 

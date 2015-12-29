@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.json.JSONException;
+
+import java.io.IOException;
+
 
 public class LoginActivity extends Activity {
 
@@ -45,25 +49,7 @@ public class LoginActivity extends Activity {
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-
-
-        return super.onOptionsItemSelected(item);
-    }
 
     public void goRegister(View view) {
         Intent registerIntent = new Intent(this, RegisterActivity.class);
@@ -103,8 +89,8 @@ public class LoginActivity extends Activity {
             */
             Parameters.setToken(mToken);
             Parameters.setUsername(mUsername);
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
+          //  Intent intent = new Intent(this, MainActivity.class);
+           // startActivity(intent);
         }
 
     }
@@ -328,12 +314,7 @@ public class LoginActivity extends Activity {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
-
-
         }
-
-
     }
 }
