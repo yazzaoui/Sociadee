@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="android:attr/listItemFirstLineStyle"
+
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+
+    android:fontFamily="sans-serif-thin"
+    android:textColor="@color/GreyTc"
+    android:textSize="20dp"
+
+    android:gravity="right"
+    android:textAlignment="gravity"
+    android:padding="10dp"
+
+    android:background="@drawable/menu_item_selector"
+
+    />
+

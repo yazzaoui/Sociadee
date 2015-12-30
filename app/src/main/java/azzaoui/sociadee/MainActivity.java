@@ -50,21 +50,36 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         if(mCurrentView == null || mLastView == null)
         {
-            mCurrentView =  findViewById(R.id.list);
-            mLastView =  findViewById(R.id.list);
+            mCurrentView =  findViewById(R.id.profileFragment);
+            mLastView =  findViewById(R.id.profileFragment);
         }
         mMenuDrawerList = (ListView) findViewById(R.id.menu_list);
         addMenuDrawerItems();
         setupActionBar();
 
-        mContestDetailFragment = (ContestDetailFragment)
-                getFragmentManager().findFragmentById(R.id.detailFragment);
+        mProfileFragment = (ProfileFragment)
+                getFragmentManager().findFragmentById(R.id.profileFragment);
+        mMapFragment = (MapFragment)
+                getFragmentManager().findFragmentById(R.id.mapFragment);
+        mGroupChatFragment = (GroupChatFragment)
+                getFragmentManager().findFragmentById(R.id.groupChatFragment);
+        mPeopleGridFragment = (PeopleGridFragment)
+                getFragmentManager().findFragmentById(R.id.peopleGridFragment);
 
 
-        mContestDetailView = findViewById(R.id.detailFragment);
-        mContestDetailView.setVisibility(View.VISIBLE);
 
-        mContestListView = findViewById(R.id.list);
+        mProfileView = findViewById(R.id.profileFragment);
+        mProfileView.setVisibility(View.VISIBLE);
+
+        mMapView = findViewById(R.id.mapFragment);
+        mMapView.setVisibility(View.INVISIBLE);
+
+        mGroupChatView = findViewById(R.id.groupChatFragment);
+        mGroupChatView.setVisibility(View.INVISIBLE);
+
+        mPeopleGridView = findViewById(R.id.peopleGridFragment);
+        mPeopleGridView.setVisibility(View.INVISIBLE);
+
 
 
         Window window = this.getWindow();
@@ -121,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
 
         mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
-        getSupportActionBar().setTitle("Nice Pic");
+        getSupportActionBar().setTitle("Sociadee");
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
                 R.string.drawer_open, R.string.drawer_close) {
 
@@ -145,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     private void addMenuDrawerItems() {
-        String[] osArray = { "Open Contests", "Vote Pictures", "Finished Contests", "Logout" };
+        String[] osArray = { "Discussions", "Carte", "Réseau", "Mon Profil", "Se déconnecter" };
         mMenuAdapter = new ArrayAdapter<String>(this, R.layout.menu_item, osArray);
         mMenuDrawerList.setAdapter(mMenuAdapter);
 
@@ -154,18 +169,18 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-                        mContestListFragment.switchFilter(ContestMinimal.Phase.SUBMISSION);
-                        switchFragment(mContestListView);
+                        switchFragment(mGroupChatView);
                         break;
                     case 1:
-                        mContestListFragment.switchFilter(ContestMinimal.Phase.VOTING);
-                        switchFragment(mContestListView);
+                        switchFragment(mMapView);
                         break;
                     case 2:
-                        mContestListFragment.switchFilter(ContestMinimal.Phase.RESULTS);
-                        switchFragment(mContestListView);
+                        switchFragment(mPeopleGridView);
                         break;
                     case 3:
+                        switchFragment(mProfileView);
+                        break;
+                    case 4:
                         finish();
                         break;
                 }
@@ -226,13 +241,5 @@ public class MainActivity extends AppCompatActivity {
         mCurrentView = nextView;
     }
 
-    public void showNext(View v)
-    {
-        mResultFragment.showNext(v);
-    }
 
-    public void showPrevious(View v)
-    {
-        mResultFragment.showPrevious(v);
-    }
 }
