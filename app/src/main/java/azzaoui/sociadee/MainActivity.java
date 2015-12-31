@@ -3,6 +3,7 @@ package azzaoui.sociadee;
 
 
 import android.content.res.Configuration;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
@@ -18,7 +19,9 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -80,13 +83,20 @@ public class MainActivity extends AppCompatActivity {
         mPeopleGridView = findViewById(R.id.peopleGridFragment);
         mPeopleGridView.setVisibility(View.INVISIBLE);
 
+        ((TextView)findViewById(R.id.profilMenuName)).setText(Parameters.getFirstname());
 
-
-        Window window = this.getWindow();
+        BitmapDrawable bd=(BitmapDrawable)Parameters.getProfilePicture();
+        ((ImageView)findViewById(R.id.profilMenuPicture)).setImageBitmap(bd.getBitmap());
+        ((ImageView)findViewById(R.id.profilMenuPicture)).setScaleType(ImageView.ScaleType.FIT_XY);
+        /*Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(getResources().getColor(R.color.Evening));
+        window.setStatusBarColor(getResources().getColor(R.color.Evening));*/
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
     }
 
     @Override

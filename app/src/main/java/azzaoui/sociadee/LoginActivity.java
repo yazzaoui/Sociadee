@@ -2,6 +2,9 @@ package azzaoui.sociadee;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,29 +18,35 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.HttpMethod;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 public class LoginActivity extends Activity {
 
-    static final int REGISTER_REQUEST = 0;
 
-    private boolean mLoginFirstLayout = false;
-    private String mLoginEmail;
-    private String mUsername;
-    private String mPassword;
     private String mToken = "";
     private LoginButton loginButton;
+    private long mFacebookId = 0;
+    private String mPictureUrl;
+    private Boolean mNoBug = true;
     CallbackManager callbackManager;
 
     @Override
@@ -60,7 +69,9 @@ public class LoginActivity extends Activity {
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                goMainActivity();
+                spinAnimate();
+                fetchFacebookData();
+
             }
 
             @Override
@@ -79,6 +90,55 @@ public class LoginActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void fetchFacebookData()
+    {
+        /* make the API call */
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,first_name,picture.type(large)");
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me",
+                parameters,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        JSONObject firstResponse = response.getJSONObject();
+                        try {
+                            mFacebookId = firstResponse.getLong("id");
+                            Parameters.setFacebookId(mFacebookId);
+                            String mFirstname = firstResponse.getString("first_name");
+                            Parameters.setFirstname(mFirstname);
+                            mPictureUrl= firstResponse.getJSONObject("picture").getJSONObject("data").getString("url");
+                            getFacebookStuff gFs = new getFacebookStuff();
+                            gFs.execute();
+                        } catch (JSONException e) {
+                            setErrorText("Error getting facebook id :(");
+                            mNoBug = false;
+
+                        }
+
+                    }
+                }
+        ).executeAsync();
+    }
+//google map : AIzaSyBGSNFjfGpm5eAVvAIeV_lu4GkVV46w08Y
+    private void fetchFacebookProfilePicture()
+    {
+        try {
+            URL image_value = new URL(mPictureUrl);
+            Drawable profilePic = null;
+            try {
+                profilePic = Drawable.createFromStream(image_value.openConnection().getInputStream(),"blah");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parameters.setProfilePicture(profilePic);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -104,16 +164,86 @@ public class LoginActivity extends Activity {
         errorTextView.setText(text);
     }
 
-    private void goMainActivity() {
-
+    private void goMainActivity()
+    {
 
         Parameters.setToken(mToken);
-        Parameters.setUsername(mUsername);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.fade_in2, R.anim.fade_out2);
+    }
+
+    private void spinAnimate() {
+        Animation spinAnim = AnimationUtils.loadAnimation(this, R.anim.spin);
+        final ImageView spiner = (ImageView) findViewById(R.id.progressBar);
+        spinAnim.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                spiner.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+            }
+        });
+        spiner.startAnimation(spinAnim);
+
     }
 
 
+    private void spinStopAnimation() {
+        Animation spinAnim = AnimationUtils.loadAnimation(this, R.anim.spin_stop);
+        final ImageView spiner = (ImageView) findViewById(R.id.progressBar);
+        spiner.clearAnimation();
+        spinAnim.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                spiner.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+
+                spiner.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        spiner.startAnimation(spinAnim);
+    }
+
+    private class getFacebookStuff extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute()
+        {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            fetchFacebookProfilePicture();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            super.onPostExecute(params);
+            spinStopAnimation();
+            goMainActivity();
+        }
+
+
+    }
 
 
 }

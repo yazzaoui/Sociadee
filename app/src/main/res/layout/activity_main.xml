@@ -81,14 +81,14 @@
             >
             <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="200dp"
+                android:layout_height="250dp"
                 android:id="@+id/profilMenuContainer"
                 >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
+                    android:layout_width="250dp"
+                    android:layout_height="250dp"
+                    android:scaleType="centerInside"
                     android:src="@drawable/pp_swag"
                     android:id="@+id/profilMenuPicture"
                     />
@@ -116,16 +116,16 @@
                 android:dividerHeight="0dp"
                 android:layout_below="@id/profilMenuContainer"
                 />
-            <ImageView
+            <!--<ImageView
                 android:layout_width="130dp"
                 android:layout_height="105dp"
                 android:src="@drawable/logo4"
                 android:scaleType="centerCrop"
                 android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
-                />
+                />-->
         </RelativeLayout>
 
 
-    </>
+    </android.support.v4.widget.DrawerLayout>
 </LinearLayout>
