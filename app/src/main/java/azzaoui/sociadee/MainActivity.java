@@ -2,6 +2,7 @@ package azzaoui.sociadee;
 
 
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -24,12 +25,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class MainActivity extends AppCompatActivity {
 
+public class MainActivity extends Activity {
+
+    private GoogleMap mMap;
 
     private ProfileFragment mProfileFragment;
-    private MapFragment mMapFragment;
+    private MapWrapperFragment mMapFragment;
     private GroupChatFragment mGroupChatFragment;
     private PeopleGridFragment mPeopleGridFragment;
 
@@ -62,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         mProfileFragment = (ProfileFragment)
                 getFragmentManager().findFragmentById(R.id.profileFragment);
-        mMapFragment = (MapFragment)
+        mMapFragment = (MapWrapperFragment)
                 getFragmentManager().findFragmentById(R.id.mapFragment);
         mGroupChatFragment = (GroupChatFragment)
                 getFragmentManager().findFragmentById(R.id.groupChatFragment);
@@ -97,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
+
     }
 
     @Override
@@ -104,6 +112,15 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+
+
+
+        @Override
+    protected void onResume() {
+        super.onResume();
+
     }
 
     @Override
@@ -140,6 +157,7 @@ public class MainActivity extends AppCompatActivity {
     private void setupActionBar()
     {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.top_toolbar);
+
         setSupportActionBar(myToolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);

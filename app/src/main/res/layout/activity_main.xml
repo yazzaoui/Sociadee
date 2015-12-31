@@ -47,7 +47,7 @@
                     tools:layout="@layout/fragment_profile" />
 
                 <fragment
-                    android:name="azzaoui.sociadee.MapFragment"
+                    android:name="azzaoui.sociadee.MapWrapperFragment"
                     android:id="@+id/mapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
