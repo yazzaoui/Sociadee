@@ -51,7 +51,7 @@
                     android:id="@+id/mapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
-                    tools:layout="@layout/fragment_map" />
+                    tools:layout="@layout/fragment_mapwrapper" />
                 <fragment
                     android:name="azzaoui.sociadee.PeopleGridFragment"
                     android:id="@+id/peopleGridFragment"

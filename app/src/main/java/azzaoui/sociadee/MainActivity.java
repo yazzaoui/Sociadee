@@ -2,7 +2,6 @@ package azzaoui.sociadee;
 
 
 
-import android.app.Activity;
 import android.content.res.Configuration;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -10,6 +9,8 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.support.v4.app.Fragment;
+
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -31,7 +32,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private GoogleMap mMap;
 
@@ -68,13 +69,13 @@ public class MainActivity extends Activity {
         setupActionBar();
 
         mProfileFragment = (ProfileFragment)
-                getFragmentManager().findFragmentById(R.id.profileFragment);
+                getSupportFragmentManager().findFragmentById(R.id.profileFragment);
         mMapFragment = (MapWrapperFragment)
-                getFragmentManager().findFragmentById(R.id.mapFragment);
+                getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mGroupChatFragment = (GroupChatFragment)
-                getFragmentManager().findFragmentById(R.id.groupChatFragment);
+                getSupportFragmentManager().findFragmentById(R.id.groupChatFragment);
         mPeopleGridFragment = (PeopleGridFragment)
-                getFragmentManager().findFragmentById(R.id.peopleGridFragment);
+                getSupportFragmentManager().findFragmentById(R.id.peopleGridFragment);
 
 
 

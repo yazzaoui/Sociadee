@@ -2,25 +2,22 @@ package azzaoui.sociadee;
 
 
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.maps.MapFragment;
 
 public class MapWrapperFragment extends Fragment {
     GoogleMap map;
 
-    private MapFragment mapFragment;
+    private SupportMapFragment mapFragment;
     public MapWrapperFragment() {
         // Required empty public constructor
     }
@@ -31,18 +28,18 @@ public class MapWrapperFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        return inflater.inflate(R.layout.fragment_map, container, false);
+        return inflater.inflate(R.layout.fragment_mapwrapper, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-       FragmentManager fm =  getChildFragmentManager();
-        mapFragment = (MapFragment) fm.findFragmentById(R.id.mapContainerBis);
+        FragmentManager fm =  getChildFragmentManager();
+        mapFragment = (SupportMapFragment) fm.findFragmentById(R.id.mapBlock);
 
         if (mapFragment == null) {
-            mapFragment = MapFragment.newInstance();
-            fm.beginTransaction().replace(R.id.mapContainerBis, new PeopleGridFragment()).commit();
+            mapFragment = SupportMapFragment.newInstance();
+            fm.beginTransaction().replace(R.id.mapBlock, mapFragment).commit();
         }
     }
 
@@ -50,11 +47,11 @@ public class MapWrapperFragment extends Fragment {
     public void onResume() {
 
         super.onResume();
-/*
+
         if (map == null) {
             map = mapFragment.getMap();
             map.addMarker(new MarkerOptions().position(new LatLng(0, 0)));
-        }*/
+        }
     }
 
 }
