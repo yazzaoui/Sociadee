@@ -5,6 +5,11 @@ package azzaoui.sociadee;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -26,6 +31,8 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -83,7 +90,7 @@ public class MapWrapperFragment extends Fragment {
             // Changing map type
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             // Showing/hiding your current location
-            map.setMyLocationEnabled(false);
+            map.setMyLocationEnabled(true);
             // Enable/disable zooming controls
             map.getUiSettings().setZoomControlsEnabled(false);
             // Enable/disable my location button
@@ -154,8 +161,7 @@ public class MapWrapperFragment extends Fragment {
             map.clear();
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(latitude, longitude));
-            markerOptions.title("Here I am");
-            markerOptions.snippet("");
+            markerOptions.icon(createMarker());
             Geocoder gc = new Geocoder(getActivity(), Locale.getDefault());
             try
             {
@@ -175,4 +181,24 @@ public class MapWrapperFragment extends Fragment {
         }
     }
 
+
+    private BitmapDescriptor createMarker()
+    {
+        Drawable[] layers = new Drawable[2];
+        layers[0] = getResources().getDrawable(R.drawable.blue_marker);
+        layers[1] = Parameters.getProfilePicture();
+        LayerDrawable layerDrawable = new LayerDrawable(layers);
+
+        Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
+
+       // layerDrawable.setLayerInset(0, 0, 0, 0, 0);
+        layerDrawable.setLayerInset(1, 15, 13, 16, 18);
+        layerDrawable.setBounds(0, 0, 100, 100);
+        layerDrawable.draw(new Canvas(b));
+        BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(b);
+
+        return icon;
+
+
+    }
 }
