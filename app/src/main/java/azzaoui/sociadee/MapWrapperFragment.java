@@ -18,8 +18,11 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -66,6 +69,16 @@ public class MapWrapperFragment extends Fragment {
         super.onResume();
 
         if (map == null) {
+
+            int status = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getActivity());
+
+//        boolean network_enabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+
+            // Showing status
+            if (status != ConnectionResult.SUCCESS) // Google Play Services are not available
+                throw new RuntimeException("Bug no google play");
+
+
             map = mapFragment.getMap();
             // Changing map type
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -89,20 +102,47 @@ public class MapWrapperFragment extends Fragment {
             criteria.setAltitudeRequired(false);
             criteria.setBearingRequired(false);
             criteria.setCostAllowed(true);
-            criteria.setPowerRequirement(Criteria.POWER_LOW);
+            criteria.setPowerRequirement(Criteria.ACCURACY_FINE);
             String provider = locationManager.getBestProvider(criteria, true);
             if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED)
             {
-                Location location = locationManager.getLastKnownLocation(provider);
+              //  Location location = locationManager.getLastKnownLocation(provider);
+                Location location = this.getLastKnownLocation(locationManager);
                 if (location != null) {
                     updateWithNewLocation(location);
                 }
             }
+
+            final LocationListener locationListener = new LocationListener(){
+                public void onLocationChanged(Location location){
+                    updateWithNewLocation(location);
+                }
+                public void onProviderDisabled(String provider){
+                    updateWithNewLocation(null);
+                }
+                public void onProviderEnabled(String provider){}
+                public void onStatusChanged(String provider, int status, Bundle extras){}
+            };
+
             locationManager.requestLocationUpdates(provider, 2000, 10,locationListener);
 
         }
     }
-
+    private Location getLastKnownLocation(LocationManager mLocationManager) {
+        List<String> providers = mLocationManager.getProviders(true);
+        Location bestLocation = null;
+        for (String provider : providers) {
+            Location l = mLocationManager.getLastKnownLocation(provider);
+            if (l == null) {
+                continue;
+            }
+            if (bestLocation == null || l.getAccuracy() < bestLocation.getAccuracy()) {
+                // Found best last known location: %s", l);
+                bestLocation = l;
+            }
+        }
+        return bestLocation;
+    }
     private void updateWithNewLocation(Location location) {
 
         if(location != null){
@@ -115,10 +155,7 @@ public class MapWrapperFragment extends Fragment {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(latitude, longitude));
             markerOptions.title("Here I am");
-            markerOptions.snippet("(" + latitude + "," + longitude + ")");
-            map.addMarker(markerOptions).showInfoWindow();
-
-            /*
+            markerOptions.snippet("");
             Geocoder gc = new Geocoder(getActivity(), Locale.getDefault());
             try
             {
@@ -129,20 +166,13 @@ public class MapWrapperFragment extends Fragment {
                     for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                         sb.append("\n").append(address.getAddressLine(i));
                     }
-                    addressString = sb.toString();
+                    Toast.makeText(getActivity(),  sb.toString(), Toast.LENGTH_LONG).show();
+
                 }
             }
-            catch (IOException e){}*/
+            catch (IOException e){}
+            map.addMarker(markerOptions).showInfoWindow();
         }
     }
-    private final LocationListener locationListener = new LocationListener(){
-                        public void onLocationChanged(Location location){
-                            updateWithNewLocation(location);
-                        }
-                        public void onProviderDisabled(String provider){
-                            updateWithNewLocation(null);
-                        }
-                        public void onProviderEnabled(String provider){}
-                        public void onStatusChanged(String provider, int status, Bundle extras){}
-                    };
+
 }
