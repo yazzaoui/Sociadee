@@ -49,7 +49,6 @@ public class MapWrapperFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -90,11 +89,12 @@ public class MapWrapperFragment extends Fragment {
             // Changing map type
             map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
             // Showing/hiding your current location
-            map.setMyLocationEnabled(true);
+            map.setMyLocationEnabled(false);
             // Enable/disable zooming controls
             map.getUiSettings().setZoomControlsEnabled(false);
+            map.getUiSettings().setMapToolbarEnabled(false);
             // Enable/disable my location button
-            map.getUiSettings().setMyLocationButtonEnabled(true);
+            map.getUiSettings().setMyLocationButtonEnabled(false);
             // Enable/disable compass icon
             map.getUiSettings().setCompassEnabled(false);
             // Enable/disable rotate gesture
@@ -198,7 +198,5 @@ public class MapWrapperFragment extends Fragment {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(b);
 
         return icon;
-
-
     }
 }
