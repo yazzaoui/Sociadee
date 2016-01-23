@@ -1,9 +1,70 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="azzaoui.sociadee.ProfileFragment">
+    android:layout_height="match_parent" tools:context="azzaoui.sociadee.ProfileFragment"
+    android:background="@android:color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pp_swag"
+
+        android:layout_marginTop="50dp"
+        android:id="@+id/profilePicture"
+        android:layout_centerHorizontal="true"
+         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/profilePicture"
+        android:text="Prenom"
+        android:id="@+id/textName" />
+
+    <EditText
+        android:layout_below="@+id/textName"
+        android:inputType="textMultiLine"
+        android:lines="8"
+        android:paddingTop="10dp"
+        android:layout_marginTop="20dp"
+        android:minLines="4"
+        android:gravity="top|left"
+        android:maxLines="10"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:scrollbars="vertical"
+        android:text="Say something about you.."
+        android:id="@+id/aboutMe" />
+
+    <HorizontalScrollView
+        android:layout_below="@+id/aboutMe"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/horizontalScrollView"
+        android:layout_alignParentStart="true"
+
+    >
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:orientation="horizontal" >
+
+            <ImageButton
+                android:layout_width="150dp"
+                android:scaleType="centerCrop"
+                android:layout_height="150dp"
+                android:id="@+id/addPicButton"
+                android:onClick=""
+                android:src="@drawable/addpic"
+                />
+
+
+
+        </LinearLayout>
+        </HorizontalScrollView>
+
+</RelativeLayout>

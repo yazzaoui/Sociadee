@@ -16,19 +16,23 @@
 <ImageButton
     android:layout_width="50dp"
     android:layout_height="50dp"
+    android:visibility="invisible"
     android:background="@drawable/map_userprofile_selector"
     android:layout_gravity="center_horizontal|center_vertical"
     android:layout_marginRight="100dp"
     android:layout_marginBottom="25dp"
+    android:id="@+id/mapUserButton"
  />
     <ImageButton
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@null"
+        android:visibility="invisible"
         android:layout_gravity="center_horizontal|center_vertical"
         android:layout_marginLeft="100dp"
         android:layout_marginBottom="25dp"
         android:src="@drawable/user_chat_map"
+        android:id="@+id/mapChatButton"
         android:scaleType="centerCrop" />
     <!-- test layout but ugly ;(
     <RelativeLayout
