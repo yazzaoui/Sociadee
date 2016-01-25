@@ -48,7 +48,7 @@
 
     >
         <LinearLayout
-            android:id="@+id/LinearLayout1"
+            android:id="@+id/LinearLayoutPictiresProfile"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:orientation="horizontal" >
@@ -58,7 +58,7 @@
                 android:scaleType="centerCrop"
                 android:layout_height="150dp"
                 android:id="@+id/addPicButton"
-                android:onClick=""
+                android:onClick="addPicProfile"
                 android:src="@drawable/addpic"
                 />
 

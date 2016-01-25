@@ -66,6 +66,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="fill_parent"
                     tools:layout="@layout/fragment_group_chat" />
+                <fragment
+                    android:name="azzaoui.sociadee.AddPicFragment"
+                    android:id="@+id/addPicFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="fill_parent"
+                    tools:layout="@layout/fragment_add_pic" />
             </FrameLayout>
 
 

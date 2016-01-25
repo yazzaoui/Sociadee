@@ -1,13 +1,27 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/GridLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="azzaoui.sociadee.addPicFragment">
+    android:columnCount="4"
+    android:stretchMode="columnWidth"
+    android:verticalSpacing="0dp"
+    android:horizontalSpacing="0dp"
+   >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
+    <azzaoui.sociadee.SquareImageView
+        android:scaleType="centerCrop"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_width="match_parent"
+        android:layout_gravity="fill"
+        android:src="@drawable/addpic"
+        />
 
-</FrameLayout>
+    <azzaoui.sociadee.SquareImageView
+        android:scaleType="centerCrop"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_gravity="fill"
+        android:src="@drawable/addpic"
+        />
+</GridLayout>

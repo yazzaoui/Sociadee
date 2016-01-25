@@ -9,14 +9,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.support.v4.app.Fragment;
 
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
@@ -24,12 +21,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -40,11 +33,14 @@ public class MainActivity extends AppCompatActivity {
     private MapWrapperFragment mMapFragment;
     private GroupChatFragment mGroupChatFragment;
     private PeopleGridFragment mPeopleGridFragment;
+    private AddPicFragment mAddPicFragment;
+
 
     private View mProfileView;
     private View mMapView;
     private View mGroupChatView;
     private View mPeopleGridView;
+    private View mAddPicView;
 
     private View mCurrentView = null;
     private View mLastView =  null;
@@ -76,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().findFragmentById(R.id.groupChatFragment);
         mPeopleGridFragment = (PeopleGridFragment)
                 getSupportFragmentManager().findFragmentById(R.id.peopleGridFragment);
-
+        mAddPicFragment = (AddPicFragment)
+                getSupportFragmentManager().findFragmentById(R.id.addPicFragment);
 
 
         mProfileView = findViewById(R.id.profileFragment);
@@ -90,6 +87,9 @@ public class MainActivity extends AppCompatActivity {
 
         mPeopleGridView = findViewById(R.id.peopleGridFragment);
         mPeopleGridView.setVisibility(View.INVISIBLE);
+
+        mAddPicView = findViewById(R.id.addPicFragment);
+        mAddPicView.setVisibility(View.INVISIBLE);
 
         ((TextView)findViewById(R.id.profilMenuName)).setText(Parameters.getFirstname());
 
@@ -188,6 +188,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setScrimColor(0x30000000);
 
     }
+
     private void addMenuDrawerItems() {
         String[] osArray = { "Discussions", "Carte", "Réseau", "Mon Profil", "Se déconnecter" };
         mMenuAdapter = new ArrayAdapter<String>(this, R.layout.menu_item, osArray);
@@ -270,5 +271,8 @@ public class MainActivity extends AppCompatActivity {
         mCurrentView = nextView;
     }
 
-
+    public void addPicProfile(View v)
+    {
+        switchFragment(mAddPicView);
+    }
 }
