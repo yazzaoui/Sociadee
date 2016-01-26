@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.GridView;
 
 
 /**
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
  */
 public class AddPicFragment extends Fragment {
 
+    private gridAddPicAdapter mGridAddPicAdapter;
 
     public AddPicFragment() {
         // Required empty public constructor
@@ -23,7 +25,16 @@ public class AddPicFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_add_pic, container, false);
+
+       View v = inflater.inflate(R.layout.fragment_add_pic, container, false);
+        GridView gridView = (GridView)v.findViewById(R.id.GridLayoutAddPic);
+        mGridAddPicAdapter = new gridAddPicAdapter(getContext());
+        gridView.setAdapter(mGridAddPicAdapter);
+        return v;
     }
 
+    public void retrievePictures()
+    {
+        mGridAddPicAdapter.retrievePictures();
+    }
 }

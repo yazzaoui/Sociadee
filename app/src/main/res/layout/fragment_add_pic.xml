@@ -1,27 +1,20 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/GridLayout1"
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:columnCount="4"
-    android:stretchMode="columnWidth"
-    android:verticalSpacing="0dp"
-    android:horizontalSpacing="0dp"
-   >
+    android:layout_height="match_parent">
 
-    <azzaoui.sociadee.SquareImageView
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent"
+    <GridView
+        android:id="@+id/GridLayoutAddPic"
         android:layout_width="match_parent"
-        android:layout_gravity="fill"
-        android:src="@drawable/addpic"
-        />
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:numColumns="4"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="0dp"
+        android:horizontalSpacing="0dp"
+       >
 
-    <azzaoui.sociadee.SquareImageView
-        android:scaleType="centerCrop"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        android:layout_gravity="fill"
-        android:src="@drawable/addpic"
-        />
-</GridLayout>
+
+    </GridView>
+</FrameLayout>
