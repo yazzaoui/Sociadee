@@ -18,6 +18,13 @@
         <item name="android:textSize">20sp</item>
         <item name="android:background">@drawable/buttonshape</item>
     </style>
+
+    <style name="AppThemeCustom.Textview" parent="android:Widget.TextView">
+        <item name="android:textColor">@color/GreyTc</item>
+        <item name="android:fontFamily">sans-serif-thin</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <!-- Shadow effect
             android:shadowColor="#A8A8A8"
             android:shadowDx="0"

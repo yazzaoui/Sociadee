@@ -156,6 +156,8 @@ public class gridAddPicAdapter  extends BaseAdapter {
             v = mInflater.inflate(R.layout.grid_addpic_item, viewGroup, false);
             v.setTag(R.id.pictureElemAddPic, v.findViewById(R.id.pictureElemAddPic));
             v.setTag(R.id.text, v.findViewById(R.id.text));
+            v.setTag(R.id.validatedPic,v.findViewById(R.id.validatedPic));
+
         }
 
         picture = (ImageView) v.getTag(R.id.pictureElemAddPic);

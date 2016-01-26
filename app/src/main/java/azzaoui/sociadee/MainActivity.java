@@ -282,4 +282,18 @@ public class MainActivity extends AppCompatActivity {
         mAddPicFragment.retrievePictures();
         switchFragment(mAddPicView);
     }
+
+    public void validatePic(View v)
+    {
+        ImageView isAdded = (ImageView) v.getTag(R.id.validatedPic);
+        if(isAdded.getVisibility() == View.VISIBLE)
+        {
+            isAdded.setVisibility(View.INVISIBLE);
+        }
+        else
+        {
+            isAdded.setVisibility(View.VISIBLE );
+        }
+
+    }
 }
