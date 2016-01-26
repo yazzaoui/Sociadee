@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
@@ -38,8 +39,6 @@ public class gridAddPicAdapter  extends BaseAdapter {
 
     public gridAddPicAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
-
-
     }
 
     public void retrievePictures()
@@ -160,12 +159,13 @@ public class gridAddPicAdapter  extends BaseAdapter {
         }
 
         picture = (ImageView) v.getTag(R.id.pictureElemAddPic);
-        name = (TextView) v.getTag(R.id.text);
+        //name = (TextView) v.getTag(R.id.text);
 
         Item item = getItem(i);
 
         picture.setImageDrawable(item.drawable);
-        name.setText(Long.toString(item.facebookId));
+        //name.setText(Long.toString(item.facebookId));
+
 
         return v;
     }

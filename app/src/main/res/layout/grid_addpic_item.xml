@@ -2,7 +2,11 @@
 
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:onClick="validatePic"
+
+    >
 
       <azzaoui.sociadee.SquareImageView
         android:id="@+id/pictureElemAddPic"
@@ -10,16 +14,16 @@
         android:layout_height="match_parent"
         android:scaleType="centerCrop"/>
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:layout_gravity="bottom"
-        android:textColor="@android:color/white"
-        android:background="#55000000"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="invisible"
+        android:id="@+id/validatedPic"
+        android:src="@drawable/good1"
+        android:layout_gravity="right|bottom"
+        />
 
 </FrameLayout>
