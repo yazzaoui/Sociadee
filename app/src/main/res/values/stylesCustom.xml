@@ -19,7 +19,7 @@
         <item name="android:background">@drawable/buttonshape</item>
     </style>
 
-    <style name="AppThemeCustom.Textview" parent="android:Widget.TextView">
+    <style name="AppThemeCustom.TextView" parent="android:Widget.TextView">
         <item name="android:textColor">@color/GreyTc</item>
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textSize">20sp</item>

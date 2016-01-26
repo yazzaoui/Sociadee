@@ -28,8 +28,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="20sp"
         android:layout_below="@+id/profilePicture"
         android:text="Prenom"
         android:id="@+id/textName" />
@@ -45,6 +46,7 @@
         android:maxLines="10"
         android:layout_height="wrap_content"
         android:layout_width="fill_parent"
+        android:background="#da2e2633"
         android:scrollbars="vertical"
         android:text="Say something about you.."
         android:id="@+id/aboutMe" />
@@ -76,6 +78,8 @@
 
         </LinearLayout>
         </HorizontalScrollView>
+
+
 
 </RelativeLayout>
 </FrameLayout>

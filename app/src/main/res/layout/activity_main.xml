@@ -148,35 +148,43 @@
             android:id="@+id/barMenuButton1"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_profile_1"
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_item_selector"
             android:scaleType="center"
-            android:src="@drawable/man117" />
+            android:src="@drawable/menu_profile" />
 
         <ImageButton
             android:id="@+id/barMenuButton2"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_item_selector"
+            android:scaleType="center"
+            android:src="@drawable/menu_chat"  />
         <ImageButton
             android:id="@+id/barMenuButton3"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_item_selector"
+            android:scaleType="center"
+            android:src="@drawable/menu_map"  />
         <ImageButton
             android:id="@+id/barMenuButton4"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_item_selector"
+            android:scaleType="center"
+            android:src="@drawable/menu_network"  />
         <ImageButton
             android:id="@+id/barMenuButton5"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher" />
+            android:layout_height="match_parent"
+            android:background="@drawable/menu_item_selector"
+            android:scaleType="center"
+            android:src="@drawable/menu_events"  />
 
     </LinearLayout>
 </LinearLayout>
