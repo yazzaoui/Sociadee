@@ -283,6 +283,14 @@ public class MainActivity extends AppCompatActivity {
         switchFragment(mAddPicView);
     }
 
+    public void switchMyProfile(View v)
+    {
+        switchFragment(mProfileView);
+    }
+    public void switchMap(View v)
+    {
+        switchFragment(mMapView);
+    }
     public void validatePic(View v)
     {
         ImageView isAdded = (ImageView) v.getTag(R.id.validatedPic);

@@ -30,28 +30,54 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20sp"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
         android:layout_below="@+id/profilePicture"
         android:text="Prenom"
         android:id="@+id/textName" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/location76"
+        android:id="@+id/locationIcon"
+        android:layout_below="@+id/textName"
+        android:layout_toLeftOf="@+id/locationText"
+        android:layout_marginRight="3dp"
+        android:layout_marginTop="3dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-thin"
+        android:layout_centerHorizontal="true"
+        android:textSize="15sp"
+        android:layout_marginTop="3dp"
+        android:layout_below="@+id/textName"
+        android:text="Prenom"
+        android:id="@+id/locationText" />
+
 
     <EditText
-        android:layout_below="@+id/textName"
+        android:layout_below="@+id/locationText"
         android:inputType="textMultiLine"
         android:lines="8"
         android:paddingTop="10dp"
         android:layout_marginTop="20dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginLeft="40dp"
         android:minLines="4"
         android:gravity="top|left"
         android:maxLines="10"
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
-        android:background="#da2e2633"
+        android:layout_width="match_parent"
+        android:background="@android:color/transparent"
+        android:textAlignment="center"
         android:scrollbars="vertical"
-        android:text="Say something about you.."
+        android:hint="Say something about you here .."
+        android:textColorHint="#000000"
         android:id="@+id/aboutMe" />
 
-    <HorizontalScrollView
+   <!-- <HorizontalScrollView
         android:layout_below="@+id/aboutMe"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -59,26 +85,29 @@
         android:layout_alignParentStart="true"
 
     >
-        <LinearLayout
-            android:id="@+id/LinearLayoutPictiresProfile"
-            android:layout_width="match_parent"
-            android:layout_height="150dp"
-            android:orientation="horizontal" >
+        </HorizontalScrollView> -->
 
-            <ImageButton
-                android:layout_width="150dp"
-                android:scaleType="centerCrop"
-                android:layout_height="150dp"
-                android:id="@+id/addPicButton"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/aboutMe"
+            android:background="#802E2633"
+            android:orientation="vertical"
+            >
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Modifier mes photos"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
                 android:onClick="addPicProfile"
-                android:src="@drawable/addpic"
                 />
 
 
-
         </LinearLayout>
-        </HorizontalScrollView>
-
 
 
 </RelativeLayout>
