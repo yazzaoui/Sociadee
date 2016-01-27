@@ -84,6 +84,12 @@ public class MainActivity extends AppCompatActivity {
 
         mProfileView = findViewById(R.id.profileFragment);
         mProfileView.setVisibility(View.VISIBLE);
+        mMapFragment.myLocationCallback = mMapFragment.new MyLocationCallback()
+        {
+          public void newLocation(String city){
+              mProfileFragment.setNewCity(city);
+          }
+        };
 
         mMapView = findViewById(R.id.mapFragment);
         mMapView.setVisibility(View.INVISIBLE);

@@ -30,11 +30,12 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-thin"
         android:layout_centerHorizontal="true"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/profilePicture"
         android:text="Prenom"
         android:id="@+id/textName" />
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,6 +44,7 @@
         android:layout_below="@+id/textName"
         android:layout_toLeftOf="@+id/locationText"
         android:layout_marginRight="3dp"
+        android:visibility="invisible"
         android:layout_marginTop="3dp"
         />
     <TextView
@@ -53,6 +55,7 @@
         android:textSize="15sp"
         android:layout_marginTop="3dp"
         android:layout_below="@+id/textName"
+        android:visibility="invisible"
         android:text="Prenom"
         android:id="@+id/locationText" />
 
@@ -66,12 +69,13 @@
         android:layout_marginRight="40dp"
         android:layout_marginLeft="40dp"
         android:minLines="4"
-        android:gravity="top|left"
         android:maxLines="10"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
         android:background="@android:color/transparent"
         android:textAlignment="center"
+        android:ellipsize="start"
+        android:gravity="center_horizontal"
         android:scrollbars="vertical"
         android:hint="Say something about you here .."
         android:textColorHint="#000000"

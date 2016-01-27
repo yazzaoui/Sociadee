@@ -55,6 +55,9 @@ public class MapWrapperFragment extends Fragment {
     private ImageButton mUserButton,mChatButton;
     private boolean mMapAnimating = false;
     private boolean mButtonVisible =false;
+
+    public MyLocationCallback myLocationCallback;
+
     public MapWrapperFragment() {
         // Required empty public constructor
     }
@@ -286,11 +289,14 @@ public class MapWrapperFragment extends Fragment {
                 StringBuilder sb = new StringBuilder();
                 if (addresses.size() > 0) {
                     Address address = addresses.get(0);
+                    /*
                     for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                         sb.append("\n").append(address.getAddressLine(i));
                     }
                     Toast.makeText(getActivity(),  sb.toString(), Toast.LENGTH_LONG).show();
-
+                    */
+                    if(myLocationCallback != null)
+                        myLocationCallback.newLocation(address.getLocality());
                 }
             }
             catch (IOException e){}
@@ -315,5 +321,11 @@ public class MapWrapperFragment extends Fragment {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(b);
 
         return icon;
+    }
+
+
+    public class MyLocationCallback
+    {
+        public void newLocation(String city){};
     }
 }

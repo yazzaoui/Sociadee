@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 
 /**
@@ -18,6 +19,10 @@ import android.widget.ImageView;
  */
 public class ProfileFragment extends Fragment {
 
+
+    private TextView mLocationTextView ;
+    private ImageView mLocationIcon;
+    private Boolean CitySetUp = false;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -42,8 +47,24 @@ public class ProfileFragment extends Fragment {
         ((ImageView)v.findViewById(R.id.profilePicture)).setImageBitmap(bd.getBitmap());
         ((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);
 
+        ((TextView)v.findViewById(R.id.textName)).setText(Parameters.getFirstname());
 
+        mLocationTextView =  ((TextView)v.findViewById(R.id.locationText));
+        mLocationIcon = (ImageView)v.findViewById(R.id.locationIcon);
         return v;
     }
 
+    public void setNewCity(String city)
+    {
+        if(!CitySetUp && city != null)
+        {
+            mLocationIcon.setVisibility(View.VISIBLE);
+            mLocationTextView.setVisibility(View.VISIBLE);
+            CitySetUp = true;
+            mLocationTextView.setText(city);
+        }
+        else if(city != null) {
+            mLocationTextView.setText(city);
+        }
+    }
 }
