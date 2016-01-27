@@ -45,7 +45,7 @@
         android:layout_toLeftOf="@+id/locationText"
         android:layout_marginRight="3dp"
         android:visibility="invisible"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         />
     <TextView
         android:layout_width="wrap_content"
@@ -58,10 +58,41 @@
         android:visibility="invisible"
         android:text="Prenom"
         android:id="@+id/locationText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
-
-    <EditText
+        android:layout_alignTop="@+id/toggleDispo"
+        android:layout_toLeftOf="@+id/toggleDispo"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp"
+        android:textSize="15sp"
+        android:text="Indisponible"
+        />
+    <ToggleButton
+        android:id="@+id/toggleDispo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/toggle_selector"
         android:layout_below="@+id/locationText"
+        android:layout_marginTop="10dp"
+        android:checked="false"
+        android:text=""
+        android:textOff=""
+        android:textOn="" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_alignTop="@+id/toggleDispo"
+        android:layout_toRightOf="@+id/toggleDispo"
+        android:layout_marginLeft="10dp"
+        android:textSize="15sp"
+        android:text="Disponible"
+        />
+    <EditText
+        android:layout_below="@+id/toggleDispo"
         android:inputType="textMultiLine"
         android:lines="8"
         android:paddingTop="10dp"
