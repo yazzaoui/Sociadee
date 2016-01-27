@@ -6,6 +6,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="azzaoui.sociadee.MainActivity">
 
+    <RelativeLayout
+        android:background="@color/Evening"
+        android:padding="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="80dp">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/logo_white"
+            />
+    </RelativeLayout>
+    <!--
     <android.support.v7.widget.Toolbar
         android:id="@+id/top_toolbar"
         android:layout_width="match_parent"
@@ -16,7 +33,7 @@
         android:elevation="1dp"
         android:theme="@style/AppThemeCustom.Toolbar"
         app:titleTextAppearance="@style/AppThemeCustom.ToolbarTextApp"
-        app:popupTheme="@style/AppThemeCustom.Toolbar"/>
+        app:popupTheme="@style/AppThemeCustom.Toolbar"/> -->
 
     <android.support.v4.widget.DrawerLayout
 
