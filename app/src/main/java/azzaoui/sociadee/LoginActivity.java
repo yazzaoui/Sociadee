@@ -2,20 +2,14 @@ package azzaoui.sociadee;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
@@ -30,7 +24,6 @@ import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -70,6 +63,7 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 spinAnimate();
+
                 fetchFacebookData();
 
             }
@@ -167,7 +161,7 @@ public class LoginActivity extends Activity {
     private void goMainActivity()
     {
 
-        Parameters.setToken(mToken);
+        Parameters.setFBToken(mToken);
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in2, R.anim.fade_out2);
@@ -221,6 +215,11 @@ public class LoginActivity extends Activity {
         spiner.startAnimation(spinAnim);
     }
 
+    private void sendTokenToSociadeeServer()
+    {
+
+    }
+
     private class getFacebookStuff extends AsyncTask<Void, Void, Void> {
 
         @Override
@@ -232,6 +231,7 @@ public class LoginActivity extends Activity {
         @Override
         protected Void doInBackground(Void... params) {
             fetchFacebookProfilePicture();
+            sendTokenToSociadeeServer();
             return null;
         }
 

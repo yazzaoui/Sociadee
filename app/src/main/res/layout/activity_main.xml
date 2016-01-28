@@ -14,13 +14,39 @@
 
 
         <ImageView
+            android:layout_width="197dp"
+            android:layout_height="50dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/logo_white"
+            />
+
+        <ImageButton
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="invisible"
+            android:src="@drawable/saveicon"
+            android:id="@+id/topMenuButton1"
+            android:scaleType="fitXY"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            />
+
+        <!--
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="3dp"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/logo_white"
-            />
+            android:layout_alignParentRight="true"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif-thin"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/Hex"
+            android:text="Bouton"
+            /> -->
     </RelativeLayout>
     <!--
     <android.support.v7.widget.Toolbar

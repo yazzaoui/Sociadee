@@ -4,21 +4,33 @@ import android.graphics.drawable.Drawable;
 
 /**
  * Created by Youssef Azzaoui on 10/11/15.
+ *
+ *  Singleton class for storing various parameters
  */
 public class Parameters {
 
-    private static String Token;
+    private static String FBToken;
 
+
+
+    private static String SociadeeToken;
     private static long facebookId;
     private static String firstname;
     private static Drawable profilePicture;
 
-    public static String getToken() {
-        return Token;
+    public static String getFBToken() {
+        return FBToken;
     }
 
-    public static void setToken(String token) {
-        Token = token;
+    public static String getSociadeeToken() {
+        return SociadeeToken;
+    }
+
+    public static void setSociadeeToken(String sociadeeToken) {
+        SociadeeToken = sociadeeToken;
+    }
+    public static void setFBToken(String token) {
+        FBToken = token;
     }
 
     public static String getFirstname() {

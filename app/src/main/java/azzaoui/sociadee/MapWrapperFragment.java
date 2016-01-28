@@ -48,7 +48,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MapWrapperFragment extends Fragment {
+public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     GoogleMap map;
 
     private SupportMapFragment mapFragment;
@@ -321,6 +321,26 @@ public class MapWrapperFragment extends Fragment {
         BitmapDescriptor icon = BitmapDescriptorFactory.fromBitmap(b);
 
         return icon;
+    }
+
+    @Override
+    public void setButtonCallback(MainActivity.CallBackTopButton myCallback) {
+
+    }
+
+    @Override
+    public void onFragmentEnter() {
+
+    }
+
+    @Override
+    public void onFragmentLeave() {
+
+    }
+
+    @Override
+    public void onTopMenuMenuButtonClick() {
+
     }
 
 

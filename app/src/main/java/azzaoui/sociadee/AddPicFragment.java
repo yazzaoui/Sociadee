@@ -12,7 +12,7 @@ import android.widget.GridView;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AddPicFragment extends Fragment {
+public class AddPicFragment extends Fragment implements SociadeeFragment {
 
     private gridAddPicAdapter mGridAddPicAdapter;
 
@@ -39,4 +39,23 @@ public class AddPicFragment extends Fragment {
     }
 
 
+    @Override
+    public void setButtonCallback(MainActivity.CallBackTopButton myCallback) {
+
+    }
+
+    @Override
+    public void onFragmentEnter() {
+
+    }
+
+    @Override
+    public void onFragmentLeave() {
+
+    }
+
+    @Override
+    public void onTopMenuMenuButtonClick() {
+
+    }
 }

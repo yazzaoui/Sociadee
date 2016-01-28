@@ -19,16 +19,23 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.GoogleMap;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class MainActivity extends AppCompatActivity {
 
     private GoogleMap mMap;
+
+
+    private ImageButton mTopMenuButton;
 
     private ProfileFragment mProfileFragment;
     private MapWrapperFragment mMapFragment;
@@ -36,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private PeopleGridFragment mPeopleGridFragment;
     private AddPicFragment mAddPicFragment;
 
+    Map<View, SociadeeFragment> viewFragmmentMap ;
 
     private View mProfileView;
     private View mMapView;
@@ -56,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        viewFragmmentMap = new HashMap<View,SociadeeFragment>();
 
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -70,20 +79,41 @@ public class MainActivity extends AppCompatActivity {
         addMenuDrawerItems();
         setupActionBar();
 
+        mTopMenuButton = (ImageButton)findViewById(R.id.topMenuButton1);
+        CallBackTopButton callBackTopButton = new CallBackTopButton() {
+            @Override
+            public void fadeIn(int imageRes) {
+                fadeInTopMenuButton(imageRes);
+            }
+
+            @Override
+            public void fadeOut() {
+                fadeOutTopMenuButton();
+            }
+        };
+
+
         mProfileFragment = (ProfileFragment)
                 getSupportFragmentManager().findFragmentById(R.id.profileFragment);
+        mProfileFragment.setButtonCallback(callBackTopButton);
         mMapFragment = (MapWrapperFragment)
                 getSupportFragmentManager().findFragmentById(R.id.mapFragment);
+        mMapFragment.setButtonCallback(callBackTopButton);
         mGroupChatFragment = (GroupChatFragment)
                 getSupportFragmentManager().findFragmentById(R.id.groupChatFragment);
+        mGroupChatFragment.setButtonCallback(callBackTopButton);
         mPeopleGridFragment = (PeopleGridFragment)
                 getSupportFragmentManager().findFragmentById(R.id.peopleGridFragment);
+        mPeopleGridFragment.setButtonCallback(callBackTopButton);
         mAddPicFragment = (AddPicFragment)
                 getSupportFragmentManager().findFragmentById(R.id.addPicFragment);
+        mAddPicFragment.setButtonCallback(callBackTopButton);
 
 
         mProfileView = findViewById(R.id.profileFragment);
         mProfileView.setVisibility(View.VISIBLE);
+        viewFragmmentMap.put(mProfileView, mProfileFragment);
+
         mMapFragment.myLocationCallback = mMapFragment.new MyLocationCallback()
         {
           public void newLocation(String city){
@@ -93,15 +123,19 @@ public class MainActivity extends AppCompatActivity {
 
         mMapView = findViewById(R.id.mapFragment);
         mMapView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mMapView, mMapFragment);
 
         mGroupChatView = findViewById(R.id.groupChatFragment);
         mGroupChatView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mGroupChatView, mGroupChatFragment);
 
         mPeopleGridView = findViewById(R.id.peopleGridFragment);
         mPeopleGridView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mPeopleGridView, mPeopleGridFragment);
 
         mAddPicView = findViewById(R.id.addPicFragment);
         mAddPicView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mAddPicView, mAddPicFragment);
 
         ((TextView)findViewById(R.id.profilMenuName)).setText(Parameters.getFirstname());
 
@@ -237,6 +271,8 @@ public class MainActivity extends AppCompatActivity {
 
         /** To avoid race conditions **/
         final View fadingOutView = mCurrentView;
+        viewFragmmentMap.get(mCurrentView).onFragmentLeave();
+
         fadeOutAnimation.setRepeatCount(0);
 
         fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
@@ -275,13 +311,59 @@ public class MainActivity extends AppCompatActivity {
             }
 
             public void onAnimationEnd(Animation anim) {
-
+                viewFragmmentMap.get(nextView).onFragmentEnter();
             }
         });
         //fadeIn.setFillBefore(true);
         nextView.startAnimation(fadeIn);
         mLastView = mCurrentView;
         mCurrentView = nextView;
+    }
+
+
+    private void fadeInTopMenuButton(int id)
+    {
+        mTopMenuButton.setImageDrawable(getResources().getDrawable(id));
+
+        Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        fadeIn.setAnimationListener(new Animation.AnimationListener() {
+
+            public void onAnimationStart(Animation animation) {
+                mTopMenuButton.setVisibility(View.VISIBLE);
+            }
+
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            public void onAnimationEnd(Animation anim) {
+
+            }
+        });
+        mTopMenuButton.startAnimation(fadeIn);
+    }
+    private void fadeOutTopMenuButton()
+    {
+        Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+
+
+        fadeOutAnimation.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+                mTopMenuButton.setVisibility(View.INVISIBLE);
+                mTopMenuButton.setAlpha(1.0f);
+            }
+        });
+
+        mTopMenuButton.startAnimation(fadeOutAnimation);
     }
 
     public void addPicProfile(View v)
@@ -310,5 +392,11 @@ public class MainActivity extends AppCompatActivity {
             isAdded.setVisibility(View.VISIBLE );
         }
 
+    }
+
+    public interface CallBackTopButton
+    {
+        public void fadeIn(int imageRes);
+        public void fadeOut();
     }
 }

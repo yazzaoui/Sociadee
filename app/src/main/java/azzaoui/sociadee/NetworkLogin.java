@@ -42,7 +42,7 @@ public class NetworkLogin extends NetworkBase {
             JSONObject data = response.getJSONObject("data");
             token = data.getString("authentication-token");
             userName = data.getString("username");
-            Parameters.setToken(token);
+            Parameters.setFBToken(token);
             return true;
         }
     }

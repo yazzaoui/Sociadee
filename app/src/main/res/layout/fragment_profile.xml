@@ -91,6 +91,10 @@
         android:textSize="15sp"
         android:text="Disponible"
         />
+
+
+
+
     <EditText
         android:layout_below="@+id/toggleDispo"
         android:inputType="textMultiLine"
@@ -108,8 +112,10 @@
         android:ellipsize="start"
         android:gravity="center_horizontal"
         android:scrollbars="vertical"
-        android:hint="Say something about you here .."
-        android:textColorHint="#000000"
+
+        android:hint="Dites quelque chose ici.."
+        android:textColor="#000000"
+        android:textColorHint="#505050"
         android:id="@+id/aboutMe" />
 
    <!-- <HorizontalScrollView

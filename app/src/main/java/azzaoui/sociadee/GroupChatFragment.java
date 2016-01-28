@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class GroupChatFragment extends Fragment {
+public class GroupChatFragment extends Fragment implements SociadeeFragment {
 
 
 
@@ -27,4 +27,23 @@ public class GroupChatFragment extends Fragment {
     }
 
 
+    @Override
+    public void setButtonCallback(MainActivity.CallBackTopButton myCallback) {
+
+    }
+
+    @Override
+    public void onFragmentEnter() {
+
+    }
+
+    @Override
+    public void onFragmentLeave() {
+
+    }
+
+    @Override
+    public void onTopMenuMenuButtonClick() {
+
+    }
 }
