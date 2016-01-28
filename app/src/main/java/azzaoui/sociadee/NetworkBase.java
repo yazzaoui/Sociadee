@@ -1,5 +1,9 @@
 package azzaoui.sociadee;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -7,6 +11,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
@@ -19,6 +24,8 @@ import javax.net.ssl.HttpsURLConnection;
 public abstract class NetworkBase {
 
     private String stringURL = "https://sociadee.appspot.com/";
+    //private String stringURL = "http://192.168.1.107:8080/";
+    private boolean debug = false;
     private String latestError = "";
 
     public NetworkBase() {
@@ -33,7 +40,7 @@ public abstract class NetworkBase {
      * @throws IOException
      */
     public JSONObject sendPOSTRequest( String requestAction, String requestData) throws IOException, JSONException {
-        return sendPOSTRequest(requestAction,requestData, null);
+        return sendPOSTRequest(requestAction,requestData, false);
     }
 
 
@@ -44,11 +51,11 @@ public abstract class NetworkBase {
      * @return A string containing the server response or an error message in case of 4xx code
      * @throws IOException
      */
-    public JSONObject sendPOSTRequest(String requestAction, String requestData, String token) throws IOException, JSONException {
+    public JSONObject sendPOSTRequest(String requestAction, String requestData, boolean token) throws IOException, JSONException {
         try {
             String toSend = stringURL + requestAction;
-            if(token != null)
-                requestData = "userKey=" + token +  "&"+ requestData;
+            if(token)
+                requestData = "userKey=" + Parameters.getSociadeeToken() +  "&"+ requestData;
 
             byte[] postData = requestData.getBytes(StandardCharsets.UTF_8);
             int postDataLength = postData.length;
@@ -137,4 +144,10 @@ public abstract class NetworkBase {
         return stringURL;
     }
 
+    public static Bitmap decodeBase64(String input)
+    {
+        byte[] decodedByte = Base64.decode(input, 0);
+
+        return BitmapFactory.decodeByteArray(decodedByte, 0, decodedByte.length);
+    }
 }

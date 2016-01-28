@@ -44,9 +44,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     GoogleMap map;
@@ -55,11 +64,20 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     private ImageButton mUserButton,mChatButton;
     private boolean mMapAnimating = false;
     private boolean mButtonVisible =false;
-
+    private String myCity = null;
+    private double myLatitude = 0.;
+    private double myLongitude = 0.;
+    private ScheduledExecutorService scheduler;
+    private NetworkGPS networkGPS;
     public MyLocationCallback myLocationCallback;
+
+    private boolean firstAnimate = true;
+
+    private Map<Long,UserMap> userList;
 
     public MapWrapperFragment() {
         // Required empty public constructor
+        userList = new HashMap<Long, UserMap>();
     }
 
     @Override
@@ -69,8 +87,56 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
         View v =  inflater.inflate(R.layout.fragment_mapwrapper, container, false);
         mUserButton = (ImageButton)v.findViewById(R.id.mapUserButton);
         mChatButton = (ImageButton)v.findViewById(R.id.mapChatButton);
+        scheduler = Executors.newScheduledThreadPool(1);
+        networkGPS = new NetworkGPS();
+
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                if(myCity != null )
+                    try {
+                        networkGPS.UpdateLoc(myLatitude, myLongitude, myCity);
+                        compareSavedUser(networkGPS.getFetchedUser());
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateMap();
+                            }
+                        });
+
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+            }
+        }, 2, 60, TimeUnit.SECONDS); // Every 60 sec
+
         return v;
     }
+
+
+    private void compareSavedUser( ArrayList<NetworkGPS.UserFetchedGPS> fetched) throws IOException, JSONException {
+        for(int i=0; i< fetched.size(); i++)
+        {
+            NetworkGPS.UserFetchedGPS curFetched = fetched.get(i);
+            if(userList.containsKey(curFetched.facebookId))
+            {
+                UserMap curUser =  userList.get(curFetched.facebookId);
+                curUser.position = new LatLng(curFetched.latitude,curFetched.longitude);
+            }
+            else
+            {
+                networkGPS.fetchUserPicture(curFetched.facebookId);
+                UserMap curUser = new UserMap();
+                curUser.position =  new LatLng(curFetched.latitude,curFetched.longitude);
+                curUser.facebookId = curFetched.facebookId;
+                curUser.icon = createMarker(new BitmapDrawable(getResources(), networkGPS.getLastPicture()));
+                userList.put(curFetched.facebookId,curUser);
+            }
+        }
+    }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -269,18 +335,37 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
         }
         return bestLocation;
     }
+    private void updateMap()
+    {
+        map.clear();
+        Iterator it = userList.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            UserMap curUser = (UserMap)pair.getValue();
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(new LatLng(curUser.position.latitude, curUser.position.longitude));
+            markerOptions.icon(curUser.icon);
+            map.addMarker(markerOptions).showInfoWindow();
+        }
+
+
+    }
     private void updateWithNewLocation(Location location) {
 
         if(location != null){
         // Update the map location
             double latitude = location.getLatitude();
+            myLatitude =latitude;
+
             double longitude = location.getLongitude();
-            CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(17).build();
-            map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-            map.clear();
-            MarkerOptions markerOptions = new MarkerOptions();
-            markerOptions.position(new LatLng(latitude, longitude));
-            markerOptions.icon(createMarker());
+            myLongitude = longitude;
+
+            if(firstAnimate) {
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(17).build();
+                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                firstAnimate = false;
+            }
+
 
             Geocoder gc = new Geocoder(getActivity(), Locale.getDefault());
             try
@@ -295,21 +380,22 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
                     }
                     Toast.makeText(getActivity(),  sb.toString(), Toast.LENGTH_LONG).show();
                     */
+                    myCity = address.getLocality();
                     if(myLocationCallback != null)
                         myLocationCallback.newLocation(address.getLocality());
                 }
             }
             catch (IOException e){}
-            map.addMarker(markerOptions).showInfoWindow();
+
         }
     }
 
 
-    private BitmapDescriptor createMarker()
+    private BitmapDescriptor createMarker(Drawable profilePic)
     {
         Drawable[] layers = new Drawable[2];
         layers[0] = getResources().getDrawable(R.drawable.blue_marker);
-        layers[1] = Parameters.getProfilePicture();
+        layers[1] = profilePic;
         LayerDrawable layerDrawable = new LayerDrawable(layers);
 
         Bitmap b = Bitmap.createBitmap(100, 100, Bitmap.Config.ARGB_8888);
@@ -344,6 +430,13 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     }
 
 
+    public static class UserMap
+    {
+        public long facebookId;
+        public BitmapDescriptor icon;
+        public LatLng position;
+
+    }
     public class MyLocationCallback
     {
         public void newLocation(String city){};
