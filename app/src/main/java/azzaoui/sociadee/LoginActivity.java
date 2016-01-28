@@ -2,9 +2,12 @@ package azzaoui.sociadee;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
@@ -40,6 +43,8 @@ public class LoginActivity extends Activity {
     private long mFacebookId = 0;
     private String mPictureUrl;
     private Boolean mNoBug = true;
+    private NetworkLogin networkLogin;
+
     CallbackManager callbackManager;
 
     @Override
@@ -49,6 +54,8 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         Window window = this.getWindow();
 
+        networkLogin = new NetworkLogin();
+
         ((TextView) findViewById(R.id.errorTextView1)).setVisibility(View.INVISIBLE);
         callbackManager = CallbackManager.Factory.create();
 
@@ -57,13 +64,13 @@ public class LoginActivity extends Activity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends,user_photos");
+        loginButton.setReadPermissions("user_friends,user_photos,email");
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 spinAnimate();
-
+                Parameters.setFBToken(loginResult.getAccessToken().getToken());
                 fetchFacebookData();
 
             }
@@ -125,6 +132,7 @@ public class LoginActivity extends Activity {
             URL image_value = new URL(mPictureUrl);
             Drawable profilePic = null;
             try {
+
                 profilePic = Drawable.createFromStream(image_value.openConnection().getInputStream(),"blah");
             } catch (IOException e) {
                 e.printStackTrace();
@@ -133,21 +141,6 @@ public class LoginActivity extends Activity {
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        //FB tracking
-        AppEventsLogger.activateApp(this);
-    }
-    @Override
-    protected void onPause() {
-        super.onPause();
-
-        // Logs 'app deactivate' App Event.
-        AppEventsLogger.deactivateApp(this);
     }
 
 
@@ -230,8 +223,15 @@ public class LoginActivity extends Activity {
 
         @Override
         protected Void doInBackground(Void... params) {
-            fetchFacebookProfilePicture();
-            sendTokenToSociadeeServer();
+           // fetchFacebookProfilePicture();
+
+            try {
+                networkLogin.Login(Parameters.getFBToken());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 

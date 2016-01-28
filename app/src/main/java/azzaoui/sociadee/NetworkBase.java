@@ -4,9 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
 
@@ -16,8 +18,8 @@ import javax.net.ssl.HttpsURLConnection;
  */
 public abstract class NetworkBase {
 
-    private String stringURL = "https://picture-contest.appspot.com/_ah/api/picarena/v1";
-    private int latestErrorCode = 0;
+    private String stringURL = "https://sociadee.appspot.com/";
+    private String latestError = "";
 
     public NetworkBase() {
     }
@@ -25,40 +27,54 @@ public abstract class NetworkBase {
     /**
      * Used for HTTP requests, sends the request and returns the server's answer.
      *
-     * @param requestType    POST or GET
-     * @param requestMessage the details of the message to send (for example login and password)
+     * @param requestAction    login/..
+     * @param requestData the details of the message to send (for example login and password)
      * @return A string containing the server response or an error message in case of 4xx code
      * @throws IOException
      */
-    public JSONObject sendRequest(String requestType, String requestMessage) throws IOException, JSONException {
-        return sendRequest(requestType, requestMessage, null);
+    public JSONObject sendPOSTRequest( String requestAction, String requestData) throws IOException, JSONException {
+        return sendPOSTRequest(requestAction,requestData, null);
     }
 
 
     /**
      * Used for HTTP requests, sends the request and returns the server's answer.
      *
-     * @param requestType    POST or GET
-     * @param requestMessage the details of the message to send (for example login and password)
      * @param token          the authentification token (null if not needed)
      * @return A string containing the server response or an error message in case of 4xx code
      * @throws IOException
      */
-    public JSONObject sendRequest(String requestType, String requestMessage, String token) throws IOException, JSONException {
+    public JSONObject sendPOSTRequest(String requestAction, String requestData, String token) throws IOException, JSONException {
         try {
-            String toSend = stringURL + requestMessage;
+            String toSend = stringURL + requestAction;
+            if(token != null)
+                requestData = "userKey=" + token +  "&"+ requestData;
+
+            byte[] postData = requestData.getBytes(StandardCharsets.UTF_8);
+            int postDataLength = postData.length;
             URL url = new URL(toSend);
             HttpsURLConnection HUC = (HttpsURLConnection) url.openConnection();
             HUC.setReadTimeout(10000);
             HUC.setConnectTimeout(15000);
-            HUC.setRequestMethod(requestType);
-            HUC.setRequestProperty("Authorization", token);
             HUC.setDoOutput(true);
+
+
+            HUC.setInstanceFollowRedirects(false);
+            HUC.setRequestMethod("POST");
+            HUC.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+            HUC.setRequestProperty("charset", "utf-8");
+            HUC.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+            HUC.setUseCaches(false );
+            try( DataOutputStream wr = new DataOutputStream( HUC.getOutputStream())) {
+                wr.write( postData );
+            }
+
+
 
             int code = HUC.getResponseCode();
 
             if (code >= 400 && code <= 499) {
-                latestErrorCode = 9000;
+                latestError = "Unknown error :(";
                 return null; // there are no 400 to 499 errors on the server side for now. Just putting this to be sure.
             }
 
@@ -76,11 +92,10 @@ public abstract class NetworkBase {
 
             JSONObject JSONresponse = new JSONObject(response.toString());
 
-            int JSONCode = JSONresponse.getInt("code");
+            String ReceivedError = JSONresponse.getString("error");
+            latestError = ReceivedError;
 
-            if (JSONCode == 400) {  // an error occured and is returned in the JSON object
-                JSONObject JSONError = JSONresponse.getJSONObject("data");
-                latestErrorCode = JSONError.getInt("code");
+            if (!ReceivedError.equals("none")) {
                 return null;
             }
 
@@ -96,8 +111,8 @@ public abstract class NetworkBase {
      *  Used by some subclasses to set the last error's code
      * @param code The last error's code
      */
-    protected void setLatestErrorCode(int code){
-        latestErrorCode = code;
+    protected void setLatestError(String code){
+        latestError = code;
     }
 
     /**
@@ -105,11 +120,11 @@ public abstract class NetworkBase {
      *
      * @return the last error's code
      */
-    public int getLastError() throws IllegalStateException {
-        if (latestErrorCode == 0) {
+    public String getLastError() throws IllegalStateException {
+        if (latestError == "none") {
             throw new IllegalStateException("No error this far");
         }
-        return latestErrorCode;
+        return latestError;
     }
 
 

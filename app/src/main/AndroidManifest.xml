@@ -39,11 +39,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".RegisterActivity"
-            android:label="@string/title_activity_register"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
             android:name=".PicturesVoteActivity"
             android:label="@string/title_activity_pictures_vote" >
         </activity>

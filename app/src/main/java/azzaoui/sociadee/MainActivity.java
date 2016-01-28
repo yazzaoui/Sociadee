@@ -24,6 +24,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.maps.GoogleMap;
 
 import java.util.HashMap;
@@ -164,11 +165,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        @Override
-    protected void onResume() {
-        super.onResume();
 
-    }
 
     @Override
     public void onBackPressed() {
@@ -320,6 +317,20 @@ public class MainActivity extends AppCompatActivity {
         mCurrentView = nextView;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        //FB tracking
+        AppEventsLogger.activateApp(this);
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
+    }
 
     private void fadeInTopMenuButton(int id)
     {
