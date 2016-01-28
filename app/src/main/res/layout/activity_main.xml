@@ -194,8 +194,10 @@
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
             android:onClick="switchMyProfile"
-            android:scaleType="center"
-            android:src="@drawable/menu_profile" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_profileb" />
 
         <ImageButton
             android:id="@+id/barMenuButton2"
@@ -203,33 +205,41 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:scaleType="center"
-            android:src="@drawable/menu_chat"  />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_chatb"  />
         <ImageButton
             android:id="@+id/barMenuButton3"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:scaleType="center"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
             android:onClick="switchMap"
-            android:src="@drawable/menu_map"  />
+            android:src="@drawable/menu_mapb"  />
         <ImageButton
             android:id="@+id/barMenuButton4"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:scaleType="center"
-            android:src="@drawable/menu_network"  />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_networkb"  />
         <ImageButton
             android:id="@+id/barMenuButton5"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:scaleType="center"
-            android:src="@drawable/menu_events"  />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/menu_eventsb"  />
 
     </LinearLayout>
 </LinearLayout>
