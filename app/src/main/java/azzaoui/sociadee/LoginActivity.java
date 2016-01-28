@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -71,7 +72,8 @@ public class LoginActivity extends Activity {
             public void onSuccess(LoginResult loginResult) {
                 spinAnimate();
                 Parameters.setFBToken(loginResult.getAccessToken().getToken());
-                fetchFacebookData();
+                getFacebookStuff gFs = new getFacebookStuff();
+                gFs.execute();
 
             }
 
@@ -91,56 +93,6 @@ public class LoginActivity extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-    }
-
-
-    private void fetchFacebookData()
-    {
-        /* make the API call */
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "id,first_name,picture.type(large)");
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/me",
-                parameters,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        JSONObject firstResponse = response.getJSONObject();
-                        try {
-                            mFacebookId = firstResponse.getLong("id");
-                            Parameters.setFacebookId(mFacebookId);
-                            String mFirstname = firstResponse.getString("first_name");
-                            Parameters.setFirstname(mFirstname);
-                            mPictureUrl= firstResponse.getJSONObject("picture").getJSONObject("data").getString("url");
-                            getFacebookStuff gFs = new getFacebookStuff();
-                            gFs.execute();
-                        } catch (JSONException e) {
-                            setErrorText("Error getting facebook id :(");
-                            mNoBug = false;
-
-                        }
-
-                    }
-                }
-        ).executeAsync();
-    }
-//google map : AIzaSyBGSNFjfGpm5eAVvAIeV_lu4GkVV46w08Y
-    private void fetchFacebookProfilePicture()
-    {
-        try {
-            URL image_value = new URL(mPictureUrl);
-            Drawable profilePic = null;
-            try {
-
-                profilePic = Drawable.createFromStream(image_value.openConnection().getInputStream(),"blah");
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Parameters.setProfilePicture(profilePic);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 
 
@@ -200,18 +152,12 @@ public class LoginActivity extends Activity {
 
             @Override
             public void onAnimationEnd(Animation anim) {
-
                 spiner.setVisibility(View.INVISIBLE);
-
             }
         });
         spiner.startAnimation(spinAnim);
     }
 
-    private void sendTokenToSociadeeServer()
-    {
-
-    }
 
     private class getFacebookStuff extends AsyncTask<Void, Void, Void> {
 
@@ -227,6 +173,11 @@ public class LoginActivity extends Activity {
 
             try {
                 networkLogin.Login(Parameters.getFBToken());
+                Parameters.setFirstname(networkLogin.getFirstName());
+                Parameters.setSociadeeToken(networkLogin.getSociadeeToken());
+                Parameters.setFacebookId(networkLogin.getFaceBookid());
+                Parameters.setProfilePicture(new BitmapDrawable(getResources(), networkLogin.getProfilePicture()));
+
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (JSONException e) {
@@ -244,6 +195,54 @@ public class LoginActivity extends Activity {
 
 
     }
+    /*
+    private void fetchFacebookData()
+    {
 
+        Bundle parameters = new Bundle();
+        parameters.putString("fields", "id,first_name,picture.type(large)");
+        new GraphRequest(
+                AccessToken.getCurrentAccessToken(),
+                "/me",
+                parameters,
+                HttpMethod.GET,
+                new GraphRequest.Callback() {
+                    public void onCompleted(GraphResponse response) {
+                        JSONObject firstResponse = response.getJSONObject();
+                        try {
+                            mFacebookId = firstResponse.getLong("id");
+                            Parameters.setFacebookId(mFacebookId);
+                            String mFirstname = firstResponse.getString("first_name");
+                            Parameters.setFirstname(mFirstname);
+                            mPictureUrl= firstResponse.getJSONObject("picture").getJSONObject("data").getString("url");
 
+                        } catch (JSONException e) {
+                            setErrorText("Error getting facebook id :(");
+                            mNoBug = false;
+
+                        }
+
+                    }
+                }
+        ).executeAsync();
+    }
+
+    //google map : AIzaSyBGSNFjfGpm5eAVvAIeV_lu4GkVV46w08Y
+    //Depreciated no more used
+    private void fetchFacebookProfilePicture()
+    {
+        try {
+            URL image_value = new URL(mPictureUrl);
+            Drawable profilePic = null;
+            try {
+
+                profilePic = Drawable.createFromStream(image_value.openConnection().getInputStream(),"blah");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Parameters.setProfilePicture(profilePic);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    } */
 }

@@ -10,13 +10,11 @@ import android.graphics.drawable.Drawable;
 public class Parameters {
 
     private static String FBToken;
-
-
-
     private static String SociadeeToken;
     private static long facebookId;
     private static String firstname;
     private static Drawable profilePicture;
+
 
     public static String getFBToken() {
         return FBToken;
