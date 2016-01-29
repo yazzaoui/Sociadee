@@ -14,7 +14,8 @@ public class Parameters {
     private static long facebookId;
     private static String firstname;
     private static Drawable profilePicture;
-
+    private static boolean available;
+    private static String aboutme;
 
     public static String getFBToken() {
         return FBToken;
@@ -53,5 +54,21 @@ public class Parameters {
 
     public static void setProfilePicture(Drawable profilePicture) {
         Parameters.profilePicture = profilePicture;
+    }
+
+    public static boolean isAvailable() {
+        return available;
+    }
+
+    public static void setAvailable(boolean available) {
+        Parameters.available = available;
+    }
+
+    public static String getAboutme() {
+        return aboutme;
+    }
+
+    public static void setAboutme(String aboutme) {
+        Parameters.aboutme = aboutme;
     }
 }

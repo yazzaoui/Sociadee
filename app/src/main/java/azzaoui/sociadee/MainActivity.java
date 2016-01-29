@@ -43,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
     private GroupChatFragment mGroupChatFragment;
     private PeopleGridFragment mPeopleGridFragment;
     private AddPicFragment mAddPicFragment;
+    private PeopleProfileFragment mPeopleProfileFragment;
 
     Map<View, SociadeeFragment> viewFragmmentMap ;
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private View mGroupChatView;
     private View mPeopleGridView;
     private View mAddPicView;
+    private View mPeopleProfileView;
 
     private View mCurrentView = null;
     private View mLastView =  null;
@@ -109,7 +111,9 @@ public class MainActivity extends AppCompatActivity {
         mAddPicFragment = (AddPicFragment)
                 getSupportFragmentManager().findFragmentById(R.id.addPicFragment);
         mAddPicFragment.setButtonCallback(callBackTopButton);
-
+        mPeopleProfileFragment = (PeopleProfileFragment)
+                getSupportFragmentManager().findFragmentById(R.id.peopleProfileFragment);
+        mProfileFragment.setButtonCallback(callBackTopButton);
 
         mProfileView = findViewById(R.id.profileFragment);
         mProfileView.setVisibility(View.VISIBLE);
@@ -137,6 +141,10 @@ public class MainActivity extends AppCompatActivity {
         mAddPicView = findViewById(R.id.addPicFragment);
         mAddPicView.setVisibility(View.INVISIBLE);
         viewFragmmentMap.put(mAddPicView, mAddPicFragment);
+
+        mPeopleProfileView = findViewById(R.id.peopleProfileFragment);
+        mPeopleProfileView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mPeopleProfileView, mPeopleProfileFragment);
 
         ((TextView)findViewById(R.id.profilMenuName)).setText(Parameters.getFirstname());
 
@@ -268,7 +276,6 @@ public class MainActivity extends AppCompatActivity {
 
         /** To avoid race conditions **/
         final View fadingOutView = mCurrentView;
-        viewFragmmentMap.get(mCurrentView).onFragmentLeave();
 
         fadeOutAnimation.setRepeatCount(0);
 
@@ -286,6 +293,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAnimationEnd(Animation anim) {
                 fadingOutView.setVisibility(View.GONE);
+                viewFragmmentMap.get(fadingOutView).onFragmentLeave();
                 fadingOutView.setAlpha(1.0f);
             }
         });
@@ -403,6 +411,12 @@ public class MainActivity extends AppCompatActivity {
             isAdded.setVisibility(View.VISIBLE );
         }
 
+    }
+    public void marMarkerClick(View v)
+    {
+        long userId = mMapFragment.getLastUserClikedId();
+        mPeopleProfileFragment.setUserID(userId);
+        switchFragment(mPeopleProfileView);
     }
 
     public interface CallBackTopButton

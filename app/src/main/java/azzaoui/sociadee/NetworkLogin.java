@@ -23,6 +23,8 @@ public class NetworkLogin extends NetworkBase {
     private String lastName = null;
     private String status = null;
     private Bitmap profilePic = null;
+    private boolean available = false;
+    private String aboutme = null;
     private long faceBookid = 0;
 
     /**
@@ -53,6 +55,8 @@ public class NetworkLogin extends NetworkBase {
             lastName = response.getString("lastname");
             SociadeeToken = response.getString("token");
             faceBookid = response.getLong("facebookId");
+            aboutme = response.getString("aboutMe");
+            available = response.getBoolean("available");
             return true;
         }
     }
@@ -108,4 +112,11 @@ public class NetworkLogin extends NetworkBase {
         return lastName;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public String getAboutme() {
+        return aboutme;
+    }
 }

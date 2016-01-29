@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 
 /**
@@ -53,6 +54,9 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         ((ImageView)v.findViewById(R.id.profilePicture)).setImageBitmap(bd.getBitmap());
         ((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);
         mEditMyAnnounce = (EditText)v.findViewById(R.id.aboutMe);
+        mEditMyAnnounce.setText(Parameters.getAboutme());
+        ((ToggleButton)v.findViewById(R.id.toggleDispo)).setChecked(Parameters.isAvailable());
+
         mEditMyAnnounce.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

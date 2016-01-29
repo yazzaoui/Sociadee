@@ -22,6 +22,7 @@
     android:layout_marginRight="100dp"
     android:layout_marginBottom="25dp"
     android:id="@+id/mapUserButton"
+    android:onClick="marMarkerClick"
  />
     <ImageButton
         android:layout_width="50dp"

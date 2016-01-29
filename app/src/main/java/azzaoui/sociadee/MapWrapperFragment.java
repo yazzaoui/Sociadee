@@ -71,9 +71,11 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     private NetworkGPS networkGPS;
     public MyLocationCallback myLocationCallback;
 
+    private long lastUserClikedId = 0;
     private boolean firstAnimate = true;
 
     private Map<Long,UserMap> userList;
+    private Map<Marker,Long> markerLongMap;
 
     public MapWrapperFragment() {
         // Required empty public constructor
@@ -115,7 +117,7 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
         return v;
     }
 
-
+    //TODO : remove if do not ocntains
     private void compareSavedUser( ArrayList<NetworkGPS.UserFetchedGPS> fetched) throws IOException, JSONException {
         for(int i=0; i< fetched.size(); i++)
         {
@@ -188,8 +190,10 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
                 @Override
                 public boolean onMarkerClick(Marker arg0) {
                     Log.d("animation", "marker click ");
-                    if(!mButtonVisible && !mMapAnimating)
+                    if(!mButtonVisible && !mMapAnimating) {
+                        lastUserClikedId = markerLongMap.get(arg0);
                         showButtons(arg0);
+                    }
                     return true;
                 }
 
@@ -338,6 +342,7 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     private void updateMap()
     {
         map.clear();
+        markerLongMap = new HashMap<>();
         Iterator it = userList.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
@@ -345,7 +350,9 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
             MarkerOptions markerOptions = new MarkerOptions();
             markerOptions.position(new LatLng(curUser.position.latitude, curUser.position.longitude));
             markerOptions.icon(curUser.icon);
-            map.addMarker(markerOptions).showInfoWindow();
+
+            Marker newMarker =  map.addMarker(markerOptions);
+            markerLongMap.put(newMarker,curUser.facebookId);
         }
 
 
@@ -427,6 +434,10 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     @Override
     public void onTopMenuMenuButtonClick() {
 
+    }
+
+    public long getLastUserClikedId() {
+        return lastUserClikedId;
     }
 
 
