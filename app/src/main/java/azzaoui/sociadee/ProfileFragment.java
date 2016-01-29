@@ -3,6 +3,7 @@ package azzaoui.sociadee;
 
 import android.content.Context;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
@@ -11,10 +12,15 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
+import org.json.JSONException;
+
+import java.io.IOException;
 
 
 /**
@@ -30,9 +36,11 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
     private Boolean mSaveButton = false;
     private MainActivity.CallBackTopButton mTopButtonCallback;
 
+    private NetworkUserInfo mNetworkUserInfo;
 
     public ProfileFragment() {
         // Required empty public constructor
+        mNetworkUserInfo = new NetworkUserInfo();
     }
 
 
@@ -55,7 +63,20 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         ((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);
         mEditMyAnnounce = (EditText)v.findViewById(R.id.aboutMe);
         mEditMyAnnounce.setText(Parameters.getAboutme());
-        ((ToggleButton)v.findViewById(R.id.toggleDispo)).setChecked(Parameters.isAvailable());
+
+
+        ToggleButton toggle = (ToggleButton) v.findViewById(R.id.toggleDispo);
+        toggle.setChecked(Parameters.isAvailable());
+        toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    Parameters.setAvailable(true);
+                } else {
+                    Parameters.setAvailable(false);
+                }
+            }
+        });
+
 
         mEditMyAnnounce.addTextChangedListener(new TextWatcher() {
             @Override
@@ -73,6 +94,7 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
                     if(!mSaveButton)
                     {
                         showSaveButton();
+
                     }
             }
         });
@@ -123,6 +145,42 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
 
     @Override
     public void onTopMenuMenuButtonClick() {
+        Parameters.setAboutme(mEditMyAnnounce.getText().toString());
+        setUserInfo gUI = new setUserInfo();
+        gUI.execute();
+    }
+
+
+    private class setUserInfo extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute()
+        {
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                mNetworkUserInfo.setUserInfo(Parameters.getAboutme(),Parameters.isAvailable());
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            super.onPostExecute(params);
+            mSaveButton = false;
+            mTopButtonCallback.fadeOut();
+            // fadeStuffIn();
+        }
+
 
     }
+
 }

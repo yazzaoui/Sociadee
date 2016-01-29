@@ -67,7 +67,17 @@ public class NetworkUserInfo extends NetworkBase {
         }
     }
 
-
+    public Boolean setUserInfo(String aboutme, Boolean available) throws IOException, JSONException {
+        String toSend = "/setuserinfo";
+        String av = available? "True":"False";
+        String postData = "aboutme=" + aboutme + "&available=" + av;
+        JSONObject response = sendPOSTRequest(toSend,postData,true);
+        if (response == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 
 
@@ -90,4 +100,6 @@ public class NetworkUserInfo extends NetworkBase {
     public String getmCity() {
         return mCity;
     }
+
+
 }

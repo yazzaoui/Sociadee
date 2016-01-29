@@ -418,7 +418,10 @@ public class MainActivity extends AppCompatActivity {
         mPeopleProfileFragment.setUserID(userId);
         switchFragment(mPeopleProfileView);
     }
-
+    public void topButtonClick(View v)
+    {
+        viewFragmmentMap.get(mCurrentView).onTopMenuMenuButtonClick();
+    }
     public interface CallBackTopButton
     {
         public void fadeIn(int imageRes);
