@@ -58,11 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private View mLastView =  null;
 
 
-    private ListView mMenuDrawerList;
-    private ArrayAdapter<String> mMenuAdapter;
-    private ActionBarDrawerToggle mDrawerToggle;
-    private DrawerLayout mDrawerLayout;
-    private String mActivityTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,9 +74,6 @@ public class MainActivity extends AppCompatActivity {
             mCurrentView =  findViewById(R.id.profileFragment);
             mLastView =  findViewById(R.id.profileFragment);
         }
-        mMenuDrawerList = (ListView) findViewById(R.id.menu_list);
-        addMenuDrawerItems();
-        setupActionBar();
 
         mTopMenuButton = (ImageButton)findViewById(R.id.topMenuButton1);
         CallBackTopButton callBackTopButton = new CallBackTopButton() {
@@ -146,11 +139,7 @@ public class MainActivity extends AppCompatActivity {
         mPeopleProfileView.setVisibility(View.INVISIBLE);
         viewFragmmentMap.put(mPeopleProfileView, mPeopleProfileFragment);
 
-        ((TextView)findViewById(R.id.profilMenuName)).setText(Parameters.getFirstname());
 
-        BitmapDrawable bd=(BitmapDrawable)Parameters.getProfilePicture();
-        ((ImageView)findViewById(R.id.profilMenuPicture)).setImageBitmap(bd.getBitmap());
-        ((ImageView)findViewById(R.id.profilMenuPicture)).setScaleType(ImageView.ScaleType.FIT_XY);
         /*Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
 
@@ -180,96 +169,7 @@ public class MainActivity extends AppCompatActivity {
         // your code.
         switchFragment(mLastView);
     }
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-    @Override
-    protected void onPostCreate(Bundle savedInstanceState) {
-        super.onPostCreate(savedInstanceState);
-        mDrawerToggle.syncState();
-    }
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-
-    private void setupActionBar()
-    {
-
-        /*
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.top_toolbar);
-        setSupportActionBar(myToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
-        */
-        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();
-       // getSupportActionBar().setTitle("Sociadee");
-        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-                R.string.drawer_open, R.string.drawer_close) {
-
-            /** Called when a drawer has settled in a completely open state. */
-            public void onDrawerOpened(View drawerView) {
-                super.onDrawerOpened(drawerView);
-               // getSupportActionBar().setTitle("Navigation!");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            /** Called when a drawer has settled in a completely closed state. */
-            public void onDrawerClosed(View view) {
-                super.onDrawerClosed(view);
-               // getSupportActionBar().setTitle(mActivityTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-        mDrawerToggle.setDrawerIndicatorEnabled(true);
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-        mDrawerLayout.setScrimColor(0x30000000);
-
-    }
-
-    private void addMenuDrawerItems() {
-        String[] osArray = { "Discussions", "Carte", "Réseau", "Mon Profil", "Se déconnecter" };
-        mMenuAdapter = new ArrayAdapter<String>(this, R.layout.menu_item, osArray);
-        mMenuDrawerList.setAdapter(mMenuAdapter);
-
-        mMenuDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 0:
-                        switchFragment(mGroupChatView);
-                        break;
-                    case 1:
-                        switchFragment(mMapView);
-                        break;
-                    case 2:
-                        switchFragment(mPeopleGridView);
-                        break;
-                    case 3:
-                        switchFragment(mProfileView);
-                        break;
-                    case 4:
-                        finish();
-                        break;
-                }
-                mDrawerLayout.closeDrawer(Gravity.START);
-            }
-        });
-    }
     private void switchFragment(final View nextView)
     {
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);

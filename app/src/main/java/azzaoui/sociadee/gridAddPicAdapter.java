@@ -41,6 +41,8 @@ public class gridAddPicAdapter  extends BaseAdapter {
         mInflater = LayoutInflater.from(context);
     }
 
+
+    // Shouldn't have been written here I know it
     public void retrievePictures()
     {
         mItems.clear();
