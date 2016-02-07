@@ -1,63 +1,73 @@
-<FrameLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:scrollbars="vertical"
     xmlns:tools="http://schemas.android.com/tools">
-<ImageView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:src="@drawable/wallpaper2"
-    android:scaleType="centerCrop"
-    />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="70"
+
+        >
+
+        <azzaoui.sociadee.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pp_swag"
+            android:id="@+id/profilePicture"
+
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+            android:layout_gravity="bottom|left"
+
+            android:textSize="35sp"
+            android:text="Prenom"
+            android:id="@+id/textName"
+            android:textColor="#ffffff"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="40dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/location76"
+            android:id="@+id/locationIcon"
+            android:layout_gravity="bottom|left"
+            android:layout_marginRight="3dp"
+            android:visibility="invisible"
+            android:layout_marginTop="5dp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-thin"
+
+            android:textSize="15sp"
+            android:layout_marginTop="3dp"
+            android:layout_gravity="bottom|left"
+            android:visibility="invisible"
+            android:text="Prenom"
+
+            android:id="@+id/locationText" />
+    </FrameLayout>
+
+
+
 <RelativeLayout android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="azzaoui.sociadee.ProfileFragment"
+    android:layout_height="0dp"
+    android:layout_weight="30"
 >
 
 
-    <azzaoui.sociadee.RoundedImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/pp_swag"
 
-        android:layout_marginTop="50dp"
-        android:id="@+id/profilePicture"
-        android:layout_centerHorizontal="true"
-         />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
-        android:layout_centerHorizontal="true"
-        android:textSize="25sp"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/profilePicture"
-        android:text="Prenom"
-        android:id="@+id/textName" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/location76"
-        android:id="@+id/locationIcon"
-        android:layout_below="@+id/textName"
-        android:layout_toLeftOf="@+id/locationText"
-        android:layout_marginRight="3dp"
-        android:visibility="invisible"
-        android:layout_marginTop="5dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="sans-serif-thin"
-        android:layout_centerHorizontal="true"
-        android:textSize="15sp"
-        android:layout_marginTop="3dp"
-        android:layout_below="@+id/textName"
-        android:visibility="invisible"
-        android:text="Prenom"
-        android:id="@+id/locationText" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -75,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:background="@drawable/toggle_selector"
-        android:layout_below="@+id/locationText"
+
         android:layout_marginTop="10dp"
         android:checked="false"
         android:text=""
@@ -128,28 +138,20 @@
     >
         </HorizontalScrollView> -->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/aboutMe"
-            android:background="#802E2633"
-            android:orientation="vertical"
-            >
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Modifier mes photos"
+        android:layout_below="@+id/aboutMe"
+        android:layout_gravity="center"
+        android:onClick="addPicProfile"
+        android:gravity="center_horizontal"
 
 
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Modifier mes photos"
-                android:layout_marginTop="50dp"
-                android:layout_gravity="center"
-                android:onClick="addPicProfile"
-                />
 
+        />
 
-        </LinearLayout>
 
 
 </RelativeLayout>
-</FrameLayout>
+</LinearLayout>

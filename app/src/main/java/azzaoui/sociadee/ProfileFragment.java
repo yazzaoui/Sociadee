@@ -59,8 +59,9 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
 
 
         BitmapDrawable bd=(BitmapDrawable)Parameters.getProfilePicture();
+
         ((ImageView)v.findViewById(R.id.profilePicture)).setImageBitmap(bd.getBitmap());
-        ((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);
+       //((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);
         mEditMyAnnounce = (EditText)v.findViewById(R.id.aboutMe);
         mEditMyAnnounce.setText(Parameters.getAboutme());
 
