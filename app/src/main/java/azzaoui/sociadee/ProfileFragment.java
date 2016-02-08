@@ -58,7 +58,7 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         View v = localInflater.inflate(R.layout.fragment_profile, container, false);
 
 
-        BitmapDrawable bd=(BitmapDrawable)Parameters.getProfilePicture();
+        BitmapDrawable bd=(BitmapDrawable)Parameters.getHDprofilePicture();
 
         ((ImageView)v.findViewById(R.id.profilePicture)).setImageBitmap(bd.getBitmap());
        //((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);

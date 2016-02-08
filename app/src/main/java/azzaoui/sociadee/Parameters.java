@@ -14,6 +14,8 @@ public class Parameters {
     private static long facebookId;
     private static String firstname;
     private static Drawable profilePicture;
+    private static Drawable HDprofilePicture;
+
     private static boolean available;
     private static String aboutme;
 
@@ -70,5 +72,13 @@ public class Parameters {
 
     public static void setAboutme(String aboutme) {
         Parameters.aboutme = aboutme;
+    }
+
+    public static Drawable getHDprofilePicture() {
+        return HDprofilePicture;
+    }
+
+    public static void setHDprofilePicture(Drawable HDprofilePicture) {
+        Parameters.HDprofilePicture = HDprofilePicture;
     }
 }

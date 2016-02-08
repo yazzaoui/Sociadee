@@ -23,6 +23,7 @@ public class NetworkLogin extends NetworkBase {
     private String lastName = null;
     private String status = null;
     private Bitmap profilePic = null;
+    private Bitmap HDprofilePic = null;
     private boolean available = false;
     private String aboutme = null;
     private long faceBookid = 0;
@@ -51,6 +52,7 @@ public class NetworkLogin extends NetworkBase {
         } else {
             status = response.getString("status");
             profilePic = decodeBase64(response.getString("picture"));
+            HDprofilePic = decodeBase64(response.getString("HDpicture"));
             firstName = response.getString("firstname");
             lastName = response.getString("lastname");
             SociadeeToken = response.getString("token");
@@ -118,5 +120,9 @@ public class NetworkLogin extends NetworkBase {
 
     public String getAboutme() {
         return aboutme;
+    }
+
+    public Bitmap getHDprofilePic() {
+        return HDprofilePic;
     }
 }

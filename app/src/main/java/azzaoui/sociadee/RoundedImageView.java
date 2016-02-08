@@ -20,16 +20,20 @@ import android.widget.ImageView;
 public class RoundedImageView extends ImageView {
 
     public RoundedImageView(Context context) {
+
         super(context);
+        this.setDrawingCacheEnabled(true);
         // TODO Auto-generated constructor stub
     }
 
     public RoundedImageView(Context context, AttributeSet attrs) {
         super(context, attrs);
+        this.setDrawingCacheEnabled(true);
     }
 
     public RoundedImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
+        this.setDrawingCacheEnabled(true);
     }
 
     @Override
@@ -63,11 +67,12 @@ public class RoundedImageView extends ImageView {
         int w = getWidth(), h = getHeight();
 
         //Bitmap roundBitmap =  getCroppedBitmap(bitmap, w);
-        
+        //Bitmap roundBitmap = blur(bitmap, 50, 220);
+        //canvas.drawBitmap(roundBitmap, 0,0, null);
         super.onDraw(canvas);
-        Bitmap roundBitmap = blur(bitmap,5,20);
-        canvas.drawBitmap(roundBitmap, 0,0, null);
-
+        Bitmap ors = this.getDrawingCache();
+        Bitmap or = blur(ors, 5, 220);
+        canvas.drawBitmap(or, 0,0, null);
     }
 
     public static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {

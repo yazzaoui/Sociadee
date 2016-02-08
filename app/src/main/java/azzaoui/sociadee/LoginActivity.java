@@ -177,6 +177,7 @@ public class LoginActivity extends Activity {
                 Parameters.setSociadeeToken(networkLogin.getSociadeeToken());
                 Parameters.setFacebookId(networkLogin.getFaceBookid());
                 Parameters.setProfilePicture(new BitmapDrawable(getResources(), networkLogin.getProfilePicture()));
+                Parameters.setHDprofilePicture(new BitmapDrawable(getResources(), networkLogin.getHDprofilePic()));
                 Parameters.setAboutme(networkLogin.getAboutme());
                 Parameters.setAvailable(networkLogin.isAvailable());
 

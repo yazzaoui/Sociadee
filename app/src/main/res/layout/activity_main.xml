@@ -52,13 +52,13 @@
 
 
         <ImageView
-            android:layout_width="160dp"
+            android:layout_width="203dp"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="0dp"
             android:scaleType="fitXY"
-            android:src="@drawable/logo_white2"
+            android:src="@drawable/logo_white4"
             />
 
         <ImageButton
@@ -82,7 +82,7 @@
         android:background="#00000000"
         android:padding="0dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="80dp">
 
 
         <ImageButton
@@ -92,8 +92,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
             android:onClick="switchMyProfile"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:src="@drawable/menu_profileb" />
 
@@ -103,8 +103,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:src="@drawable/menu_chatb"  />
         <ImageButton
@@ -113,8 +113,8 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:onClick="switchMap"
             android:src="@drawable/menu_mapb"  />
@@ -124,10 +124,11 @@
             android:layout_weight="1"
             android:layout_height="match_parent"
             android:background="@drawable/menub_item_selector"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:src="@drawable/menu_networkb"  />
+        <!--
         <ImageButton
             android:id="@+id/barMenuButton5"
             android:layout_width="0dp"
@@ -137,7 +138,7 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:scaleType="centerInside"
-            android:src="@drawable/menu_eventsb"  />
+            android:src="@drawable/menu_eventsb"  /> -->
 
     </LinearLayout>
 
