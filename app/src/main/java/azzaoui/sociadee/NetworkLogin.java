@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Base64;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +27,7 @@ public class NetworkLogin extends NetworkBase {
     private Bitmap HDprofilePic = null;
     private boolean available = false;
     private String aboutme = null;
+    private int age = 0;
     private long faceBookid = 0;
 
     /**
@@ -59,6 +61,15 @@ public class NetworkLogin extends NetworkBase {
             faceBookid = response.getLong("facebookId");
             aboutme = response.getString("aboutMe");
             available = response.getBoolean("available");
+            age = response.getInt("age");
+
+            JSONArray imageList = response.getJSONArray("images");
+            for(int i = 0; i < imageList.length(); i++)
+            {
+
+            }
+
+
             return true;
         }
     }
@@ -124,5 +135,9 @@ public class NetworkLogin extends NetworkBase {
 
     public Bitmap getHDprofilePic() {
         return HDprofilePic;
+    }
+
+    public int getAge() {
+        return age;
     }
 }

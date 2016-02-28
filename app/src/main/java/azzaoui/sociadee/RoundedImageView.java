@@ -71,7 +71,8 @@ public class RoundedImageView extends ImageView {
         //canvas.drawBitmap(roundBitmap, 0,0, null);
         super.onDraw(canvas);
         Bitmap ors = this.getDrawingCache();
-        Bitmap or = blur(ors, 5, 220);
+
+        Bitmap or = blur(ors, 5, (int)(0.2 * ors.getHeight()));
         canvas.drawBitmap(or, 0,0, null);
     }
 

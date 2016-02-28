@@ -10,4 +10,5 @@ public interface SociadeeFragment {
     public void onFragmentEnter();
     public void onFragmentLeave();
     public void onTopMenuMenuButtonClick();
+
 }

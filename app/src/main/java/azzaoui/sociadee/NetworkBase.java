@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -57,7 +58,8 @@ public abstract class NetworkBase {
             if(token)
                 requestData = "userKey=" + Parameters.getSociadeeToken() +  "&"+ requestData;
 
-            byte[] postData = requestData.getBytes(StandardCharsets.UTF_8);
+            //byte[] postData = requestData.getBytes(StandardCharsets.UTF_8);
+            byte[] postData = requestData.getBytes(Charset.forName("UTF-8"));
             int postDataLength = postData.length;
             URL url = new URL(toSend);
             HttpsURLConnection HUC = (HttpsURLConnection) url.openConnection();

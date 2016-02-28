@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends,user_photos,email");
+        loginButton.setReadPermissions("user_friends,user_photos,email,user_birthday");
 
         loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -180,6 +180,7 @@ public class LoginActivity extends Activity {
                 Parameters.setHDprofilePicture(new BitmapDrawable(getResources(), networkLogin.getHDprofilePic()));
                 Parameters.setAboutme(networkLogin.getAboutme());
                 Parameters.setAvailable(networkLogin.isAvailable());
+                Parameters.setAge(networkLogin.getAge());
 
             } catch (IOException e) {
                 e.printStackTrace();

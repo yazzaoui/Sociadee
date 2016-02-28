@@ -15,6 +15,7 @@ public class Parameters {
     private static String firstname;
     private static Drawable profilePicture;
     private static Drawable HDprofilePicture;
+    private static int age;
 
     private static boolean available;
     private static String aboutme;
@@ -80,5 +81,13 @@ public class Parameters {
 
     public static void setHDprofilePicture(Drawable HDprofilePicture) {
         Parameters.HDprofilePicture = HDprofilePicture;
+    }
+
+    public static int getAge() {
+        return age;
+    }
+
+    public static void setAge(int age) {
+        Parameters.age = age;
     }
 }

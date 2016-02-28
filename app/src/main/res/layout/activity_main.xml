@@ -1,8 +1,15 @@
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    >
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_weight = "1"
+    android:id="@+id/mainFrame"
+    android:layout_height="wrap_content">
 
 
     <fragment
@@ -40,7 +47,7 @@
         android:name="azzaoui.sociadee.PeopleProfileFragment"
         android:id="@+id/peopleProfileFragment"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         tools:layout="@layout/fragment_people_profile" />
 
 
@@ -75,12 +82,13 @@
             />
 
     </RelativeLayout>
+</FrameLayout>
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_gravity="bottom"
         android:background="#00000000"
         android:padding="0dp"
+        android:layout_weight = "0"
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
@@ -141,8 +149,8 @@
             android:src="@drawable/menu_eventsb"  /> -->
 
     </LinearLayout>
+</LinearLayout>
 
-</FrameLayout>
 
 
 

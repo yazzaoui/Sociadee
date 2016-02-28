@@ -14,7 +14,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -60,7 +63,9 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
 
         BitmapDrawable bd=(BitmapDrawable)Parameters.getHDprofilePicture();
 
-        ((ImageView)v.findViewById(R.id.profilePicture)).setImageBitmap(bd.getBitmap());
+        ImageView profilePictureView =  ( ImageView)v.findViewById(R.id.profilePicture);
+        profilePictureView.setImageBitmap(bd.getBitmap());
+
        //((ImageView)v.findViewById(R.id.profilePicture)).setScaleType(ImageView.ScaleType.FIT_XY);
         mEditMyAnnounce = (EditText)v.findViewById(R.id.aboutMe);
         mEditMyAnnounce.setText(Parameters.getAboutme());
@@ -92,18 +97,36 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                    if(!mSaveButton)
-                    {
-                        showSaveButton();
+                if (!mSaveButton) {
+                    showSaveButton();
 
-                    }
+                }
             }
         });
 
         ((TextView)v.findViewById(R.id.textName)).setText(Parameters.getFirstname());
+/*
+        RelativeLayout nonBlurred = (RelativeLayout)v.findViewById(R.id.nonBlurred);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT
+        );
+        profilePictureView.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        int bottom = (int)(profilePictureView.getMeasuredHeight() *0.3);
+        params.setMargins(0, 0, 0,bottom);
+        nonBlurred.setLayoutParams(params);*/
+
 
         mLocationTextView =  ((TextView)v.findViewById(R.id.locationText));
         mLocationIcon = (ImageView)v.findViewById(R.id.locationIcon);
+
+
+
+        GridView gridView = (GridView)v.findViewById(R.id.GridLayoutProfilePic);
+        mGridAddPicAdapter = new gridAddPicAdapter(getContext());
+        gridView.setAdapter(mGridAddPicAdapter);
+
+
         return v;
     }
 
@@ -165,9 +188,11 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
             try {
                 mNetworkUserInfo.setUserInfo(Parameters.getAboutme(),Parameters.isAvailable());
 
-            } catch (IOException e) {
+            }
+            catch (JSONException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
             return null;
