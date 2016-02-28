@@ -12,6 +12,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.LinkedList;
 
 /**
  * Extends the NetworkBase class, used to handle login and register
@@ -27,6 +28,7 @@ public class NetworkLogin extends NetworkBase {
     private Bitmap HDprofilePic = null;
     private boolean available = false;
     private String aboutme = null;
+    private LinkedList<myImage> imFbList;
     private int age = 0;
     private long faceBookid = 0;
 
@@ -64,8 +66,14 @@ public class NetworkLogin extends NetworkBase {
             age = response.getInt("age");
 
             JSONArray imageList = response.getJSONArray("images");
+            imFbList = new LinkedList<>();
             for(int i = 0; i < imageList.length(); i++)
             {
+                JSONObject imJ = imageList.getJSONObject(i);
+                long imId =  imJ.getLong("id");
+                Bitmap imBmp = decodeBase64(imJ.getString("data"));
+                myImage curImage = new myImage(imId,imBmp);
+                imFbList.add(curImage);
 
             }
 
@@ -125,6 +133,11 @@ public class NetworkLogin extends NetworkBase {
         return lastName;
     }
 
+    public LinkedList<myImage> getMyImages()
+    {
+        return imFbList;
+    }
+
     public boolean isAvailable() {
         return available;
     }
@@ -139,5 +152,18 @@ public class NetworkLogin extends NetworkBase {
 
     public int getAge() {
         return age;
+    }
+
+    static class myImage
+    {
+        public long id;
+        public Bitmap im;
+
+        public myImage(long id, Bitmap bmp)
+        {
+            this.id = id;
+            this.im = bmp;
+
+        }
     }
 }

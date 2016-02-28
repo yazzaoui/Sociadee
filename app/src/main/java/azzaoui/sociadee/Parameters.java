@@ -2,6 +2,8 @@ package azzaoui.sociadee;
 
 import android.graphics.drawable.Drawable;
 
+import java.util.LinkedList;
+
 /**
  * Created by Youssef Azzaoui on 10/11/15.
  *
@@ -16,9 +18,26 @@ public class Parameters {
     private static Drawable profilePicture;
     private static Drawable HDprofilePicture;
     private static int age;
-
+    private static LinkedList<FacebookImage> facebookImages = new LinkedList<>();
     private static boolean available;
     private static String aboutme;
+
+
+    public static void addImage(long id , Drawable im)
+    {
+        FacebookImage image = new FacebookImage(id,im);
+        facebookImages.add(image);
+
+    }
+    public static void removeImage(FacebookImage image)
+    {
+        facebookImages.remove(image);
+    }
+
+    public static LinkedList<FacebookImage> getFacebookImages()
+    {
+        return facebookImages;
+    }
 
     public static String getFBToken() {
         return FBToken;

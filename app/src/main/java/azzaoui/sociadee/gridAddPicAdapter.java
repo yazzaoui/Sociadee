@@ -31,10 +31,7 @@ public class gridAddPicAdapter  extends BaseAdapter {
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
 
-    private final int PicNumbers = 200 ; // 4 * 7
-    private int mCurrentNumber = 0;
-    private int mDownloadedNumber = 0;
-    private JSONArray imageArrayId;
+    public final int FACEBOOKID = 1;
     private BaseAdapter thisAdapter = this;
 
     public gridAddPicAdapter(Context context) {
@@ -42,97 +39,15 @@ public class gridAddPicAdapter  extends BaseAdapter {
     }
 
 
-    // Shouldn't have been written here I know it
-    public void retrievePictures()
+    public void addItem(Item obj)
+    {
+        mItems.add(obj);
+    }
+
+    public  void clearItem()
     {
         mItems.clear();
-        mCurrentNumber = 0;
-        mDownloadedNumber = 0;
-        Bundle parameters = new Bundle();
-        parameters.putString("limit", Integer.toString(PicNumbers));
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/me/photos",
-                parameters,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        JSONObject firstResponse = response.getJSONObject();
-                        try {
-                            imageArrayId = firstResponse.getJSONArray("data");
-                            mCurrentNumber = imageArrayId.length();
-                            for (int i = 0; i < 4 && i < mCurrentNumber; i++)
-                            {
-                               fetchImageUrl( imageArrayId.getJSONObject(i).getLong("id"));
-                            }
-
-                        } catch (JSONException e) {
-
-
-                        }
-
-                    }
-                }
-        ).executeAsync();
     }
-
-    private void fetchImageUrl(final long id)
-    {
-        Bundle parameters = new Bundle();
-        parameters.putString("fields", "images");
-        new GraphRequest(
-                AccessToken.getCurrentAccessToken(),
-                "/"+id,
-                parameters,
-                HttpMethod.GET,
-                new GraphRequest.Callback() {
-                    public void onCompleted(GraphResponse response) {
-                        JSONObject firstResponse = response.getJSONObject();
-                        try {
-                            JSONArray imagesIds = firstResponse.getJSONArray("images");
-                            String imageUrl = imagesIds.getJSONObject(imagesIds.length()-1).getString("source");
-                            URL image_value = new URL(imageUrl);
-                            Drawable newPic = Drawable.createFromStream(image_value.openConnection().getInputStream(), "blah");
-
-                            mItems.add(new Item(id,newPic));
-                            thisAdapter.notifyDataSetChanged();
-                            addedPic();
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-        ).executeAsync();
-
-    }
-
-    private void addedPic()
-    {
-        mDownloadedNumber++;
-        if(mDownloadedNumber%4 == 0)
-        {
-            int i=0;
-            int mOldDownloadedNumber = mDownloadedNumber;
-            while(i < 4 && mOldDownloadedNumber + i < mCurrentNumber)
-            {
-                try {
-                fetchImageUrl(imageArrayId.getJSONObject(mOldDownloadedNumber+i).getLong("id"));
-                 } catch (JSONException e) {
-                e.printStackTrace();
-                }
-
-                i++;
-            }
-        }
-    }
-
     @Override
     public int getCount() {
         return mItems.size();
@@ -153,34 +68,38 @@ public class gridAddPicAdapter  extends BaseAdapter {
         View v = view;
         ImageView picture;
         TextView name;
+        Item item = getItem(i);
 
         if (v == null) {
             v = mInflater.inflate(R.layout.grid_addpic_item, viewGroup, false);
             v.setTag(R.id.pictureElemAddPic, v.findViewById(R.id.pictureElemAddPic));
             v.setTag(R.id.text, v.findViewById(R.id.text));
             v.setTag(R.id.validatedPic,v.findViewById(R.id.validatedPic));
-
+            v.setTag(R.id.FACEBOOK_ID,item.facebookId);
         }
 
         picture = (ImageView) v.getTag(R.id.pictureElemAddPic);
         //name = (TextView) v.getTag(R.id.text);
 
-        Item item = getItem(i);
 
         picture.setImageDrawable(item.drawable);
+        if(item.selected)
+            ((ImageView) v.getTag(R.id.pictureElemAddPic)).setVisibility(View.VISIBLE);
         //name.setText(Long.toString(item.facebookId));
 
 
         return v;
     }
 
-    private static class Item {
+    public static class Item {
         public final long facebookId;
         public final Drawable drawable;
+        public boolean selected;
 
-        Item(long facebookId, Drawable drawable) {
+        Item(long facebookId, Drawable drawable, boolean selected) {
             this.facebookId = facebookId;
             this.drawable = drawable;
+            this.selected = selected;
         }
     }
 }

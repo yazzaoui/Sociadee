@@ -39,6 +39,7 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
     private Boolean mSaveButton = false;
     private MainActivity.CallBackTopButton mTopButtonCallback;
 
+    private gridShowPicAdapter mGridShowPicAdapter;
     private NetworkUserInfo mNetworkUserInfo;
 
     public ProfileFragment() {
@@ -119,12 +120,12 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
 
         mLocationTextView =  ((TextView)v.findViewById(R.id.locationText));
         mLocationIcon = (ImageView)v.findViewById(R.id.locationIcon);
-
+        ((TextView)v.findViewById(R.id.age)).setText(Parameters.getAge());
 
 
         GridView gridView = (GridView)v.findViewById(R.id.GridLayoutProfilePic);
-        mGridAddPicAdapter = new gridAddPicAdapter(getContext());
-        gridView.setAdapter(mGridAddPicAdapter);
+        mGridShowPicAdapter = new gridShowPicAdapter(getContext());
+        gridView.setAdapter(mGridShowPicAdapter);
 
 
         return v;

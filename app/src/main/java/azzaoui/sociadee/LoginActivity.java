@@ -34,6 +34,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ListIterator;
 
 
 public class LoginActivity extends Activity {
@@ -181,6 +182,13 @@ public class LoginActivity extends Activity {
                 Parameters.setAboutme(networkLogin.getAboutme());
                 Parameters.setAvailable(networkLogin.isAvailable());
                 Parameters.setAge(networkLogin.getAge());
+
+                ListIterator<NetworkLogin.myImage> listIterator = networkLogin.getMyImages().listIterator();
+                while (listIterator.hasNext()) {
+                    NetworkLogin.myImage curIm = listIterator.next();
+                    Parameters.addImage(curIm.id,new BitmapDrawable(getResources(), curIm.im));
+                }
+
 
             } catch (IOException e) {
                 e.printStackTrace();

@@ -11,9 +11,10 @@ public class FacebookImage {
     private long id;
     private Drawable lowResImage;
 
-    public FacebookImage(long id)
+    public FacebookImage(long id, Drawable lowResImage)
     {
         this.id  = id ;
+        this.lowResImage = lowResImage;
     }
 
     public Drawable getLowResImage() {

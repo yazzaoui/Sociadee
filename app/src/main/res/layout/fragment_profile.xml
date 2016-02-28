@@ -194,13 +194,13 @@
     <GridView
         android:id="@+id/GridLayoutProfilePic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:numColumns="3"
         android:stretchMode="columnWidth"
         android:verticalSpacing="0dp"
         android:horizontalSpacing="0dp"
-        >
+        />
 
     <Button
         android:layout_width="match_parent"
