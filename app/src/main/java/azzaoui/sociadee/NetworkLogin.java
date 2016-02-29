@@ -154,7 +154,7 @@ public class NetworkLogin extends NetworkBase {
         return age;
     }
 
-    static class myImage
+    public static class myImage
     {
         public long id;
         public Bitmap im;

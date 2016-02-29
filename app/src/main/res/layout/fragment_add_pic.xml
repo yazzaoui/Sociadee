@@ -2,7 +2,7 @@
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/Helio"
+    android:background="#ffffff"
     android:layout_height="match_parent">
 
 
@@ -11,6 +11,7 @@
         android:id="@+id/GridLayoutAddPic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="85dp"
         android:gravity="center"
         android:numColumns="4"
         android:stretchMode="columnWidth"

@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         mAddPicFragment.goBackCallback = new AddPicFragment.CallBackSwitch() {
             @Override
             public void goBack() {
+                mProfileFragment.setImages();
                 switchView(mProfileView);
             }
         };

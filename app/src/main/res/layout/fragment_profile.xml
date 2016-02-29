@@ -191,7 +191,7 @@
         android:layout_alignParentStart="true">
 
         </HorizontalScrollView> -->
-    <GridView
+    <azzaoui.sociadee.MyGridView
         android:id="@+id/GridLayoutProfilePic"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -206,6 +206,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Modifier mes photos"
+        android:layout_below="@id/GridLayoutProfilePic"
         android:onClick="addPicProfile"
         android:background="@drawable/buttonshape2"
         android:textColor="@color/Evening"

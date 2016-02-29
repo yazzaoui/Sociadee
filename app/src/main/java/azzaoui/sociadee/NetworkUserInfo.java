@@ -8,6 +8,8 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import azzaoui.sociadee.NetworkLogin.myImage;
 
 /**
  * Created by Youssef Azzaoui on 29/01/2016.
@@ -21,7 +23,7 @@ public class NetworkUserInfo extends NetworkBase {
     private String mAboutme = null;
     private boolean mAvailable = false;
     private String mCity = null;
-
+    private LinkedList<myImage> imFbList;
 
     public NetworkUserInfo() {
         super();
@@ -86,8 +88,24 @@ public class NetworkUserInfo extends NetworkBase {
         if (response == null) {
             return false;
         } else {
+            JSONArray imageList = response.getJSONArray("images");
+            imFbList = new LinkedList<>();
+            for(int i = 0; i < imageList.length(); i++)
+            {
+                JSONObject imJ = imageList.getJSONObject(i);
+                long imId =  imJ.getLong("id");
+                Bitmap imBmp = decodeBase64(imJ.getString("data"));
+                myImage curImage = new myImage(imId,imBmp);
+                imFbList.add(curImage);
+
+            }
             return true;
         }
+    }
+
+    public LinkedList<myImage> getMyImages()
+    {
+        return imFbList;
     }
 
     public Bitmap getmUserpicture() {

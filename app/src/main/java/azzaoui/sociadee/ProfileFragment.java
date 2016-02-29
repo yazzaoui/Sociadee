@@ -176,7 +176,7 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         gUI.execute();
     }
 
-    private void setImages()
+    public void setImages()
     {
         Iterator<FacebookImage> iter = Parameters.getFacebookImages().listIterator();
         mGridShowPicAdapter.clearItem();

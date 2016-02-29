@@ -4,6 +4,7 @@ package azzaoui.sociadee;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class gridAddPicAdapter  extends BaseAdapter {
@@ -33,6 +35,7 @@ public class gridAddPicAdapter  extends BaseAdapter {
 
     public final int FACEBOOKID = 1;
     private BaseAdapter thisAdapter = this;
+    private HashMap<View,Item> ViewToItem = new HashMap<>();
 
     public gridAddPicAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -42,11 +45,13 @@ public class gridAddPicAdapter  extends BaseAdapter {
     public void addItem(Item obj)
     {
         mItems.add(obj);
+        Log.d("ADDPIC", "added item id: " + obj.facebookId);
     }
 
     public  void clearItem()
     {
         mItems.clear();
+        ViewToItem.clear();
     }
     @Override
     public int getCount() {
@@ -73,18 +78,25 @@ public class gridAddPicAdapter  extends BaseAdapter {
         if (v == null) {
             v = mInflater.inflate(R.layout.grid_addpic_item, viewGroup, false);
             v.setTag(R.id.pictureElemAddPic, v.findViewById(R.id.pictureElemAddPic));
-            v.setTag(R.id.text, v.findViewById(R.id.text));
             v.setTag(R.id.validatedPic,v.findViewById(R.id.validatedPic));
-            v.setTag(R.id.FACEBOOK_ID,item.facebookId);
+
+            Log.d("ADDPIC", "set tag: " + i + " - " +  item.facebookId);
         }
 
         picture = (ImageView) v.getTag(R.id.pictureElemAddPic);
         //name = (TextView) v.getTag(R.id.text);
-
+        v.setTag(R.id.FACEBOOK_ID,item.facebookId);
 
         picture.setImageDrawable(item.drawable);
-        if(item.selected)
+        if(item.selected) {
             ((ImageView) v.getTag(R.id.validatedPic)).setVisibility(View.VISIBLE);
+           // Log.d("ADDPIC","VISIBLE " + item.facebookId );
+        }
+        else
+        {
+            ((ImageView) v.getTag(R.id.validatedPic)).setVisibility(View.INVISIBLE);
+            //Log.d("ADDPIC", "INVISIBLE " + item.facebookId);
+        }
         //name.setText(Long.toString(item.facebookId));
 
 

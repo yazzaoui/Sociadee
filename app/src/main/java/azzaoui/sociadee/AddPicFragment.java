@@ -6,6 +6,7 @@ import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 
 /**
@@ -49,6 +51,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
     private NetworkUserInfo mNetworkUserInfo;
 
+    private static final String LOG = "ADDPIC";
     public AddPicFragment() {
         // Required empty public constructor
         SelectedPic = new LinkedList<>();
@@ -66,7 +69,9 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
         SelectedPic.clear();
         Iterator<FacebookImage> iter = Parameters.getFacebookImages().listIterator();
         while (iter.hasNext() ) {
-           SelectedPic.add(iter.next().getId());
+           long myId=  iter.next().getId();
+           SelectedPic.add(myId);
+           Log.d(LOG,"Selected Pic : " + myId);
         }
 
 
@@ -82,6 +87,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
     {
         ImageView isAdded = (ImageView) v.getTag(R.id.validatedPic);
         long imId = (long) v.getTag(R.id.FACEBOOK_ID);
+        printLogList();
         if(isAdded.getVisibility() == View.VISIBLE)
         {
             isAdded.setVisibility(View.INVISIBLE);
@@ -92,10 +98,21 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
             SelectedPic.add(imId);
             isAdded.setVisibility(View.VISIBLE );
         }
+        printLogList();
         if(!mSaveButton)
             showSaveButton();
     }
 
+    private void printLogList()
+    {
+        String res = "SelectedList : ";
+        Iterator<Long> iter = SelectedPic.listIterator();
+        while (iter.hasNext() ) {
+            long next = iter.next();
+            res += next+"-";
+        }
+        Log.d(LOG,res);
+    }
     private boolean isSelected(long id)
     {
         boolean res = false;
@@ -104,6 +121,8 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
         while (iter.hasNext() && !res) {
             long next = iter.next();
             res = next == id ;
+            if(res)
+                Log.d(LOG,"isSelected : " + id);
         }
         return res;
     }
@@ -129,6 +148,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
                             for (int i = 0; i < 4 && i < mCurrentNumber; i++)
                             {
                                 fetchImageUrl( imageArrayId.getJSONObject(i).getLong("id"));
+                                Log.d("ADDPIC", "GO Fetch " + imageArrayId.getJSONObject(i).getLong("id"));
                             }
 
                         } catch (JSONException e) {
@@ -162,7 +182,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
                             String imageUrl = imagesIds.getJSONObject(imagesIds.length()-1).getString("source");
                             URL image_value = new URL(imageUrl);
                             Drawable newPic = Drawable.createFromStream(image_value.openConnection().getInputStream(), "blah");
-
+                            Log.d("ADDPIC", "Fetched " + id);
                             mGridAddPicAdapter.addItem(new gridAddPicAdapter.Item(id, newPic,isSelected(id)));
                             mGridAddPicAdapter.notifyDataSetChanged();
                             addedPic();
@@ -238,7 +258,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
                     toSend += String.valueOf(iter.next());
                 i++;
             }
-
+            Log.d("ADDPIC", "SENDING " + toSend);
         }
 
         @Override
@@ -247,12 +267,21 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
             try {
                 mNetworkUserInfo.updatePictures(toSend);
 
+                ListIterator<NetworkLogin.myImage> listIterator = mNetworkUserInfo.getMyImages().listIterator();
+                Parameters.getFacebookImages().clear();
+                while (listIterator.hasNext()) {
+                    NetworkLogin.myImage curIm = listIterator.next();
+                    Parameters.addImage(curIm.id,new BitmapDrawable(getResources(), curIm.im));
+                }
             }
             catch (JSONException e) {
                 e.printStackTrace();
             }
             catch (IOException e) {
                 e.printStackTrace();
+            }
+            finally {
+                toSend = "";
             }
             return null;
         }
