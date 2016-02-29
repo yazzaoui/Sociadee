@@ -58,15 +58,7 @@
         android:layout_height="80dp">
 
 
-        <ImageView
-            android:layout_width="203dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="0dp"
-            android:scaleType="fitXY"
-            android:src="@drawable/logo_white4"
-            />
+
 
         <ImageButton
             android:layout_width="50dp"

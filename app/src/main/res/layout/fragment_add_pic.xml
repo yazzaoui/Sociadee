@@ -5,6 +5,8 @@
     android:background="@color/Helio"
     android:layout_height="match_parent">
 
+
+
     <GridView
         android:id="@+id/GridLayoutAddPic"
         android:layout_width="match_parent"
@@ -18,4 +20,5 @@
 
 
     </GridView>
+
 </FrameLayout>

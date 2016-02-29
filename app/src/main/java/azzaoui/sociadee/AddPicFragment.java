@@ -3,6 +3,7 @@ package azzaoui.sociadee;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.facebook.AccessToken;
@@ -40,11 +42,17 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
     private int mDownloadedNumber = 0;
     private JSONArray imageArrayId;
     private boolean mSaveButton = false;
+    private ImageButton saveButton;
+
+    public CallBackSwitch goBackCallback;
     private MainActivity.CallBackTopButton mTopButtonCallback;
+
+    private NetworkUserInfo mNetworkUserInfo;
 
     public AddPicFragment() {
         // Required empty public constructor
         SelectedPic = new LinkedList<>();
+        mNetworkUserInfo = new NetworkUserInfo();
     }
 
 
@@ -84,6 +92,8 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
             SelectedPic.add(imId);
             isAdded.setVisibility(View.VISIBLE );
         }
+        if(!mSaveButton)
+            showSaveButton();
     }
 
     private boolean isSelected(long id)
@@ -92,7 +102,8 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
         Iterator<Long> iter = SelectedPic.listIterator();
         while (iter.hasNext() && !res) {
-            res = iter.next() == id ;
+            long next = iter.next();
+            res = next == id ;
         }
         return res;
     }
@@ -208,6 +219,57 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
     @Override
     public void onTopMenuMenuButtonClick() {
+        UpdatePicture newA = new UpdatePicture();
+        newA.execute();
+    }
 
+    private class UpdatePicture extends AsyncTask<Void, Void, Void> {
+
+        private String toSend ="";
+        @Override
+        protected void onPreExecute()
+        {
+            Iterator<Long> iter = SelectedPic.listIterator();
+            int i = 1; int s = SelectedPic.size();
+            while (iter.hasNext() ) {
+                if(i < s)
+                    toSend += String.valueOf(iter.next()) + "-" ;
+                else
+                    toSend += String.valueOf(iter.next());
+                i++;
+            }
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            try {
+                mNetworkUserInfo.updatePictures(toSend);
+
+            }
+            catch (JSONException e) {
+                e.printStackTrace();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            super.onPostExecute(params);
+            mSaveButton = false;
+            mTopButtonCallback.fadeOut();
+            goBackCallback.goBack();
+            // fadeStuffIn();
+        }
+
+
+    }
+    public interface CallBackSwitch
+    {
+        public void goBack();
     }
 }

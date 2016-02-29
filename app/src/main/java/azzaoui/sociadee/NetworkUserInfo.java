@@ -79,7 +79,16 @@ public class NetworkUserInfo extends NetworkBase {
         }
     }
 
-
+    public Boolean updatePictures(String pic)throws IOException, JSONException {
+        String toSend = "/updateuserimage";
+        String postData = "images=" + pic;
+        JSONObject response = sendPOSTRequest(toSend,postData,true);
+        if (response == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
     public Bitmap getmUserpicture() {
         return mUserpicture;

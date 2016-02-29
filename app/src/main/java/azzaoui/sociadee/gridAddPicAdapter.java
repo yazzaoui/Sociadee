@@ -84,7 +84,7 @@ public class gridAddPicAdapter  extends BaseAdapter {
 
         picture.setImageDrawable(item.drawable);
         if(item.selected)
-            ((ImageView) v.getTag(R.id.pictureElemAddPic)).setVisibility(View.VISIBLE);
+            ((ImageView) v.getTag(R.id.validatedPic)).setVisibility(View.VISIBLE);
         //name.setText(Long.toString(item.facebookId));
 
 

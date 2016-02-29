@@ -2,27 +2,15 @@ package azzaoui.sociadee;
 
 
 
-import android.content.res.Configuration;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
-import android.view.Gravity;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.maps.GoogleMap;
@@ -104,6 +92,12 @@ public class MainActivity extends AppCompatActivity {
         mAddPicFragment = (AddPicFragment)
                 getSupportFragmentManager().findFragmentById(R.id.addPicFragment);
         mAddPicFragment.setButtonCallback(callBackTopButton);
+        mAddPicFragment.goBackCallback = new AddPicFragment.CallBackSwitch() {
+            @Override
+            public void goBack() {
+                switchView(mProfileView);
+            }
+        };
         mPeopleProfileFragment = (PeopleProfileFragment)
                 getSupportFragmentManager().findFragmentById(R.id.peopleProfileFragment);
         mProfileFragment.setButtonCallback(callBackTopButton);
@@ -166,10 +160,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         // your code.
-        switchFragment(mLastView);
+        switchView(mLastView);
     }
 
-    private void switchFragment(final View nextView)
+    private void switchView(final View nextView)
     {
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 
@@ -287,16 +281,21 @@ public class MainActivity extends AppCompatActivity {
     public void addPicProfile(View v)
     {
         mAddPicFragment.retrievePictures();
-        switchFragment(mAddPicView);
+        switchView(mAddPicView);
+    }
+
+    public void FragmentSaveClick(View v)
+    {
+
     }
 
     public void switchMyProfile(View v)
     {
-        switchFragment(mProfileView);
+        switchView(mProfileView);
     }
     public void switchMap(View v)
     {
-        switchFragment(mMapView);
+        switchView(mMapView);
     }
     public void validatePic(View v)
     {
@@ -307,8 +306,9 @@ public class MainActivity extends AppCompatActivity {
     {
         long userId = mMapFragment.getLastUserClikedId();
         mPeopleProfileFragment.setUserID(userId);
-        switchFragment(mPeopleProfileView);
+        switchView(mPeopleProfileView);
     }
+
     public void topButtonClick(View v)
     {
         viewFragmmentMap.get(mCurrentView).onTopMenuMenuButtonClick();

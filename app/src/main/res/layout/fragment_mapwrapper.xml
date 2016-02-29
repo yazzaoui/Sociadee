@@ -65,5 +65,13 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>-->
-
+    <ImageView
+        android:layout_width="203dp"
+        android:layout_height="50dp"
+        android:layout_gravity="top|left"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo_white4"
+        />
 </FrameLayout>

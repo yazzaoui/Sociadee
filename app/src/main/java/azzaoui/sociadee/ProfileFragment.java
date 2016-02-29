@@ -24,6 +24,7 @@ import android.widget.ToggleButton;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Iterator;
 
 
 /**
@@ -120,14 +121,14 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
 
         mLocationTextView =  ((TextView)v.findViewById(R.id.locationText));
         mLocationIcon = (ImageView)v.findViewById(R.id.locationIcon);
-        ((TextView)v.findViewById(R.id.age)).setText(Parameters.getAge());
+        ((TextView)v.findViewById(R.id.profileAge)).setText(String.valueOf(Parameters.getAge()));
 
 
         GridView gridView = (GridView)v.findViewById(R.id.GridLayoutProfilePic);
         mGridShowPicAdapter = new gridShowPicAdapter(getContext());
         gridView.setAdapter(mGridShowPicAdapter);
 
-
+        setImages();
         return v;
     }
 
@@ -175,6 +176,16 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         gUI.execute();
     }
 
+    private void setImages()
+    {
+        Iterator<FacebookImage> iter = Parameters.getFacebookImages().listIterator();
+        mGridShowPicAdapter.clearItem();
+        while (iter.hasNext() ) {
+            FacebookImage im = iter.next();
+            mGridShowPicAdapter.addItem(new gridShowPicAdapter.Item(im.getId(),im.getLowResImage()));
+        }
+        mGridShowPicAdapter.notifyDataSetChanged();
+    }
 
     private class setUserInfo extends AsyncTask<Void, Void, Void> {
 

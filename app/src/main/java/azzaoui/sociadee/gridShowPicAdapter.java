@@ -20,7 +20,7 @@ public class gridShowPicAdapter  extends BaseAdapter {
     private final List<Item> mItems = new ArrayList<Item>();
     private final LayoutInflater mInflater;
 
-    public final int FACEBOOKID = 1;
+
     private BaseAdapter thisAdapter = this;
 
     public gridShowPicAdapter(Context context) {
@@ -55,16 +55,15 @@ public class gridShowPicAdapter  extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View v = view;
         ImageView picture;
-        TextView name;
         Item item = getItem(i);
 
         if (v == null) {
-            v = mInflater.inflate(R.layout.grid_addpic_item, viewGroup, false);
+            v = mInflater.inflate(R.layout.grid_showpic_item, viewGroup, false);
             v.setTag(R.id.pictureElemShowPic, v.findViewById(R.id.pictureElemShowPic));
-            v.setTag(FACEBOOKID, item.facebookId);
+            v.setTag(R.id.FACEBOOK_ID, item.facebookId);
         }
 
-        picture = (ImageView) v.getTag(R.id.pictureElemAddPic);
+        picture = (ImageView) v.getTag(R.id.pictureElemShowPic);
         //name = (TextView) v.getTag(R.id.text);
 
 
@@ -79,7 +78,7 @@ public class gridShowPicAdapter  extends BaseAdapter {
         public final long facebookId;
         public final Drawable drawable;
 
-        Item(long facebookId, Drawable drawable, boolean selected) {
+        Item(long facebookId, Drawable drawable) {
             this.facebookId = facebookId;
             this.drawable = drawable;
         }
