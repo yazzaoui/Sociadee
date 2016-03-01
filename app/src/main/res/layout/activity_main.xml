@@ -50,6 +50,12 @@
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_people_profile" />
 
+    <fragment
+        android:name="azzaoui.sociadee.AddEventFragment"
+        android:id="@+id/addEventFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_add_event" />
 
     <RelativeLayout
         android:background="#00000000"

@@ -6,11 +6,12 @@
         <item name="android:windowContentTransitions">true</item>
         <item name="android:windowNoTitle">true</item>
         <item name="android:buttonStyle">@style/AppThemeCustom.Button</item>
+
+        <!-- probleme ici pour appliquer le custom theme edit text apparement faut virer android -->
         <item name="android:editTextStyle">@style/AppThemeCustom.EditText</item>
-
-
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
 
     <style name="AppThemeCustom.Button" parent="android:Widget.Button">
         <item name="android:textColor">@color/GreyTc</item>

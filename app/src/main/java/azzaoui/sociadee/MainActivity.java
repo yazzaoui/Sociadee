@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private PeopleGridFragment mPeopleGridFragment;
     private AddPicFragment mAddPicFragment;
     private PeopleProfileFragment mPeopleProfileFragment;
+    private AddEventFragment mAddEventFragment;
 
     Map<View, SociadeeFragment> viewFragmmentMap ;
 
@@ -43,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     private View mPeopleGridView;
     private View mAddPicView;
     private View mPeopleProfileView;
+    private View mAddEventView;
+
 
     private View mCurrentView = null;
     private View mLastView =  null;
@@ -107,6 +110,9 @@ public class MainActivity extends AppCompatActivity {
         mPeopleProfileFragment = (PeopleProfileFragment)
                 getSupportFragmentManager().findFragmentById(R.id.peopleProfileFragment);
         mProfileFragment.setButtonCallback(callBackTopButton);
+        mAddEventFragment = (AddEventFragment)
+                getSupportFragmentManager().findFragmentById(R.id.addEventFragment);
+        mAddEventFragment.setButtonCallback(callBackTopButton);
 
         mProfileView = findViewById(R.id.profileFragment);
         mProfileView.setVisibility(View.VISIBLE);
@@ -139,6 +145,9 @@ public class MainActivity extends AppCompatActivity {
         mPeopleProfileView.setVisibility(View.INVISIBLE);
         viewFragmmentMap.put(mPeopleProfileView, mPeopleProfileFragment);
 
+        mAddEventView = findViewById(R.id.addEventFragment);
+        mAddEventView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mAddEventView,mAddEventFragment);
 
         /*Window window = this.getWindow();
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
@@ -322,6 +331,11 @@ public class MainActivity extends AppCompatActivity {
     {
         mMapFragment.addEventClick();
     }
+    public void acceptEventClick(View v)
+    {
+        switchView(mAddEventView);
+    }
+
 
     public void discardEventClick(View v)
     {

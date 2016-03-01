@@ -130,10 +130,9 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         gridView.setAdapter(mGridShowPicAdapter);
 
 
+        // Resize profile image to take 3/4 of total screen height
         FrameLayout layout = ( FrameLayout)v.findViewById(R.id.pictureWrapper);
-// Gets the layout params that will allow you to resize the layout
         ViewGroup.LayoutParams params = layout.getLayoutParams();
-// Changes the height and width to the specified *pixels*
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         params.height = (metrics.heightPixels *3)/4;

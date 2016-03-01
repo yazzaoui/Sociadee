@@ -1,0 +1,97 @@
+<ScrollView
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e0e0e0"
+    tools:context="azzaoui.sociadee.AddEventFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="25sp"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="10dp"
+        android:text="Création d'un event"
+        android:fontFamily="sans-serif-thin"
+        android:id="@+id/titleText"
+        android:textColor="@color/Evening" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titleText"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Titre de l'event"
+        android:id="@+id/TVtitreEvent"
+        android:textColor="@color/Evening" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:maxLines="1"
+        android:id="@+id/titreEvent"
+        android:textCursorDrawable="@null"
+        style="@style/AppThemeCustom.EditText"
+        android:hint="50 characteres maximum"
+        android:layout_below="@id/TVtitreEvent"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/titreEvent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Description de l'event"
+        android:id="@+id/TVdescriptionEvent"
+        android:textColor="@color/Evening" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:lines="3"
+        android:minLines="3"
+        android:textCursorDrawable="@null"
+        style="@style/AppThemeCustom.EditText"
+        android:layout_marginTop="10dp"
+        android:id="@+id/descriptionEvent"
+        android:layout_below="@id/TVdescriptionEvent"
+         />
+    <DatePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/datePicker"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/descriptionEvent"
+        />
+
+    <TimePicker
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/timePicker"
+        android:layout_below="@id/datePicker"
+        android:layout_centerHorizontal="true"
+        android:timePickerMode="spinner"
+        android:layout_marginTop="10dp" />
+
+<Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Valider"
+    android:layout_below="@id/timePicker"
+    android:layout_centerHorizontal="true"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="10dp"
+    />
+
+</RelativeLayout>
+</ScrollView>
