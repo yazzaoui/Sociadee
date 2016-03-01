@@ -9,7 +9,7 @@
     android:background="#e0e0e0"
     tools:context="azzaoui.sociadee.AddEventFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,7 +36,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:maxLines="1"
         android:id="@+id/titreEvent"
         android:textCursorDrawable="@null"
@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/titreEvent"
         android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="13dp"
         android:fontFamily="sans-serif-thin"
         android:text="Description de l'event"
         android:id="@+id/TVdescriptionEvent"
@@ -57,41 +57,81 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:lines="3"
-        android:minLines="3"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:minLines="4"
         android:textCursorDrawable="@null"
         style="@style/AppThemeCustom.EditText"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="7dp"
         android:id="@+id/descriptionEvent"
         android:layout_below="@id/TVdescriptionEvent"
          />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/descriptionEvent"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="13dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Date"
+        android:id="@+id/TVDate"
+        android:textColor="@color/Evening" />
+
     <DatePicker
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/datePicker"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
-        android:layout_below="@id/descriptionEvent"
+        android:background="@color/EveningtR"
+        android:layout_below="@id/TVDate"
         />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/datePicker"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="13dp"
+        android:fontFamily="sans-serif-thin"
+        android:text="Heure"
+        android:id="@+id/TVHeure"
+        android:textColor="@color/Evening" />
 
     <TimePicker
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/timePicker"
-        android:layout_below="@id/datePicker"
+        android:background="@color/EveningtR"
+        android:layout_below="@id/TVHeure"
         android:layout_centerHorizontal="true"
         android:timePickerMode="spinner"
         android:layout_marginTop="10dp" />
 
-<Button
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Valider"
-    android:layout_below="@id/timePicker"
-    android:layout_centerHorizontal="true"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="10dp"
-    />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Annuler"
+        android:layout_marginTop="10dp"
+        android:id="@+id/cancelButton"
+        android:layout_below="@id/timePicker"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Valider"
+        android:layout_below="@id/cancelButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
+        />
 
 </RelativeLayout>
 </ScrollView>

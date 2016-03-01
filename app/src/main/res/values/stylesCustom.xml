@@ -9,14 +9,23 @@
 
         <!-- probleme ici pour appliquer le custom theme edit text apparement faut virer android -->
         <item name="android:editTextStyle">@style/AppThemeCustom.EditText</item>
+        <item name="android:datePickerStyle">@style/datepicker</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-
+    <style name="datepicker" parent="android:Widget.DatePicker">
+        <item name="android:textColorPrimary">@color/Evening</item>
+        <item name="android:textColor">@color/Evening</item>
+        <item name="android:colorBackground">@color/Evening</item>
+    </style>
     <style name="AppThemeCustom.Button" parent="android:Widget.Button">
         <item name="android:textColor">@color/GreyTc</item>
         <item name="android:fontFamily">sans-serif-thin</item>
         <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">100dp</item>
+        <item name="android:paddingRight">100dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
         <item name="android:background">@drawable/buttonshape</item>
     </style>
 

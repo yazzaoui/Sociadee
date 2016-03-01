@@ -8,6 +8,8 @@ import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 
 
 /**
@@ -15,6 +17,9 @@ import android.view.ViewGroup;
  */
 public class AddEventFragment extends Fragment implements SociadeeFragment {
 
+
+    TimePicker mTimePicker;
+    DatePicker mDatePicker;
 
     public AddEventFragment() {
         // Required empty public constructor
@@ -31,6 +36,11 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
         LayoutInflater localInflater = inflater.cloneInContext(contextThemeWrapper);
         //inflater sinon a la place du local
         View v = localInflater.inflate(R.layout.fragment_add_event, container, false);
+
+        mTimePicker = (TimePicker)v.findViewById(R.id.timePicker);
+        mDatePicker = (DatePicker)v.findViewById(R.id.datePicker);
+
+        mTimePicker.setIs24HourView(true);
         return v;
     }
 
