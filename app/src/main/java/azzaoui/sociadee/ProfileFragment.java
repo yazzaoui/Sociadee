@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -127,6 +128,16 @@ public class ProfileFragment extends Fragment implements SociadeeFragment {
         GridView gridView = (GridView)v.findViewById(R.id.GridLayoutProfilePic);
         mGridShowPicAdapter = new gridShowPicAdapter(getContext());
         gridView.setAdapter(mGridShowPicAdapter);
+
+
+        FrameLayout layout = ( FrameLayout)v.findViewById(R.id.pictureWrapper);
+// Gets the layout params that will allow you to resize the layout
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+// Changes the height and width to the specified *pixels*
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        params.height = (metrics.heightPixels *3)/4;
+
 
         setImages();
         return v;
