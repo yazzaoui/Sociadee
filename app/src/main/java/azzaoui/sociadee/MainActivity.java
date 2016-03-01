@@ -2,6 +2,7 @@ package azzaoui.sociadee;
 
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.maps.GoogleMap;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
     private View mCurrentView = null;
     private View mLastView =  null;
 
+    //used by picture activty
+    // yes ugly but picture activity is not modifying the pictures
+    public static PictureList pictureList;
 
 
     @Override
@@ -287,6 +292,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void FragmentSaveClick(View v)
     {
+
+    }
+
+    public void showPic(View v)
+    {
+        int num = (int)v.getTag(R.integer.ITEM_NUM);
+        Intent intent = new Intent(this, PictureActivity.class);
+        pictureList = new PictureList(Parameters.getFacebookImages());
+        intent.putExtra("ITEM_NUM",num);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in2, R.anim.fade_out2);
 
     }
 

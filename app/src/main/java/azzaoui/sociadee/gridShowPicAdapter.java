@@ -60,9 +60,10 @@ public class gridShowPicAdapter  extends BaseAdapter {
         if (v == null) {
             v = mInflater.inflate(R.layout.grid_showpic_item, viewGroup, false);
             v.setTag(R.id.pictureElemShowPic, v.findViewById(R.id.pictureElemShowPic));
-            v.setTag(R.id.FACEBOOK_ID, item.facebookId);
-        }
 
+        }
+        v.setTag(R.id.FACEBOOK_ID, item.facebookId);
+        v.setTag(R.integer.ITEM_NUM,i);
         picture = (ImageView) v.getTag(R.id.pictureElemShowPic);
         //name = (TextView) v.getTag(R.id.text);
 

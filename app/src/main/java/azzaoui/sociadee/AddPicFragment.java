@@ -87,7 +87,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
     {
         ImageView isAdded = (ImageView) v.getTag(R.id.validatedPic);
         long imId = (long) v.getTag(R.id.FACEBOOK_ID);
-        printLogList();
+        //printLogList();
         if(isAdded.getVisibility() == View.VISIBLE)
         {
             isAdded.setVisibility(View.INVISIBLE);
@@ -98,7 +98,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
             SelectedPic.add(imId);
             isAdded.setVisibility(View.VISIBLE );
         }
-        printLogList();
+        //printLogList();
         if(!mSaveButton)
             showSaveButton();
     }

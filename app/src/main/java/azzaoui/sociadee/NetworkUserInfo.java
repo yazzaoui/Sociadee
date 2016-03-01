@@ -24,6 +24,7 @@ public class NetworkUserInfo extends NetworkBase {
     private boolean mAvailable = false;
     private String mCity = null;
     private LinkedList<myImage> imFbList;
+    private Bitmap lastPicture;
 
     public NetworkUserInfo() {
         super();
@@ -103,6 +104,18 @@ public class NetworkUserInfo extends NetworkBase {
         }
     }
 
+    public Boolean fetchPicture(long id) throws IOException, JSONException {
+        String toSend = "/gethdpicture";
+        String postData = "id=" + id;
+        JSONObject response = sendPOSTRequest(toSend,postData,true);
+        if (response == null) {
+            return false;
+        } else {
+            String data = response.getString("data");
+            lastPicture = decodeBase64(data);
+            return true;
+        }
+    }
     public LinkedList<myImage> getMyImages()
     {
         return imFbList;
@@ -129,4 +142,7 @@ public class NetworkUserInfo extends NetworkBase {
     }
 
 
+    public Bitmap getLastPicture() {
+        return lastPicture;
+    }
 }
