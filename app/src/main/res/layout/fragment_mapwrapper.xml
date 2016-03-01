@@ -65,6 +65,7 @@
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>-->
+
     <ImageView
         android:layout_width="203dp"
         android:layout_height="50dp"
@@ -72,6 +73,65 @@
         android:layout_marginTop="30dp"
         android:layout_marginLeft="0dp"
         android:scaleType="fitXY"
-        android:src="@drawable/logo_white4"
+        android:src="@drawable/logo_white4" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginBottom="18dp"
+        android:src="@drawable/flag"
+        android:id="@+id/flagEve"
+        android:visibility="invisible"
+        android:layout_gravity="center_vertical|center_horizontal" />
+
+
+    <ImageView
+        android:layout_width="4dp"
+        android:layout_height="4dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/point"
+        android:id="@+id/pointEve"
+        android:visibility="invisible"
+        android:layout_gravity="center_vertical|center_horizontal" />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/add_event"
+        android:id="@+id/addEventButton"
+        android:scaleType="fitXY"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="top|right"
+        android:onClick="addEventClick"
+        />
+
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/check"
+        android:id="@+id/acceptEventButton"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="top|right"
+        android:onClick="acceptEventClick"
+        />
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/cancel"
+        android:id="@+id/discardEventButton"
+        android:paddingBottom="15dp"
+        android:paddingTop="15dp"
+        android:scaleType="centerInside"
+        android:visibility="invisible"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="70dp"
+        android:layout_gravity="top|right"
+        android:onClick="discardEventClick"
         />
 </FrameLayout>

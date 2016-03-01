@@ -318,6 +318,15 @@ public class MainActivity extends AppCompatActivity {
     {
         mAddPicFragment.validatePic(v);
     }
+    public void addEventClick(View v)
+    {
+        mMapFragment.addEventClick();
+    }
+
+    public void discardEventClick(View v)
+    {
+        mMapFragment.discardEventCreation();
+    }
 
     public void marMarkerClick(View v)
     {

@@ -26,10 +26,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 
 import com.google.android.gms.common.ConnectionResult;
@@ -74,8 +72,16 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     private long lastUserClikedId = 0;
     private boolean firstAnimate = true;
 
+
     private Map<Long,UserMap> userList;
     private Map<Marker,Long> markerLongMap;
+
+    private boolean mFlagVisible = false;
+    private ImageView mFlagImage;
+    private ImageView mPointImage;
+    private ImageButton mAddEventButton;
+    private ImageButton mAcceptEventButton;
+    private ImageButton mDiscardEventButton;
 
     public MapWrapperFragment() {
         // Required empty public constructor
@@ -89,6 +95,13 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
         View v =  inflater.inflate(R.layout.fragment_mapwrapper, container, false);
         mUserButton = (ImageButton)v.findViewById(R.id.mapUserButton);
         mChatButton = (ImageButton)v.findViewById(R.id.mapChatButton);
+        mFlagImage = (ImageView)v.findViewById(R.id.flagEve);
+        mPointImage = (ImageView)v.findViewById(R.id.pointEve);
+        mAddEventButton = (ImageButton)v.findViewById(R.id.addEventButton);
+        mAcceptEventButton = (ImageButton)v.findViewById(R.id.acceptEventButton);
+        mDiscardEventButton = (ImageButton)v.findViewById(R.id.discardEventButton);
+
+
         scheduler = Executors.newScheduledThreadPool(1);
         networkGPS = new NetworkGPS();
 
@@ -435,6 +448,141 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     @Override
     public void onTopMenuMenuButtonClick() {
 
+    }
+
+
+    public void addEventClick()
+    {
+        mFlagVisible = true;
+        Animation showFlagAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.flag_anim);
+        showFlagAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                mFlagImage.setVisibility(View.VISIBLE);
+                mPointImage.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+
+            }
+        });
+        showFlagAnim.setRepeatCount(-1);
+        showFlagAnim.setRepeatMode(2);
+        mFlagImage.startAnimation(showFlagAnim);
+
+        final Animation hideButtonAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out);
+        hideButtonAnim.setFillAfter(false);
+        hideButtonAnim.setAnimationListener(new Animation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+
+                mAddEventButton.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        mAddEventButton.startAnimation(hideButtonAnim);
+
+
+        final Animation showButtonAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.top_button_fadein);
+
+        showButtonAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+                mDiscardEventButton.setVisibility(View.VISIBLE);
+                mAcceptEventButton.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        mDiscardEventButton.startAnimation(showButtonAnim);
+        mAcceptEventButton.startAnimation(showButtonAnim);
+    }
+
+    public void discardEventCreation()
+    {
+        mFlagVisible = false;
+        Animation hideFlagAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out);
+        hideFlagAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+                mFlagImage.setVisibility(View.INVISIBLE);
+                mPointImage.setVisibility(View.INVISIBLE);
+            }
+        });
+        mFlagImage.startAnimation(hideFlagAnim);
+
+        final Animation hideButtonAnim = AnimationUtils.loadAnimation(getActivity(),R.anim.fade_out);
+        hideButtonAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+                mDiscardEventButton.setVisibility(View.INVISIBLE);
+                mAcceptEventButton.setVisibility(View.INVISIBLE);
+
+            }
+        });
+        mDiscardEventButton.startAnimation(hideButtonAnim);
+        mAcceptEventButton.startAnimation(hideButtonAnim);
+
+        final Animation showButtonAnim = AnimationUtils.loadAnimation(getActivity(), R.anim.top_button_fadein);
+
+        showButtonAnim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation anim) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation anim) {
+                mAddEventButton.setVisibility(View.VISIBLE);
+            }
+        });
+
+        mAddEventButton.startAnimation(showButtonAnim);
     }
 
     public long getLastUserClikedId() {
