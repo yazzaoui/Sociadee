@@ -106,11 +106,14 @@ public class PictureActivity extends AppCompatActivity {
             super.onPostExecute(params);
             if(noError)
             {
-                Drawable newD = new BitmapDrawable(getResources(),mNetworkUserInfo.getLastPicture());
-                drawablePic[pos] =  newD;
-                mAdapter.mImageViews[pos].setImageDrawable(newD);
-                mAdapter.updateResource(newD,pos);
-                mAdapter.notifyDataSetChanged();
+
+                Drawable newD = new BitmapDrawable(getResources(), mNetworkUserInfo.getLastPicture());
+                drawablePic[pos] = newD;
+                if( mAdapter.mImageViews[pos] != null) {
+                    mAdapter.mImageViews[pos].setImageDrawable(newD);
+                    mAdapter.updateResource(newD, pos);
+                    mAdapter.notifyDataSetChanged();
+                }
 
             }
             // fadeStuffIn();
