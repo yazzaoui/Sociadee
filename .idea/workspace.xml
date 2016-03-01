@@ -4196,7 +4196,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
     <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32814237" sideWeight="0.48931623" order="6" side_tool="false" content_ui="tabs" />
@@ -4263,7 +4263,8 @@
     <MESSAGE value="work on addpic fragment" />
     <MESSAGE value="debuguage addpic fragment" />
     <MESSAGE value="bug sollved addpic should be fully working !" />
-    <option name="LAST_COMMIT_MESSAGE" value="bug sollved addpic should be fully working !" />
+    <MESSAGE value="gallerie photo marche !" />
+    <option name="LAST_COMMIT_MESSAGE" value="gallerie photo marche !" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
