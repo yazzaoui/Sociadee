@@ -2,6 +2,7 @@ package azzaoui.sociadee;
 
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -16,6 +17,8 @@ import android.widget.ImageButton;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.android.gms.maps.GoogleMap;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
@@ -327,6 +330,7 @@ public class MainActivity extends AppCompatActivity {
     {
         mAddPicFragment.validatePic(v);
     }
+
     public void addEventClick(View v)
     {
         mMapFragment.addEventClick();
@@ -335,13 +339,27 @@ public class MainActivity extends AppCompatActivity {
     {
         switchView(mAddEventView);
     }
-
-
     public void discardEventClick(View v)
     {
         mMapFragment.discardEventCreation();
     }
-
+    public void pickPictureEvent(View v) {mAddEventFragment.pickPicture();}
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1337 && resultCode == Activity.RESULT_OK) {
+            if (data == null) {
+                //Display an error
+                return;
+            }
+            try {
+                InputStream inputStream = this.getContentResolver().openInputStream(data.getData());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+            //Now you can do whatever you want with your inpustream, save it as file, upload to a server, decode a bitmap...
+        }
+    }
     public void marMarkerClick(View v)
     {
         long userId = mMapFragment.getLastUserClikedId();

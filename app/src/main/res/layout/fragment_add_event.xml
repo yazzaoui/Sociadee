@@ -107,20 +107,42 @@
         android:layout_centerHorizontal="true"
         android:timePickerMode="spinner"
         android:layout_marginTop="10dp" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Choisir une image \r\n(Optionnel ..ou pas)"
+        android:layout_marginTop="15dp"
+        android:textSize="15sp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
+        android:id="@+id/pickPictureButton"
+        android:layout_below="@id/timePicker"
+        android:layout_centerHorizontal="true"
+        android:onClick="pickPictureEvent"
+        />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/Evening"
+        android:layout_below="@id/pickPictureButton"
+        android:layout_centerHorizontal="true"
+        />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Annuler"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:id="@+id/cancelButton"
-        android:layout_below="@id/timePicker"
+        android:layout_below="@id/pickPictureButton"
         android:layout_centerHorizontal="true"
-        android:paddingLeft="60dp"
-        android:paddingRight="60dp"
+        android:textSize="15sp"
+        android:paddingLeft="40dp"
+        android:paddingRight="40dp"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"
-        android:layout_marginBottom="10dp"
         />
 
     <Button
@@ -129,7 +151,7 @@
         android:text="Valider"
         android:layout_below="@id/cancelButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
         />
 

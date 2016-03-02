@@ -2,6 +2,7 @@ package azzaoui.sociadee;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
@@ -44,6 +45,13 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
         return v;
     }
 
+    public void pickPicture()
+    {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1337);
+    }
     @Override
     public void setButtonCallback(MainActivity.CallBackTopButton myCallback) {
 
