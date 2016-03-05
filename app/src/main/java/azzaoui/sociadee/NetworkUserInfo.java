@@ -25,6 +25,8 @@ public class NetworkUserInfo extends NetworkBase {
     private String mCity = null;
     private LinkedList<myImage> imFbList;
     private Bitmap lastPicture;
+    private int mAge;
+    private LinkedList<myImage> mImageList;
 
     public NetworkUserInfo() {
         super();
@@ -65,7 +67,20 @@ public class NetworkUserInfo extends NetworkBase {
             mFirstname =  response.getString("firstname");
             mAvailable =  response.getBoolean("available");
             mCity = response.getString("city");
+            mAge = response.getInt("age");
             mAboutme = response.getString("aboutMe");
+
+            JSONArray imageList = response.getJSONArray("images");
+            mImageList = new LinkedList<>();
+            for(int i = 0; i < imageList.length(); i++)
+            {
+                JSONObject imJ = imageList.getJSONObject(i);
+                long imId =  imJ.getLong("id");
+                Bitmap imBmp = decodeBase64(imJ.getString("data"));
+                myImage curImage = new myImage(imId,imBmp);
+                mImageList.add(curImage);
+
+            }
             return true;
         }
     }
@@ -141,8 +156,13 @@ public class NetworkUserInfo extends NetworkBase {
         return mCity;
     }
 
+    public LinkedList<myImage> getUserImages(){ return mImageList;}
 
     public Bitmap getLastPicture() {
         return lastPicture;
+    }
+
+    public int getmAge() {
+        return mAge;
     }
 }

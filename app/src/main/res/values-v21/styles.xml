@@ -7,6 +7,7 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:buttonStyle">@style/AppThemeCustom.Button</item>
 
+
         <!-- probleme ici pour appliquer le custom theme edit text apparement faut virer android -->
         <item name="android:editTextStyle">@style/AppThemeCustom.EditText</item>
         <item name="android:datePickerStyle">@style/datepicker</item>
@@ -37,7 +38,14 @@
 
     <style name="AppTheme.Button2" parent="Base.Widget.AppCompat.Button.Borderless.Colored">
         <item name="android:colorButtonNormal">@color/Evening</item>
+        <item name="android:colorAccent">@color/Helio</item>
+        <item name="android:windowBackground">@color/Helio</item>
+        <item name="colorPrimary">@color/Helio</item>
+        <item name="colorPrimaryDark">@color/Helio</item>
         <item name="colorAccent">@color/Helio</item>
+        <item name="colorButtonNormal">@color/Helio</item>
+        <item name="colorControlHighlight">@color/Helio</item>
+        <item name="android:colorBackground">@color/Evening</item>
     </style>
     <!-- Shadow effect
             android:shadowColor="#A8A8A8"

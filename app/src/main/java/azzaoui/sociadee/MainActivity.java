@@ -311,7 +311,12 @@ public class MainActivity extends AppCompatActivity {
     {
         int num = (int)v.getTag(R.integer.ITEM_NUM);
         Intent intent = new Intent(this, PictureActivity.class);
-        pictureList = new PictureList(Parameters.getFacebookImages());
+        if(mCurrentView == mPeopleProfileView) {
+           pictureList = new PictureList(mPeopleProfileFragment.getFacebookImages());
+        }
+        else
+            pictureList = new PictureList(Parameters.getFacebookImages());
+
         intent.putExtra("ITEM_NUM",num);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in2, R.anim.fade_out2);

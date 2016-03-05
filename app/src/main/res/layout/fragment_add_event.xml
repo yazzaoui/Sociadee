@@ -148,7 +148,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valider"
+        android:text="Valider\r\nmarche pas encore :'("
         android:layout_below="@id/cancelButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"

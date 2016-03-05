@@ -84,7 +84,7 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:background="#00000000"
+        android:background="@color/Evening"
         android:padding="0dp"
         android:layout_weight = "0"
         android:layout_width="match_parent"
@@ -102,7 +102,8 @@
             android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:src="@drawable/menu_profileb" />
-
+        //A regler un jour
+        <!--android:theme="@style/AppTheme.Button2" -->
         <ImageButton
             android:id="@+id/barMenuButton2"
             android:layout_width="0dp"

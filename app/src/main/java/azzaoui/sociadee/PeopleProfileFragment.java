@@ -5,18 +5,24 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedList;
 
 
 /**
@@ -24,23 +30,24 @@ import java.io.IOException;
  */
 public class PeopleProfileFragment extends Fragment implements SociadeeFragment {
 
-    private NetworkUserInfo mNetworkUserInfo;
+
 
     private TextView mAvailability;
     private TextView mCity;
     private TextView mAboutme;
+    private TextView mAge;
     private TextView mFirstname;
     private ImageView mProfilePicture;
-
-    private RelativeLayout infoLayout;
-
-    private  ImageView spiner;
+    private gridShowPicAdapter mGridShowPicAdapter;
+    private LinearLayout infoLayout;
+    private LinkedList<FacebookImage> facebookImages ;
+    private ImageView spiner;
     private long userID = 0;
 
 
     public PeopleProfileFragment() {
         // Required empty public constructor
-        mNetworkUserInfo = new NetworkUserInfo();
+
     }
 
 
@@ -55,7 +62,20 @@ public class PeopleProfileFragment extends Fragment implements SociadeeFragment 
         mFirstname = (TextView)v.findViewById(R.id.textName);
         mProfilePicture = (ImageView)v.findViewById(R.id.profilePicture);
         spiner  = (ImageView) v.findViewById(R.id.progressBar);
-        infoLayout = (RelativeLayout) v.findViewById(R.id.infoGroup);
+        mAge = (TextView)v.findViewById(R.id.profileAge);
+        infoLayout = (LinearLayout) v.findViewById(R.id.infoView);
+
+
+        GridView gridView = (GridView)v.findViewById(R.id.GridLayoutProfilePic);
+        mGridShowPicAdapter = new gridShowPicAdapter(getContext());
+        gridView.setAdapter(mGridShowPicAdapter);
+
+
+        FrameLayout layout = ( FrameLayout)v.findViewById(R.id.pictureWrapper);
+        ViewGroup.LayoutParams params = layout.getLayoutParams();
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        params.height = (metrics.heightPixels *3)/4;
 
         return v;
     }
@@ -104,13 +124,13 @@ public class PeopleProfileFragment extends Fragment implements SociadeeFragment 
 
 
 
-        Animation spinAnim2 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in2);
+        Animation spinAnim2 = AnimationUtils.loadAnimation(getActivity(), R.anim.fade_in);
 
         spinAnim2.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
             public void onAnimationStart(Animation animation) {
-                infoLayout.setVisibility(View.VISIBLE);
+
             }
 
             @Override
@@ -119,6 +139,7 @@ public class PeopleProfileFragment extends Fragment implements SociadeeFragment 
 
             @Override
             public void onAnimationEnd(Animation anim) {
+                infoLayout.setVisibility(View.VISIBLE);
             }
         });
         infoLayout.startAnimation(spinAnim2);
@@ -156,11 +177,16 @@ public class PeopleProfileFragment extends Fragment implements SociadeeFragment 
         this.userID = userID;
     }
 
-    private class getUserInfo extends AsyncTask<Void, Void, Void> {
+    public LinkedList<FacebookImage> getFacebookImages() {
+        return facebookImages;
+    }
 
+    private class getUserInfo extends AsyncTask<Void, Void, Void> {
+        private NetworkUserInfo mNetworkUserInfo;
         @Override
         protected void onPreExecute()
         {
+            mNetworkUserInfo = new NetworkUserInfo();
             spinAnimate();
         }
 
@@ -192,7 +218,24 @@ public class PeopleProfileFragment extends Fragment implements SociadeeFragment 
             mAboutme.setText(mNetworkUserInfo.getmAboutme());
             mFirstname.setText(mNetworkUserInfo.getmFirstname());
             mCity.setText(mNetworkUserInfo.getmCity());
-            mProfilePicture.setImageBitmap(mNetworkUserInfo.getmUserpicture());
+            mAge.setText(String.valueOf(mNetworkUserInfo.getmAge()));
+
+
+            mProfilePicture.setImageDrawable(new BitmapDrawable(getResources(),mNetworkUserInfo.getmUserpicture()));
+            mProfilePicture.invalidate();
+
+            Iterator<NetworkLogin.myImage> iter = mNetworkUserInfo.getUserImages().listIterator();
+            facebookImages = new LinkedList<>();
+            mGridShowPicAdapter.clearItem();
+            while (iter.hasNext() ) {
+                NetworkLogin.myImage im = iter.next();
+                FacebookImage fm = new FacebookImage(im.id,new BitmapDrawable(getResources(), im.im));
+                facebookImages.add(fm);
+                mGridShowPicAdapter.addItem(new gridShowPicAdapter.Item(fm.getId(),fm.getLowResImage()));
+            }
+            mGridShowPicAdapter.notifyDataSetChanged();
+
+
             spinStopAnimation();
            // fadeStuffIn();
         }
