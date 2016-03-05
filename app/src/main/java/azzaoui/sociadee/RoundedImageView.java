@@ -14,6 +14,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.os.Build;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.widget.ImageView;
 
 
@@ -38,7 +39,7 @@ public class RoundedImageView extends ImageView {
 
     @Override
     protected void onDraw(Canvas canvas) {
-
+        Log.d("ONDRAW", "onDraw called ");
         Drawable drawable = getDrawable();
 
         if (drawable == null) {
