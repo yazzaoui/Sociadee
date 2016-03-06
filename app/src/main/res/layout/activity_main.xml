@@ -63,21 +63,17 @@
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
-
-
-
-        <ImageButton
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:visibility="invisible"
-            android:src="@drawable/saveicon"
-            android:id="@+id/topMenuButton1"
-            android:scaleType="fitXY"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"
-            android:onClick="topButtonClick"
-            />
+    <ImageButton
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:visibility="invisible"
+        android:src="@drawable/saveicon"
+        android:id="@+id/topMenuButton1"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:onClick="topButtonClick" />
 
     </RelativeLayout>
 </FrameLayout>
