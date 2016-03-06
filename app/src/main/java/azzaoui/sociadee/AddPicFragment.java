@@ -39,7 +39,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
     private gridAddPicAdapter mGridAddPicAdapter;
     private LinkedList<Long> SelectedPic ;
-    private final int PicNumbers = 4 ; // 4 * 7
+    private final int PicNumbers = 200 ; // 4 * 7
     private int mCurrentNumber = 0;
     private int mDownloadedNumber = 0;
     private JSONArray imageArrayId;
@@ -171,21 +171,28 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
         parameters.putString("fields", "images");
         new GraphRequest(
                 AccessToken.getCurrentAccessToken(),
-                "/"+id,
+                "/"+String.valueOf(id),
                 parameters,
                 HttpMethod.GET,
                 new GraphRequest.Callback() {
                     public void onCompleted(GraphResponse response) {
-                        JSONObject firstResponse = response.getJSONObject();
+
                         try {
-                            JSONArray imagesIds = firstResponse.getJSONArray("images");
-                            String imageUrl = imagesIds.getJSONObject(imagesIds.length()-1).getString("source");
-                            URL image_value = new URL(imageUrl);
-                            Drawable newPic = Drawable.createFromStream(image_value.openConnection().getInputStream(), "blah");
-                            Log.d("ADDPIC", "Fetched " + id);
-                            mGridAddPicAdapter.addItem(new gridAddPicAdapter.Item(id, newPic,isSelected(id)));
-                            mGridAddPicAdapter.notifyDataSetChanged();
-                            addedPic();
+                            JSONObject firstResponse = response.getJSONObject();
+                            if(firstResponse != null) {
+                                JSONArray imagesIds = firstResponse.getJSONArray("images");
+                                String imageUrl = imagesIds.getJSONObject(imagesIds.length() - 1).getString("source");
+                                URL image_value = new URL(imageUrl);
+                                Drawable newPic = Drawable.createFromStream(image_value.openConnection().getInputStream(), "blah");
+                                Log.d("ADDPIC", "Fetched " + id);
+                                mGridAddPicAdapter.addItem(new gridAddPicAdapter.Item(id, newPic, isSelected(id)));
+                                mGridAddPicAdapter.notifyDataSetChanged();
+                                addedPic();
+                            }
+                            else {
+                                Log.d("graph", "GRAPH BUG " + id);
+                                addedPic();
+                            }
 
                         } catch (JSONException e) {
                             e.printStackTrace();
