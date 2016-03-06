@@ -32,11 +32,11 @@
         android:layout_height="fill_parent"
         tools:layout="@layout/fragment_people_grid" />
     <fragment
-        android:name="azzaoui.sociadee.GroupChatFragment"
+        android:name="azzaoui.sociadee.MainChatFragment"
         android:id="@+id/groupChatFragment"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        tools:layout="@layout/fragment_group_chat" />
+        tools:layout="@layout/fragment_main_chat" />
     <fragment
         android:name="azzaoui.sociadee.AddPicFragment"
         android:id="@+id/addPicFragment"
@@ -113,6 +113,7 @@
             android:paddingTop="25dp"
             android:paddingBottom="25dp"
             android:scaleType="centerInside"
+            android:onClick="switchChat"
             android:src="@drawable/menu_chatb"  />
         <ImageButton
             android:id="@+id/barMenuButton3"

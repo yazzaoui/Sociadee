@@ -20,7 +20,6 @@ import com.google.android.gms.maps.GoogleMap;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 
@@ -33,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ProfileFragment mProfileFragment;
     private MapWrapperFragment mMapFragment;
-    private GroupChatFragment mGroupChatFragment;
+    private MainChatFragment mMainChatFragment;
     private PeopleGridFragment mPeopleGridFragment;
     private AddPicFragment mAddPicFragment;
     private PeopleProfileFragment mPeopleProfileFragment;
@@ -43,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private View mProfileView;
     private View mMapView;
-    private View mGroupChatView;
+    private View mMainChatView;
     private View mPeopleGridView;
     private View mAddPicView;
     private View mPeopleProfileView;
@@ -94,9 +93,9 @@ public class MainActivity extends AppCompatActivity {
         mMapFragment = (MapWrapperFragment)
                 getSupportFragmentManager().findFragmentById(R.id.mapFragment);
         mMapFragment.setButtonCallback(callBackTopButton);
-        mGroupChatFragment = (GroupChatFragment)
+        mMainChatFragment = (MainChatFragment)
                 getSupportFragmentManager().findFragmentById(R.id.groupChatFragment);
-        mGroupChatFragment.setButtonCallback(callBackTopButton);
+        mMainChatFragment.setButtonCallback(callBackTopButton);
         mPeopleGridFragment = (PeopleGridFragment)
                 getSupportFragmentManager().findFragmentById(R.id.peopleGridFragment);
         mPeopleGridFragment.setButtonCallback(callBackTopButton);
@@ -132,9 +131,9 @@ public class MainActivity extends AppCompatActivity {
         mMapView.setVisibility(View.INVISIBLE);
         viewFragmmentMap.put(mMapView, mMapFragment);
 
-        mGroupChatView = findViewById(R.id.groupChatFragment);
-        mGroupChatView.setVisibility(View.INVISIBLE);
-        viewFragmmentMap.put(mGroupChatView, mGroupChatFragment);
+        mMainChatView = findViewById(R.id.groupChatFragment);
+        mMainChatView.setVisibility(View.INVISIBLE);
+        viewFragmmentMap.put(mMainChatView, mMainChatFragment);
 
         mPeopleGridView = findViewById(R.id.peopleGridFragment);
         mPeopleGridView.setVisibility(View.INVISIBLE);
@@ -183,6 +182,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void switchView(final View nextView)
     {
+        if(nextView == mCurrentView)
+            return;
+
         Animation fadeOutAnimation = AnimationUtils.loadAnimation(this, R.anim.fade_out);
 
         /** To avoid race conditions **/
@@ -331,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
     {
         switchView(mMapView);
     }
+    public void switchChat(View v){ switchView(mMainChatView);}
     public void validatePic(View v)
     {
         mAddPicFragment.validatePic(v);
