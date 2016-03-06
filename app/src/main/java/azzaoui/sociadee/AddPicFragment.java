@@ -39,7 +39,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
     private gridAddPicAdapter mGridAddPicAdapter;
     private LinkedList<Long> SelectedPic ;
-    private final int PicNumbers = 200 ; // 4 * 7
+    private final int PicNumbers = 20 ; // 4 * 7
     private int mCurrentNumber = 0;
     private int mDownloadedNumber = 0;
     private JSONArray imageArrayId;
@@ -189,7 +189,6 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-
                         } catch (MalformedURLException e) {
                             e.printStackTrace();
                         } catch (IOException e) {
