@@ -39,7 +39,7 @@ public class AddPicFragment extends Fragment implements SociadeeFragment {
 
     private gridAddPicAdapter mGridAddPicAdapter;
     private LinkedList<Long> SelectedPic ;
-    private final int PicNumbers = 20 ; // 4 * 7
+    private final int PicNumbers = 4 ; // 4 * 7
     private int mCurrentNumber = 0;
     private int mDownloadedNumber = 0;
     private JSONArray imageArrayId;
