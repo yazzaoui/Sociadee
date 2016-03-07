@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 
 
@@ -21,6 +22,7 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
 
     TimePicker mTimePicker;
     DatePicker mDatePicker;
+    TextView mTVLocalisation;
 
     public AddEventFragment() {
         // Required empty public constructor
@@ -40,11 +42,15 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
 
         mTimePicker = (TimePicker)v.findViewById(R.id.timePicker);
         mDatePicker = (DatePicker)v.findViewById(R.id.datePicker);
-
+        mTVLocalisation = (TextView) v.findViewById(R.id.localText);
         mTimePicker.setIs24HourView(true);
         return v;
     }
 
+    public void setLocation(String loc)
+    {
+        mTVLocalisation.setText(loc);
+    }
     public void pickPicture()
     {
         Intent intent = new Intent();

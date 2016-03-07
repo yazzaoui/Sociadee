@@ -69,10 +69,24 @@
                     android:textColor="#ffffff"
                     android:layout_marginLeft="10dp"
                     android:layout_height="wrap_content"
+                    android:id="@+id/name"
+                    android:textSize="10sp"
                     android:fontFamily="sans-serif-thin"
                     android:layout_toRightOf="@id/profileUser"
                     android:background="#00000000"
-                    android:text="BlaBla BlavBla BlaBlaBlaBla BlaBla BlaBlaBlaBla BlaBlaBla BlaBlaBla BlaBla"
+                    android:text="xX_KILLER_Xx"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="#ffffff"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-thin"
+                    android:layout_below="@id/name"
+                    android:layout_toRightOf="@id/profileUser"
+                    android:background="#00000000"
+                    android:text="BlaBla BlavBla BlaBlaBlaBla BlaBla BlaBlaBlaBla BlaBlaBla "
                     />
             </RelativeLayout>
 

@@ -17,15 +17,28 @@
         android:textSize="25sp"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="10dp"
-        android:text="Création d'un event"
+        android:text="- Création d'un event -"
         android:fontFamily="sans-serif-thin"
         android:id="@+id/titleText"
         android:textColor="@color/Evening" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="17sp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/titleText"
+        android:text="Localisation"
+        android:fontFamily="sans-serif-thin"
+        android:id="@+id/localText"
+        android:textColor="@color/Evening" />
+
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/titleText"
+        android:layout_below="@id/localText"
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
         android:fontFamily="sans-serif-thin"
@@ -78,48 +91,73 @@
         android:id="@+id/TVDate"
         android:textColor="@color/Evening" />
 
-    <DatePicker
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/datePicker"
         android:layout_centerHorizontal="true"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:background="@color/EveningtR"
-        android:layout_below="@id/TVDate"
-        />
+        android:layout_marginTop="-20dp"
+        android:id="@+id/WdatePicker"
+        android:layout_below="@id/TVDate">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="30dp"
+            android:layout_height="match_parent"
+            android:background="@color/EveningtR"/>
+        <DatePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/datePicker"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            />
+
+    </FrameLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/datePicker"
-        android:layout_marginTop="10dp"
+        android:layout_below="@id/WdatePicker"
+        android:layout_marginTop="-20dp"
         android:layout_marginLeft="13dp"
         android:fontFamily="sans-serif-thin"
         android:text="Heure"
         android:id="@+id/TVHeure"
         android:textColor="@color/Evening" />
-
-    <TimePicker
+    <FrameLayout
         android:layout_width="match_parent"
+        android:layout_marginTop="-30dp"
         android:layout_height="wrap_content"
-        android:id="@+id/timePicker"
-        android:background="@color/EveningtR"
-        android:layout_below="@id/TVHeure"
         android:layout_centerHorizontal="true"
-        android:scaleX="0.7"
-        android:scaleY="0.7"
-        android:timePickerMode="spinner"
-     />
+        android:id="@+id/WtimePicker"
+        android:layout_below="@id/TVHeure">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="40dp"
+            android:layout_height="match_parent"
+            android:background="@color/EveningtR"/>
+        <TimePicker
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleX="0.8"
+            android:scaleY="0.8"
+            android:id="@+id/timePicker"
+            android:timePickerMode="spinner"
+         />
+
+        </FrameLayout>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Choisir une image \r\n(Optionnel ..ou pas)"
+        android:text="Image \r\n(Optionnel)"
         android:layout_marginTop="15dp"
         android:textSize="15sp"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
         android:id="@+id/pickPictureButton"
-        android:layout_below="@id/timePicker"
+        android:layout_below="@id/WtimePicker"
         android:layout_centerHorizontal="true"
         android:onClick="pickPictureEvent"
         />
@@ -151,7 +189,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Valider\r\nmarche pas encore :'("
+        android:text="Valider"
         android:layout_below="@id/cancelButton"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"

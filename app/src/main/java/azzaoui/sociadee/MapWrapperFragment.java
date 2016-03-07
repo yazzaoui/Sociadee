@@ -585,6 +585,29 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
         mAddEventButton.startAnimation(showButtonAnim);
     }
 
+    public String getLocation()
+    {
+       LatLng pos =  map.getCameraPosition().target;
+        StringBuilder sb = new StringBuilder();
+        try
+        {
+            Geocoder gc = new Geocoder(getActivity(), Locale.getDefault());
+            List<Address> addresses = gc.getFromLocation(pos.latitude, pos.longitude, 1);
+
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                    for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
+                        sb.append("\n").append(address.getAddressLine(i));
+                    }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return sb.toString();
+    }
+
+
     public long getLastUserClikedId() {
         return lastUserClikedId;
     }
