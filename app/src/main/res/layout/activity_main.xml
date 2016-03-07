@@ -98,8 +98,9 @@
             android:paddingBottom="25dp"
             android:scaleType="centerInside"
             android:src="@drawable/b_profile" />
-        //A regler un jour android:src="@drawable/menu_profileb" android:src="@drawable/menu_chatb"
-        <!--android:theme="@style/AppTheme.Button2"
+
+
+        <!--android:theme="@style/AppTheme.Button2"A regler un jour android:src="@drawable/menu_profileb" android:src="@drawable/menu_chatb"
         -->
         <ImageButton
             android:id="@+id/barMenuButton2"

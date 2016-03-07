@@ -33,20 +33,67 @@
     android:textColor="@color/Evening"
     android:text="inbox"/>
     </RelativeLayout>
-
-<FrameLayout
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_gravity="bottom">
+    android:layout_marginTop="100dp"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
 
-<EditText
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="5dp"
-    android:layout_width="match_parent"
-    android:fontFamily="sans-serif-thin"
-    android:layout_height="wrap_content"
-    android:background="@drawable/edit_chat"/>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:layout_height="wrap_content">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/edit_chat"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/pp_swag"
+                    android:id="@+id/profileUser"
+                    android:layout_alignParentLeft="true"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:textColor="#ffffff"
+                    android:layout_marginLeft="10dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-thin"
+                    android:layout_toRightOf="@id/profileUser"
+                    android:background="#00000000"
+                    android:text="BlaBla BlavBla BlaBlaBlaBla BlaBla BlaBlaBlaBla BlaBlaBla BlaBlaBla BlaBla"
+                    />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+    <EditText
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="match_parent"
+        android:fontFamily="sans-serif-thin"
+        android:textColor="#FFFFFF"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_chat"/>
     <ImageView
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -55,5 +102,8 @@
         android:src="@drawable/chatbubble"
         android:layout_gravity="bottom|right"
         />
+    </FrameLayout>
+</LinearLayout>
+
 </FrameLayout>
-</FrameLayout>
+
