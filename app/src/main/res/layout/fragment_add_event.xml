@@ -83,7 +83,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/datePicker"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
         android:background="@color/EveningtR"
         android:layout_below="@id/TVDate"
         />
@@ -105,8 +106,10 @@
         android:background="@color/EveningtR"
         android:layout_below="@id/TVHeure"
         android:layout_centerHorizontal="true"
+        android:scaleX="0.7"
+        android:scaleY="0.7"
         android:timePickerMode="spinner"
-        android:layout_marginTop="10dp" />
+     />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

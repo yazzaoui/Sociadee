@@ -40,7 +40,7 @@ private ChatPagerAdapter mPagerAdapter;
 
        DynamicViewPager pager = (DynamicViewPager) v.findViewById(R.id.pagerChat);
         pager.setMaxPages(2);
-        pager.setBackgroundAsset(R.drawable.wallpaper2);
+        pager.setBackgroundAsset(R.drawable.wallpaper3);
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);
 
