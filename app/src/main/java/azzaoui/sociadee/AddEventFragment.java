@@ -3,6 +3,7 @@ package azzaoui.sociadee;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.ContextThemeWrapper;
@@ -10,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,6 +26,8 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
     TimePicker mTimePicker;
     DatePicker mDatePicker;
     TextView mTVLocalisation;
+    ImageView mPicture;
+
 
     public AddEventFragment() {
         // Required empty public constructor
@@ -43,6 +48,8 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
         mTimePicker = (TimePicker)v.findViewById(R.id.timePicker);
         mDatePicker = (DatePicker)v.findViewById(R.id.datePicker);
         mTVLocalisation = (TextView) v.findViewById(R.id.localText);
+        mPicture = (ImageView)v.findViewById(R.id.selectedPic);
+
         mTimePicker.setIs24HourView(true);
         return v;
     }
@@ -51,12 +58,19 @@ public class AddEventFragment extends Fragment implements SociadeeFragment {
     {
         mTVLocalisation.setText(loc);
     }
+
+    public void setPicture(Drawable d)
+    {
+
+        mPicture.setImageDrawable(d);
+        mPicture.setVisibility(View.VISIBLE);
+    }
     public void pickPicture()
     {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1337);
+        getActivity().startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1337);
     }
     @Override
     public void setButtonCallback(MainActivity.CallBackTopButton myCallback) {

@@ -2,6 +2,7 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android" >
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -54,7 +55,8 @@
         android:id="@+id/titreEvent"
         android:textCursorDrawable="@null"
         style="@style/AppThemeCustom.EditText"
-        android:hint="50 characteres maximum"
+        android:hint="50 characteres maximum .."
+        android:textColorHint="#90FFFFFF"
         android:layout_below="@id/TVtitreEvent"/>
     <TextView
         android:layout_width="match_parent"
@@ -72,11 +74,13 @@
         android:layout_height="wrap_content"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
+        android:textColorHint="#90FFFFFF"
         android:minLines="4"
         android:textCursorDrawable="@null"
         style="@style/AppThemeCustom.EditText"
         android:layout_marginTop="7dp"
         android:id="@+id/descriptionEvent"
+        android:text="Optionnel"
         android:layout_below="@id/TVdescriptionEvent"
          />
 
@@ -148,11 +152,12 @@
          />
 
         </FrameLayout>
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Image \r\n(Optionnel)"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="0dp"
         android:textSize="15sp"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
@@ -164,11 +169,24 @@
 
     <ImageView
         android:layout_width="200dp"
+        android:layout_marginTop="10dp"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/selectedPic"
+        android:scaleType="centerCrop"
+        android:visibility="gone"
+        android:src="@drawable/pp_swag"
+        android:layout_below="@id/pickPictureButton"
+       />
+
+    <ImageView
+        android:layout_width="250dp"
         android:layout_height="1dp"
         android:layout_marginTop="15dp"
         android:background="@color/Evening"
-        android:layout_below="@id/pickPictureButton"
+        android:layout_below="@id/selectedPic"
         android:layout_centerHorizontal="true"
+        android:id="@+id/sep"
         />
 
     <Button
@@ -177,7 +195,7 @@
         android:text="Annuler"
         android:layout_marginTop="30dp"
         android:id="@+id/cancelButton"
-        android:layout_below="@id/pickPictureButton"
+        android:layout_below="@id/sep"
         android:layout_centerHorizontal="true"
         android:textSize="15sp"
         android:paddingLeft="40dp"
