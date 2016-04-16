@@ -1,6 +1,7 @@
 package azzaoui.sociadee;
 
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -131,6 +132,35 @@ public class NetworkUserInfo extends NetworkBase {
             return true;
         }
     }
+
+    public Boolean createEvent(String title, String Desc, int hour, int min, int day,int month,int year,
+                               double lat, double lon, Drawable im) throws IOException, JSONException
+    {
+        String toSend = "/createevent";
+        String postData = "lat=" + lat + "&long=" + lon;
+        postData += "&title=" + title;
+        postData += "&desc=" + Desc;
+
+        postData += "&jour=" + day;
+        postData += "&mois=" + month;
+        postData += "&an=" + year;
+        postData += "&heure=" + hour;
+        postData += "&min=" + min;
+
+        if(im != null)
+        {
+
+        }
+        JSONObject response = sendPOSTRequest(toSend,postData,true);
+
+        if (response == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
     public LinkedList<myImage> getMyImages()
     {
         return imFbList;
