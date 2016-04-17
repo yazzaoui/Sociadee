@@ -72,8 +72,10 @@ public class LoginActivity extends Activity {
             @Override
             public void onSuccess(LoginResult loginResult) {
                 spinAnimate();
+
                 Parameters.setFBToken(loginResult.getAccessToken().getToken());
                 getFacebookStuff gFs = new getFacebookStuff();
+
                 gFs.execute();
 
             }
@@ -207,6 +209,7 @@ public class LoginActivity extends Activity {
 
 
     }
+
     /*
     private void fetchFacebookData()
     {

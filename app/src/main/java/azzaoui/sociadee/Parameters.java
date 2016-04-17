@@ -11,6 +11,10 @@ import java.util.LinkedList;
  */
 public class Parameters {
 
+
+    public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
+    public static final String REGISTRATION_COMPLETE = "registrationComplete";
+
     private static String FBToken;
     private static String SociadeeToken;
     private static long facebookId;
