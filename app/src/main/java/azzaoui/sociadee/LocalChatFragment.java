@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.DataSetObserver;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -19,9 +20,13 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -33,6 +38,8 @@ public class LocalChatFragment extends ListFragment {
     private BroadcastReceiver mMessageBroadcastReceiver;
     private NetworkChat mNetworkChat;
 
+    private MessagesListAdapter mMessagesListAdapter;
+   private List<PublicMessageItem> mMessageList;
     private EditText mMainText;
 
     public LocalChatFragment() {
@@ -42,6 +49,7 @@ public class LocalChatFragment extends ListFragment {
             public void onReceive(Context context, Intent intent) {
                 String mess = intent.getStringExtra("MESSAGE");
                 Toast.makeText(getActivity(),  mess, Toast.LENGTH_LONG).show();
+                fetchMessages();
             }
         };
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageBroadcastReceiver,
@@ -55,7 +63,7 @@ public class LocalChatFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_local_chat, container, false);
         mMainText = (EditText)v.findViewById(R.id.MainLocalText);
-
+        fetchMessages();
 
         return v;
     }
@@ -71,8 +79,8 @@ public class LocalChatFragment extends ListFragment {
 
     private void fetchMessages()
     {
-
-
+        GetMessagesTask task = new GetMessagesTask();
+        task.execute();
     }
 
     static class PublicMessageItem {
@@ -83,6 +91,33 @@ public class LocalChatFragment extends ListFragment {
         public PublicMessageItem(String message, User author) {
             this.message = message;
             this.author = author;
+        }
+    }
+    private class GetMessagesTask extends AsyncTask<Void, Void, Void> {
+
+        private boolean mNoError;
+        @Override
+        protected void onPreExecute() {
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... params) {
+
+            mNoError = mNetworkChat.getPublicMessage(getContext());
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            super.onPostExecute(params);
+            if(mNoError) {
+                mMessageList = mNetworkChat.getmMessageList();
+                mMessagesListAdapter = new MessagesListAdapter(getActivity(), mMessageList);
+                setListAdapter(mMessagesListAdapter);
+            }
+
         }
     }
     static class MessagesListAdapter  extends ArrayAdapter<PublicMessageItem> {
@@ -107,6 +142,8 @@ public class LocalChatFragment extends ListFragment {
                 viewHolder.liPicture = (ImageView) convertView.findViewById(R.id.profileUser);
                 viewHolder.liName = (TextView) convertView.findViewById(R.id.name);
                 viewHolder.liText = (TextView) convertView.findViewById(R.id.text);
+                viewHolder.layout = (RelativeLayout)convertView.findViewById(R.id.layout);
+
                 convertView.setTag(viewHolder);
             } else {
                 // recycle the already inflated view
@@ -116,13 +153,20 @@ public class LocalChatFragment extends ListFragment {
             // update the item view
             PublicMessageItem item = getItem(position);
             viewHolder.liPicture.setImageDrawable(item.author.getmProfilePicture());
-            viewHolder.liName.setText(item.message);
+            viewHolder.liName.setText(item.author.getFirstName());
+            viewHolder.liText.setText(item.message);
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)viewHolder.layout.getLayoutParams();
+            params.setMargins(5, 5, 0, 0); //substitute parameters for left, top, right, bottom
+            viewHolder.layout.setLayoutParams(params);
+
 
             return convertView;
         }
 
 
         private static class ViewHolder {
+            RelativeLayout layout;
             ImageView liPicture;
             TextView liName;
             TextView liText;
