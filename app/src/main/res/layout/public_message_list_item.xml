@@ -2,12 +2,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:background="@drawable/edit_chat"
-        android:layout_marginRight="30dp"
-        android:layout_marginLeft="30dp"
         android:id="@+id/layout"
-        android:layout_marginTop="5dp"
         android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_chat"
+        android:layout_marginRight= "-5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="20dp"
+        >
         <ImageView
             android:layout_width="40dp"
             android:layout_height="50dp"
@@ -41,4 +46,6 @@
             android:id="@+id/text"
             android:text=""
             />
+
+    </RelativeLayout>
     </RelativeLayout>

@@ -390,7 +390,7 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
 
             try
             {
-                Geocoder gc = new Geocoder(getActivity(), Locale.getDefault());
+                Geocoder gc = new Geocoder(getContext(), Locale.getDefault());
                 List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
                 StringBuilder sb = new StringBuilder();
                 if (addresses.size() > 0) {

@@ -16,10 +16,12 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -156,8 +158,8 @@ public class LocalChatFragment extends ListFragment {
             viewHolder.liName.setText(item.author.getFirstName());
             viewHolder.liText.setText(item.message);
 
-            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams)viewHolder.layout.getLayoutParams();
-            params.setMargins(5, 5, 0, 0); //substitute parameters for left, top, right, bottom
+            ListView.LayoutParams params = (AbsListView.LayoutParams)viewHolder.layout.getLayoutParams();
+
             viewHolder.layout.setLayoutParams(params);
 
 
