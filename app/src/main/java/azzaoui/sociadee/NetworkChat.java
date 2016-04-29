@@ -80,6 +80,7 @@ public class NetworkChat extends NetworkBase {
                     JSONObject m = messageList.getJSONObject(i);
                     long imId =  m.getLong("sender");
                     String message = m.getString("message");
+                    String id = m.getString("id");
                     boolean present = MainChatFragment.isUserPresent(imId);
 
                     if(!present)
@@ -88,7 +89,7 @@ public class NetworkChat extends NetworkBase {
 
                     User user = MainChatFragment.getUserById(imId);
 
-                    PublicMessageItem curMes = new PublicMessageItem(message,user);
+                    PublicMessageItem curMes = new PublicMessageItem(id,message,user);
                     mMessageList.add(curMes);
 
                 }

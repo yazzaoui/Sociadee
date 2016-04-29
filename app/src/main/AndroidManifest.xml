@@ -50,7 +50,7 @@
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait"
             android:configChanges="orientation|screenSize"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden|adjustPan"></activity>
 
         <meta-data
             android:name="com.google.android.gms.version"

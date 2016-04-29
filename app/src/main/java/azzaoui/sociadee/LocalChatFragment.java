@@ -29,7 +29,9 @@ import android.widget.Toast;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 
 /**
@@ -44,13 +46,15 @@ public class LocalChatFragment extends ListFragment {
    private List<PublicMessageItem> mMessageList;
     private EditText mMainText;
 
+    private String lastMessageId="";
+
     public LocalChatFragment() {
         mNetworkChat = new NetworkChat();
         mMessageBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                String mess = intent.getStringExtra("MESSAGE");
-                Toast.makeText(getActivity(),  mess, Toast.LENGTH_LONG).show();
+              /*  String mess = intent.getStringExtra("MESSAGE");
+                Toast.makeText(getActivity(),  mess, Toast.LENGTH_LONG).show();*/
                 fetchMessages();
             }
         };
@@ -65,6 +69,10 @@ public class LocalChatFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_local_chat, container, false);
         mMainText = (EditText)v.findViewById(R.id.MainLocalText);
+        mMessageList = new LinkedList<>();
+        mMessagesListAdapter = new MessagesListAdapter(getActivity(), mMessageList);
+        setListAdapter(mMessagesListAdapter);
+
         fetchMessages();
 
         return v;
@@ -75,6 +83,7 @@ public class LocalChatFragment extends ListFragment {
         if(!mMainText.getText().toString().isEmpty())
         {
             mNetworkChat.postPublicMessage(mMainText.getText().toString());
+            mMainText.setText("");
         }
     }
 
@@ -89,10 +98,12 @@ public class LocalChatFragment extends ListFragment {
 
         public User author;
         public String message;
+        public String id;
 
-        public PublicMessageItem(String message, User author) {
+        public PublicMessageItem(String id,String message, User author) {
             this.message = message;
             this.author = author;
+            this.id = id;
         }
     }
     private class GetMessagesTask extends AsyncTask<Void, Void, Void> {
@@ -115,9 +126,25 @@ public class LocalChatFragment extends ListFragment {
         protected void onPostExecute(Void params) {
             super.onPostExecute(params);
             if(mNoError) {
-                mMessageList = mNetworkChat.getmMessageList();
-                mMessagesListAdapter = new MessagesListAdapter(getActivity(), mMessageList);
-                setListAdapter(mMessagesListAdapter);
+               List mNewMessageList = mNetworkChat.getmMessageList();
+
+
+                ListIterator iter = mNewMessageList.listIterator();
+                boolean add = lastMessageId.equals("");
+                while(iter.hasNext())
+                {
+                    PublicMessageItem curItem = (PublicMessageItem)iter.next();
+                    if(curItem.id.equals(lastMessageId))
+                    {
+                        add = true;
+                    }
+                    else if(add)
+                    {
+                        mMessageList.add(curItem);
+                    }
+                }
+              mMessagesListAdapter.notifyDataSetChanged();
+                //getListView().smoothScrollToPosition(mMessagesListAdapter.getCount());
             }
 
         }

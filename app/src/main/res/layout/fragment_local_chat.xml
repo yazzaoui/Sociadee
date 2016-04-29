@@ -44,7 +44,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+
         android:divider="@null"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+
         android:drawSelectorOnTop="false"/>
 
 
@@ -56,13 +60,15 @@
         android:layout_gravity="bottom">
 
     <EditText
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="15dp"
         android:layout_marginRight="60dp"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:fontFamily="sans-serif-thin"
         android:id="@+id/MainLocalText"
         android:textColor="#FFFFFF"
+        android:inputType="textShortMessage|textCapSentences|textMultiLine"
+        android:imeOptions="actionSend"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_chat"/>
     <ImageView
