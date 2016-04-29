@@ -59,6 +59,7 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     GoogleMap map;
 
     private SupportMapFragment mapFragment;
+    private LocationManager locationManager;
     private ImageButton mUserButton,mChatButton;
     private boolean mMapAnimating = false;
     private boolean mButtonVisible =false;
@@ -83,9 +84,26 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
     private ImageButton mAcceptEventButton;
     private ImageButton mDiscardEventButton;
 
+    final LocationListener locationListener =new LocationListener(){
+        public void onLocationChanged(Location location){
+            updateWithNewLocation(location);
+        }
+        public void onProviderDisabled(String provider){
+            updateWithNewLocation(null);
+        }
+        public void onProviderEnabled(String provider){}
+        public void onStatusChanged(String provider, int status, Bundle extras){}
+    };
+
     public MapWrapperFragment() {
         // Required empty public constructor
         userList = new HashMap<Long, UserMap>();
+    }
+
+    @Override
+    public void onStop() {
+        locationManager.removeUpdates(locationListener);
+        super.onStop();
     }
 
     @Override
@@ -223,7 +241,7 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
                 }
             });
 
-            LocationManager locationManager;
+
             String context = Context.LOCATION_SERVICE;
             locationManager = (LocationManager) getActivity().getSystemService(context);
             Criteria criteria = new Criteria();
@@ -242,18 +260,10 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
                 }
             }
 
-            final LocationListener locationListener = new LocationListener(){
-                public void onLocationChanged(Location location){
-                    updateWithNewLocation(location);
-                }
-                public void onProviderDisabled(String provider){
-                    updateWithNewLocation(null);
-                }
-                public void onProviderEnabled(String provider){}
-                public void onStatusChanged(String provider, int status, Bundle extras){}
-            };
+
 
             locationManager.requestLocationUpdates(provider, 2000, 10,locationListener);
+
 
         }
     }
