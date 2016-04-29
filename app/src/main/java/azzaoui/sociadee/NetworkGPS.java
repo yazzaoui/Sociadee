@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class NetworkGPS extends NetworkBase {
 
     private ArrayList<UserFetchedGPS> fetchedUser = null;
-    private Bitmap lastPicture = null;
+
 
     public NetworkGPS() {
         super();
@@ -55,18 +55,7 @@ public class NetworkGPS extends NetworkBase {
         }
     }
 
-    public Boolean fetchUserPicture(long userId) throws IOException, JSONException {
-        String toSend = "/getuserpicture";
-        String postData = "id=" + userId;
-        JSONObject response = sendPOSTRequest(toSend,postData,true);
-        if (response == null) {
-            return false;
-        } else {
-            String data = response.getString("data");
-            lastPicture = decodeBase64(data);
-            return true;
-        }
-    }
+
 
 
     public static String encodeTobase64(Bitmap image)
@@ -86,9 +75,7 @@ public class NetworkGPS extends NetworkBase {
         return fetchedUser;
     }
 
-    public Bitmap getLastPicture() {
-        return lastPicture;
-    }
+
 
     public static class UserFetchedGPS
     {

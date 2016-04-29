@@ -24,6 +24,7 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.google.android.gms.gcm.GcmListenerService;
@@ -52,6 +53,10 @@ public class MyGcmListenerService extends GcmListenerService {
             // normal downstream message.
         }
 
+        Intent newMessage = new Intent(Parameters.PUBLIC_MESSAGE_RECEIVED);
+        newMessage.putExtra("MESSAGE","bleh");
+        LocalBroadcastManager.getInstance(this).sendBroadcast(newMessage);
+
         // [START_EXCLUDE]
         /**
          * Production applications would usually process the message here.
@@ -64,7 +69,7 @@ public class MyGcmListenerService extends GcmListenerService {
          * In some cases it may be useful to show a notification indicating to the user
          * that a message was received.
          */
-        sendNotification(message);
+        //sendNotification(message);
         // [END_EXCLUDE]
     }
     // [END receive_message]

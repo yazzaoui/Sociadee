@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Vector;
 
@@ -16,6 +18,10 @@ import java.util.Vector;
 public class MainChatFragment extends Fragment implements SociadeeFragment {
 
 private ChatPagerAdapter mPagerAdapter;
+
+    public LocalChatFragment mLocalChatFragment;
+    public InboxFragment mInboxFragment;
+    protected static HashMap<Long,User> usersMap = new HashMap<>();
 
     public MainChatFragment() {
         // Required empty public constructor
@@ -30,8 +36,10 @@ private ChatPagerAdapter mPagerAdapter;
         List fragments = new Vector();
 
         // Ajout des Fragments dans la liste
-        fragments.add(Fragment.instantiate(getActivity(),LocalChatFragment.class.getName()));
-        fragments.add(Fragment.instantiate(getActivity(),InboxFragment.class.getName()));
+        mLocalChatFragment = (LocalChatFragment)Fragment.instantiate(getActivity(),LocalChatFragment.class.getName());
+        fragments.add(mLocalChatFragment);
+        mInboxFragment = (InboxFragment)Fragment.instantiate(getActivity(),InboxFragment.class.getName());
+        fragments.add(mInboxFragment);
 
 
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
@@ -47,6 +55,21 @@ private ChatPagerAdapter mPagerAdapter;
         return v;
     }
 
+
+    public static boolean isUserPresent(long userId)
+    {
+        return usersMap.containsKey(userId);
+    }
+
+    public static User getUserById(long id)
+    {
+        return usersMap.get(id);
+    }
+
+    public static void addUser(User user)
+    {
+        usersMap.put(user.getmId(),user);
+    }
 
     @Override
     public void setButtonCallback(MainActivity.CallBackTopButton myCallback) {
@@ -66,5 +89,9 @@ private ChatPagerAdapter mPagerAdapter;
     @Override
     public void onTopMenuMenuButtonClick() {
 
+    }
+    public void sendPublicMessage()
+    {
+        mLocalChatFragment.sendMessage();
     }
 }

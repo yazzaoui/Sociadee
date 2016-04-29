@@ -29,6 +29,11 @@ public abstract class NetworkBase {
     private boolean debug = false;
     private String latestError = "";
 
+
+
+    private String lastName = "";
+    private Bitmap lastPicture = null;
+
     public NetworkBase() {
     }
 
@@ -137,6 +142,25 @@ public abstract class NetworkBase {
     }
 
 
+    public Boolean fetchUserPicture(long userId) throws IOException, JSONException {
+        String toSend = "/getuserpicture";
+        String postData = "id=" + userId;
+        JSONObject response = sendPOSTRequest(toSend,postData,true);
+        if (response == null) {
+            return false;
+        } else {
+            String data = response.getString("data");
+            lastPicture = decodeBase64(data);
+            lastName = response.getString("name");
+            return true;
+        }
+    }
+    public Bitmap getLastPicture() {
+        return lastPicture;
+    }
+    public String getLastName() {
+        return lastName;
+    }
     /**
      * Used by some subclasses to get the base URL String
      *

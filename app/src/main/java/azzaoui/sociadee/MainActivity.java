@@ -415,7 +415,9 @@ public class MainActivity extends AppCompatActivity {
     {
         mAddPicFragment.validatePic(v);
     }
-
+    public void sendPublicMessage(View v){
+        mMainChatFragment.sendPublicMessage();
+    }
     public void addEventClick(View v)
     {
         mMapFragment.addEventClick();

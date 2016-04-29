@@ -1,6 +1,8 @@
 package azzaoui.sociadee;
 
+import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Base64;
 
 import org.json.JSONArray;
@@ -10,6 +12,8 @@ import org.json.JSONObject;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import azzaoui.sociadee.LocalChatFragment.PublicMessageItem;
 
 /**
  * Created by Youssef Azzaoui on 17/04/2016.
@@ -22,6 +26,11 @@ public class NetworkChat extends NetworkBase {
         super();
     }
 
+
+
+    private LinkedList<PublicMessageItem> mMessageList;
+
+
     public boolean registerToken(String token) throws IOException, JSONException {
         String toSend = "/gcmtoken";
         String postData = "token=" + token;
@@ -32,20 +41,88 @@ public class NetworkChat extends NetworkBase {
             return true;
         }
     }
-    public boolean postPublicMessage(String message) throws IOException, JSONException {
-        String toSend = "/postpublicmessage";
-        String postData = "message=" + message;
-        JSONObject response = sendPOSTRequest(toSend,postData,true);
-        if (response == null) {
+
+
+    private boolean fetchUserData(long id,Context ctxt)
+    {
+        try {
+            if(fetchUserPicture(id))
+            {
+                User newUser = new User(id);
+                newUser.setFirstName(getLastName());
+                newUser.setProfilePicture(new BitmapDrawable(ctxt.getResources(), getLastPicture()));
+                MainChatFragment.addUser(newUser);
+                return true;
+            }
+            else
+                return false;
+        } catch (IOException e) {
+            e.printStackTrace();
             return false;
-        } else {
-            return true;
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean getPublicMessage(Context ctxt){
+        String toSend = "/getroommessages";
+        JSONObject response;
+        try {
+            response = sendPOSTRequest(toSend,"",true);
+            if (response == null) {
+                return false;
+            } else {
+                JSONArray messageList = response.getJSONArray("data");
+                mMessageList = new LinkedList<>();
+                for(int i = 0; i < messageList.length(); i++)
+                {
+                    JSONObject m = messageList.getJSONObject(i);
+                    long imId =  m.getLong("sender");
+                    String message = m.getString("message");
+                    boolean present = MainChatFragment.isUserPresent(imId);
+
+                    if(!present)
+                        if(!fetchUserData(imId,ctxt))
+                            return false;
+
+                    User user = MainChatFragment.getUserById(imId);
+
+                    PublicMessageItem curMes = new PublicMessageItem(message,user);
+                    mMessageList.add(curMes);
+
+                }
+                return true;
+            }
+        } catch (JSONException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
         }
     }
 
 
+    public boolean postPublicMessage(String message){
+        String toSend = "/postpublicmessage";
+        String postData = "message=" + message;
+        JSONObject response;
+        try {
+            response = sendPOSTRequest(toSend,postData,true);
+            if (response == null) {
+                return false;
+            } else {
+                return true;
+            }
+        } catch (JSONException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
+    }
 
-
+    public LinkedList<PublicMessageItem> getmMessageList() {
+        return mMessageList;
+    }
 
 
 }
