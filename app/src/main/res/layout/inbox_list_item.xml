@@ -14,8 +14,8 @@
         android:layout_marginLeft="0dp"
         >
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:scaleType="centerCrop"
             android:src="@drawable/pp_swag"
             android:id="@+id/profileUser"

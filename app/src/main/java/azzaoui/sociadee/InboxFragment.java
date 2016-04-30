@@ -95,6 +95,10 @@ public class InboxFragment extends ListFragment {
             super.onPostExecute(params);
             if(mNoError) {
                 mDiscussionList = mNetworkChat.getmDiscussionList();
+
+                mDiscussionListAdapter = new DiscussionListAdapter(getActivity(), mDiscussionList);
+                setListAdapter(mDiscussionListAdapter);
+
                 mDiscussionListAdapter.notifyDataSetChanged();
                 //getListView().smoothScrollToPosition(mMessagesListAdapter.getCount());
             }
@@ -148,7 +152,7 @@ public class InboxFragment extends ListFragment {
             // update the item view
             PrivateDiscussionItem item = getItem(position);
             viewHolder.liPicture.setImageDrawable(item.contact.getmProfilePicture());
-            viewHolder.liName.setText(item.lastAuthor.getFirstName());
+            viewHolder.liName.setText(item.contact.getFirstName());
             viewHolder.liText.setText(item.lastMessage);
 
             return convertView;
