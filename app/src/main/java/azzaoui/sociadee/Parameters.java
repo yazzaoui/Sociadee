@@ -15,6 +15,7 @@ public class Parameters {
     public static final String SENT_TOKEN_TO_SERVER = "sentTokenToServer";
     public static final String REGISTRATION_COMPLETE = "registrationComplete";
     public static final String PUBLIC_MESSAGE_RECEIVED = "publicMessage";
+    public static final String PRIVATE_MESSAGE_RECEIVED = "privateMessage";
 
     private static String FBToken;
     private static String SociadeeToken;

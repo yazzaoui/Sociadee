@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import azzaoui.sociadee.LocalChatFragment.PublicMessageItem;
+import azzaoui.sociadee.InboxFragment.PrivateDiscussionItem;
 
 /**
  * Created by Youssef Azzaoui on 17/04/2016.
@@ -26,10 +27,8 @@ public class NetworkChat extends NetworkBase {
         super();
     }
 
-
-
     private LinkedList<PublicMessageItem> mMessageList;
-
+    private LinkedList<PrivateDiscussionItem> mDiscussionList;
 
     public boolean registerToken(String token) throws IOException, JSONException {
         String toSend = "/gcmtoken";
@@ -41,7 +40,6 @@ public class NetworkChat extends NetworkBase {
             return true;
         }
     }
-
 
     private boolean fetchUserData(long id,Context ctxt)
     {
@@ -103,6 +101,63 @@ public class NetworkChat extends NetworkBase {
     }
 
 
+    public boolean getDiscussionList(Context ctxt){
+        String toSend = "/getprivatediscussions";
+        JSONObject response;
+        try {
+            response = sendPOSTRequest(toSend,"",true);
+            if (response == null) {
+                return false;
+            } else {
+                JSONArray messageList = response.getJSONArray("data");
+                mDiscussionList = new LinkedList<>();
+                for(int i = 0; i < messageList.length(); i++)
+                {
+                    JSONObject m = messageList.getJSONObject(i);
+                    JSONArray participants = m.getJSONArray("participants");
+                    User contact = null;
+                    for(int j = 0; j < participants.length(); j++)
+                    {
+                        long uid = participants.getLong(j);
+                        if(uid != Parameters.getFacebookId())
+                        {
+                            boolean present = MainChatFragment.isUserPresent(uid);
+                            if(!present)
+                                if(!fetchUserData(uid,ctxt))
+                                    return false;
+
+                            contact = MainChatFragment.getUserById(uid);
+                        }
+                    }
+                    if(contact == null)
+                        return false;
+
+
+                    long imId =  m.getLong("lastsender");
+                    String message = m.getString("text");
+                    String id = m.getString("id");
+                    User lastsender = MainChatFragment.getUserById(imId);
+
+                    PrivateDiscussionItem newItem = new PrivateDiscussionItem(contact,message,lastsender,id);
+
+                    mDiscussionList.add(newItem);
+
+                }
+                return true;
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            return false;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+
+
+
     public boolean postPublicMessage(String message){
         String toSend = "/postpublicmessage";
         String postData = "message=" + message;
@@ -124,7 +179,9 @@ public class NetworkChat extends NetworkBase {
     public LinkedList<PublicMessageItem> getmMessageList() {
         return mMessageList;
     }
-
+    public LinkedList<PrivateDiscussionItem> getmDiscussionList() {
+        return mDiscussionList;
+    }
 
 }
 

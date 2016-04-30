@@ -94,18 +94,7 @@ public class LocalChatFragment extends ListFragment {
         task.execute();
     }
 
-    static class PublicMessageItem {
 
-        public User author;
-        public String message;
-        public String id;
-
-        public PublicMessageItem(String id,String message, User author) {
-            this.message = message;
-            this.author = author;
-            this.id = id;
-        }
-    }
     private class GetMessagesTask extends AsyncTask<Void, Void, Void> {
 
         private boolean mNoError;
@@ -147,6 +136,18 @@ public class LocalChatFragment extends ListFragment {
                 //getListView().smoothScrollToPosition(mMessagesListAdapter.getCount());
             }
 
+        }
+    }
+    static class PublicMessageItem {
+
+        public User author;
+        public String message;
+        public String id;
+
+        public PublicMessageItem(String id,String message, User author) {
+            this.message = message;
+            this.author = author;
+            this.id = id;
         }
     }
     static class MessagesListAdapter  extends ArrayAdapter<PublicMessageItem> {

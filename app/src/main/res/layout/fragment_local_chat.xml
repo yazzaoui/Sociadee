@@ -44,14 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-
         android:divider="@null"
         android:stackFromBottom="true"
         android:transcriptMode="alwaysScroll"
-
         android:drawSelectorOnTop="false"/>
-
-
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -61,26 +57,29 @@
 
     <EditText
         android:layout_marginLeft="15dp"
-        android:layout_marginRight="60dp"
         android:layout_marginBottom="5dp"
         android:layout_width="match_parent"
         android:fontFamily="sans-serif-thin"
         android:id="@+id/MainLocalText"
+        android:layout_marginRight="60dp"
         android:textColor="#FFFFFF"
         android:inputType="textShortMessage|textCapSentences|textMultiLine"
         android:imeOptions="actionSend"
         android:layout_height="wrap_content"
         android:background="@drawable/edit_chat"/>
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
-        android:clickable="true"
-        android:onClick="sendPublicMessage"
-        android:src="@drawable/chatbubble"
-        android:layout_gravity="bottom|right"
-        />
+
+        <ImageButton
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/buttonSend"
+            android:onClick="sendPublicMessage"
+            android:src="@drawable/chatbubble"
+            android:scaleType="fitXY"
+            android:layout_marginLeft="0dp"
+            android:layout_gravity="top|right"
+            />
     </FrameLayout>
 </LinearLayout>
 

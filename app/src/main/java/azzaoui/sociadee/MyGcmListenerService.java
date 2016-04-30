@@ -47,15 +47,21 @@ public class MyGcmListenerService extends GcmListenerService {
         Log.d(TAG, "From: " + from);
         Log.d(TAG, "Message: " + message);
 
-        if (from.startsWith("/topics/")) {
+       /* if (from.startsWith("/topics/")) {
             // message received from some topic.
         } else {
             // normal downstream message.
-        }
+        }*/
 
-        Intent newMessage = new Intent(Parameters.PUBLIC_MESSAGE_RECEIVED);
-        newMessage.putExtra("MESSAGE","bleh");
-        LocalBroadcastManager.getInstance(this).sendBroadcast(newMessage);
+        if( data.getString("action").equals("'FETCH_PUBLIC_MESSAGES")) {
+            Intent newMessage = new Intent(Parameters.PUBLIC_MESSAGE_RECEIVED);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(newMessage);
+
+        }
+        else if(data.getString("action").equals("FETCH_PRIVATE_MESSAGES")) {
+            Intent newMessage = new Intent(Parameters.PRIVATE_MESSAGE_RECEIVED);
+            LocalBroadcastManager.getInstance(this).sendBroadcast(newMessage);
+        }
 
         // [START_EXCLUDE]
         /**

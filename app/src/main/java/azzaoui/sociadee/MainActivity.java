@@ -424,7 +424,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void acceptEventClick(View v)
     {
-
         String loc = mMapFragment.getLocation();
         mAddEventFragment.setLocation(loc);
         switchView(mAddEventView);
