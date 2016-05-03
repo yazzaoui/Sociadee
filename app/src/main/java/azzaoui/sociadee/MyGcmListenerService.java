@@ -53,7 +53,7 @@ public class MyGcmListenerService extends GcmListenerService {
             // normal downstream message.
         }*/
 
-        if( data.getString("action").equals("'FETCH_PUBLIC_MESSAGES")) {
+        if( data.getString("action").equals("FETCH_PUBLIC_MESSAGES")) {
             Intent newMessage = new Intent(Parameters.PUBLIC_MESSAGE_RECEIVED);
             LocalBroadcastManager.getInstance(this).sendBroadcast(newMessage);
 
