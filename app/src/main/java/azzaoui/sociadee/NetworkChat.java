@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import azzaoui.sociadee.LocalChatFragment.PublicMessageItem;
 import azzaoui.sociadee.InboxFragment.PrivateDiscussionItem;
+import azzaoui.sociadee.PrivateDiscussionFragment.MessageItem;
 
 /**
  * Created by Youssef Azzaoui on 17/04/2016.
@@ -29,6 +30,7 @@ public class NetworkChat extends NetworkBase {
 
     private LinkedList<PublicMessageItem> mMessageList;
     private LinkedList<PrivateDiscussionItem> mDiscussionList;
+    private LinkedList<MessageItem> mPrivateMessageList;
 
     public boolean registerToken(String token) throws IOException, JSONException {
         String toSend = "/gcmtoken";
@@ -155,7 +157,10 @@ public class NetworkChat extends NetworkBase {
     }
 
 
-
+    public boolean getPrivateMessageList(String conversationId)
+    {
+        return false;
+    }
 
 
     public boolean postPublicMessage(String message){
@@ -174,6 +179,10 @@ public class NetworkChat extends NetworkBase {
         } catch (IOException e) {
             return false;
         }
+    }
+
+    public LinkedList<MessageItem> getmPrivateMessageList() {
+        return mPrivateMessageList;
     }
 
     public LinkedList<PublicMessageItem> getmMessageList() {

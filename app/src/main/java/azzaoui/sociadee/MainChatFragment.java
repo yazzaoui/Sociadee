@@ -21,6 +21,8 @@ private ChatPagerAdapter mPagerAdapter;
 
     public LocalChatFragment mLocalChatFragment;
     public InboxFragment mInboxFragment;
+    public PrivateDiscussionFragment mPrivateDiscussionFragment;
+
     protected static HashMap<Long,User> usersMap = new HashMap<>();
 
     public MainChatFragment() {
@@ -40,14 +42,15 @@ private ChatPagerAdapter mPagerAdapter;
         fragments.add(mLocalChatFragment);
         mInboxFragment = (InboxFragment)Fragment.instantiate(getActivity(),InboxFragment.class.getName());
         fragments.add(mInboxFragment);
-
+        mPrivateDiscussionFragment = (PrivateDiscussionFragment)Fragment.instantiate(getActivity(),PrivateDiscussionFragment.class.getName());
+        fragments.add(mPrivateDiscussionFragment);
 
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
         // Fragments
         this.mPagerAdapter = new ChatPagerAdapter(getChildFragmentManager(), fragments);
 
        DynamicViewPager pager = (DynamicViewPager) v.findViewById(R.id.pagerChat);
-        pager.setMaxPages(2);
+        pager.setMaxPages(3);
         pager.setBackgroundAsset(R.drawable.wallpaper3);
         // Affectation de l'adapter au ViewPager
         pager.setAdapter(this.mPagerAdapter);

@@ -3,16 +3,25 @@ package azzaoui.sociadee;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 
 /**
@@ -23,17 +32,22 @@ public class PrivateDiscussionFragment extends ListFragment {
 
     private NetworkChat mNetworkChat;
     private BroadcastReceiver mMessageBroadcastReceiver;
-    private LinkedList<MessageItem> mMessageList;
-    private DiscussionListAdapter mDiscussionListAdapter;
+    private LinkedList<MessageItem> mMessageList, mNewMessageList;
+    private MessageListAdapter mMessageListAdapter;
+
+    private String mConversationId = "";
+    private String lastMessageId= "";
+    private User contact;
 
     public PrivateDiscussionFragment() {
         mNetworkChat = new NetworkChat();
         mMessageBroadcastReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-              /*  String mess = intent.getStringExtra("MESSAGE");
-                Toast.makeText(getActivity(),  mess, Toast.LENGTH_LONG).show();*/
-                fetchDiscussions();
+                String convid = intent.getStringExtra("CONVID");
+                if(mConversationId.equals(convid)) {
+                    fetchConversation();
+                }
             }
         };
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageBroadcastReceiver,
@@ -47,21 +61,25 @@ public class PrivateDiscussionFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_inbox, container, false);
 
-        mDiscussionList = new LinkedList<>();
-        mDiscussionListAdapter = new DiscussionListAdapter(getActivity(), mDiscussionList);
-        setListAdapter(mDiscussionListAdapter);
-
-        fetchDiscussions();
+        mMessageList = new LinkedList<>();
+        mMessageListAdapter = new MessageListAdapter(getActivity(), mMessageList);
+        setListAdapter(mMessageListAdapter);
 
         return v;
     }
 
-    private void fetchDiscussions()
+    public void setConversation(String convId)
+    {
+        lastMessageId="";
+        mMessageList.clear();
+        fetchConversation();
+    }
+
+    private void fetchConversation()
     {
         GetDiscussionsTask task = new GetDiscussionsTask();
         task.execute();
     }
-
 
     private class GetDiscussionsTask extends AsyncTask<Void, Void, Void> {
 
@@ -74,7 +92,7 @@ public class PrivateDiscussionFragment extends ListFragment {
         @Override
         protected Void doInBackground(Void... params) {
 
-            mNoError = mNetworkChat.getDiscussionList(getContext());
+            mNoError = mNetworkChat.getPrivateMessageList(mConversationId);
 
             return null;
         }
@@ -83,12 +101,23 @@ public class PrivateDiscussionFragment extends ListFragment {
         protected void onPostExecute(Void params) {
             super.onPostExecute(params);
             if(mNoError) {
-                mDiscussionList = mNetworkChat.getmDiscussionList();
+                mNewMessageList = mNetworkChat.getmPrivateMessageList();
 
-                mDiscussionListAdapter = new DiscussionListAdapter(getActivity(), mDiscussionList);
-                setListAdapter(mDiscussionListAdapter);
-
-                mDiscussionListAdapter.notifyDataSetChanged();
+                ListIterator iter = mNewMessageList.listIterator();
+                boolean add = lastMessageId.equals("");
+                while(iter.hasNext())
+                {
+                    MessageItem curItem = (MessageItem)iter.next();
+                    if(curItem.id.equals(lastMessageId))
+                    {
+                        add = true;
+                    }
+                    else if(add)
+                    {
+                        mMessageList.add(curItem);
+                    }
+                }
+                mMessageListAdapter.notifyDataSetChanged();
                 //getListView().smoothScrollToPosition(mMessagesListAdapter.getCount());
             }
 
@@ -97,17 +126,36 @@ public class PrivateDiscussionFragment extends ListFragment {
     static class MessageItem {
 
         public User sender;
+        public String id;
         public String text;
-        public MessageItem(User sender, String text) {
+        public MessageItem(String id, User sender, String text) {
             this.sender = sender;
             this.text = text;
+            this.id = id;
+        }
+
+        public boolean isMe()
+        {
+            return sender.getmId() == Parameters.getFacebookId();
         }
     }
-    static class MessageListAdapter  extends BaseAdapter {
+    static class MessageListAdapter  extends ArrayAdapter<MessageItem> {
 
 
         public MessageListAdapter(Context context, List<MessageItem> items) {
-            super(context, R.layout.inbox_list_item, items);
+            super(context, 0, items);
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        //isMe is 1
+        //not me is 0
+        @Override
+        public int getItemViewType(int position) {
+            return getItem(position).isMe()? 1:0;
         }
 
         @Override
@@ -121,9 +169,8 @@ public class PrivateDiscussionFragment extends ListFragment {
 
                 // initialize the view holder
                 viewHolder = new ViewHolder();
-                viewHolder.liName = (TextView) convertView.findViewById(R.id.name);
+                viewHolder.liPicture = (ImageView) convertView.findViewById(R.id.profileUser);
                 viewHolder.liText = (TextView) convertView.findViewById(R.id.text);
-                viewHolder.layout = (RelativeLayout)convertView.findViewById(R.id.layout);
 
                 convertView.setTag(viewHolder);
             } else {
@@ -132,10 +179,9 @@ public class PrivateDiscussionFragment extends ListFragment {
             }
 
             // update the item view
-            PrivateDiscussionItem item = getItem(position);
-            viewHolder.liPicture.setImageDrawable(item.contact.getmProfilePicture());
-            viewHolder.liName.setText(item.contact.getFirstName());
-            viewHolder.liText.setText(item.lastMessage);
+            MessageItem item = getItem(position);
+            viewHolder.liPicture.setImageDrawable(item.sender.getmProfilePicture());
+            viewHolder.liText.setText(item.text);
 
             return convertView;
         }

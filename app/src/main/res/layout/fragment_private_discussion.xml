@@ -2,12 +2,76 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="azzaoui.sociadee.PrivateDiscussionFragment">
+    android:orientation="vertical"
+    android:background="#00000000"
+    tools:context="azzaoui.sociadee.LocalChatFragment"
+    >
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="50dp"
+        android:background="@color/Evening"
+        android:layout_gravity="top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:textSize="15dp"
+            android:fontFamily="sans-serif-thin"
+            android:textColor="#ffffff"
+            android:id="@+id/salonTV"
+            android:text="Contact"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="50dp"
+        android:layout_height="match_parent">
+
+
+        <ListView android:id="@id/android:list"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:divider="@null"
+            android:stackFromBottom="true"
+            android:transcriptMode="alwaysScroll"
+            android:drawSelectorOnTop="false"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="bottom">
+
+            <EditText
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="300dp"
+                android:layout_marginBottom="5dp"
+                android:fontFamily="sans-serif-thin"
+                android:id="@+id/MainLocalText"
+                android:textColor="#FFFFFF"
+                android:inputType="textShortMessage|textCapSentences|textMultiLine"
+                android:imeOptions="actionSend"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_chat"/>
+
+            <ImageButton
+                android:layout_width="45dp"
+                android:layout_height="60dp"
+                android:id="@+id/buttonSend"
+                android:layout_alignBottom="@id/MainLocalText"
+                android:layout_toRightOf="@id/MainLocalText"
+                android:onClick="sendPublicMessage"
+                android:src="@drawable/chatbubble"
+                android:scaleType="fitXY"
+                />
+        </RelativeLayout>
+    </LinearLayout>
 
 </FrameLayout>
+
