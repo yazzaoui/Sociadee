@@ -396,25 +396,29 @@ public class MapWrapperFragment extends Fragment implements SociadeeFragment {
                 firstAnimate = false;
             }
 
-
-
             try
             {
                 Geocoder gc = new Geocoder(getContext(), Locale.getDefault());
                 List<Address> addresses = gc.getFromLocation(latitude, longitude, 1);
                 StringBuilder sb = new StringBuilder();
-                if (addresses.size() > 0) {
-                    Address address = addresses.get(0);
+                myCity = "Unknown";
+                int i=0;
+                Address address = null;
+                while(i < addresses.size() && myCity.equals("Unknown"))
+                {
+                    address = addresses.get(i);
                     /*
                     for (int i = 0; i <= address.getMaxAddressLineIndex(); i++) {
                         sb.append("\n").append(address.getAddressLine(i));
                     }
                     Toast.makeText(getActivity(),  sb.toString(), Toast.LENGTH_LONG).show();
                     */
-                    myCity = address.getLocality();
-                    if(myLocationCallback != null)
-                        myLocationCallback.newLocation(address.getLocality());
+                    myCity = address.getLocality() == null ? myCity : address.getLocality();
+                    i++;
                 }
+                    if(myLocationCallback != null && !myCity.equals("Unknown"))
+                        myLocationCallback.newLocation(address.getLocality());
+
             }
             catch (IOException e){}
 

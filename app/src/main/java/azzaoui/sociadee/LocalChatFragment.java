@@ -60,6 +60,10 @@ public class LocalChatFragment extends ListFragment {
         };
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageBroadcastReceiver,
                 new IntentFilter(Parameters.PUBLIC_MESSAGE_RECEIVED));
+        mMessageList = new LinkedList<>();
+
+
+
     }
 
 
@@ -69,10 +73,8 @@ public class LocalChatFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_local_chat, container, false);
         mMainText = (EditText)v.findViewById(R.id.MainLocalText);
-        mMessageList = new LinkedList<>();
         mMessagesListAdapter = new MessagesListAdapter(getActivity(), mMessageList);
         setListAdapter(mMessagesListAdapter);
-
         fetchMessages();
 
         return v;

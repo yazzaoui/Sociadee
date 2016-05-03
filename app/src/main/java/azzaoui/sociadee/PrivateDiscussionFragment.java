@@ -59,7 +59,7 @@ public class PrivateDiscussionFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_inbox, container, false);
+        View v = inflater.inflate(R.layout.fragment_private_discussion, container, false);
 
         mMessageList = new LinkedList<>();
         mMessageListAdapter = new MessageListAdapter(getActivity(), mMessageList);
@@ -165,8 +165,10 @@ public class PrivateDiscussionFragment extends ListFragment {
             if(convertView == null) {
                 // inflate the GridView item layout
                 LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(R.layout.inbox_list_item, parent, false);
-
+                if(getItem(position).isMe())
+                    convertView = inflater.inflate(R.layout.private_me_message_list_item, parent, false);
+                else
+                    convertView = inflater.inflate(R.layout.private_contact_message_list_item, parent, false);
                 // initialize the view holder
                 viewHolder = new ViewHolder();
                 viewHolder.liPicture = (ImageView) convertView.findViewById(R.id.profileUser);

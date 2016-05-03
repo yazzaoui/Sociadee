@@ -10,6 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginTop="25dp"
         android:background="@color/Evening"
         android:layout_gravity="top">
 
@@ -28,7 +29,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:layout_height="match_parent">
 
 
@@ -50,7 +51,7 @@
             <EditText
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="10dp"
-                android:layout_width="300dp"
+                android:layout_width="270dp"
                 android:layout_marginBottom="5dp"
                 android:fontFamily="sans-serif-thin"
                 android:id="@+id/MainLocalText"
@@ -61,7 +62,7 @@
                 android:background="@drawable/edit_chat"/>
 
             <ImageButton
-                android:layout_width="45dp"
+                android:layout_width="47dp"
                 android:layout_height="60dp"
                 android:id="@+id/buttonSend"
                 android:layout_alignBottom="@id/MainLocalText"

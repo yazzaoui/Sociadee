@@ -50,6 +50,7 @@ private ChatPagerAdapter mPagerAdapter;
         this.mPagerAdapter = new ChatPagerAdapter(getChildFragmentManager(), fragments);
 
        DynamicViewPager pager = (DynamicViewPager) v.findViewById(R.id.pagerChat);
+        pager.setPersistentDrawingCache(ViewGroup.PERSISTENT_ALL_CACHES);
         pager.setMaxPages(3);
         pager.setBackgroundAsset(R.drawable.wallpaper3);
         // Affectation de l'adapter au ViewPager
