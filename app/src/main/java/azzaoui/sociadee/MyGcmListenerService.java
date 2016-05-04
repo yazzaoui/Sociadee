@@ -60,6 +60,7 @@ public class MyGcmListenerService extends GcmListenerService {
         }
         else if(data.getString("action").equals("FETCH_PRIVATE_MESSAGES")) {
             Intent newMessage = new Intent(Parameters.PRIVATE_MESSAGE_RECEIVED);
+            newMessage.putExtra("CONVID",data.getString("conv"));
             LocalBroadcastManager.getInstance(this).sendBroadcast(newMessage);
         }
 

@@ -40,10 +40,21 @@ private ChatPagerAdapter mPagerAdapter;
         // Ajout des Fragments dans la liste
         mLocalChatFragment = (LocalChatFragment)Fragment.instantiate(getActivity(),LocalChatFragment.class.getName());
         fragments.add(mLocalChatFragment);
+
         mInboxFragment = (InboxFragment)Fragment.instantiate(getActivity(),InboxFragment.class.getName());
+        mInboxFragment.inboxClickCallback = new InboxFragment.InboxClickCallback() {
+            @Override
+            public void inboxClick(String convid) {
+                mPrivateDiscussionFragment.setConversation(convid);
+            }
+        };
         fragments.add(mInboxFragment);
+
+
         mPrivateDiscussionFragment = (PrivateDiscussionFragment)Fragment.instantiate(getActivity(),PrivateDiscussionFragment.class.getName());
         fragments.add(mPrivateDiscussionFragment);
+
+
 
         // Création de l'adapter qui s'occupera de l'affichage de la liste de
         // Fragments

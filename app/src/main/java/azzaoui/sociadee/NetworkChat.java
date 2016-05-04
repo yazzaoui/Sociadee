@@ -157,9 +157,42 @@ public class NetworkChat extends NetworkBase {
     }
 
 
-    public boolean getPrivateMessageList(String conversationId)
+    public boolean getPrivateMessageList(String conversationId, Context ctxt)
     {
-        return false;
+        String toSend = "/getprivatemessages";
+        JSONObject response;
+        try {
+            response = sendPOSTRequest(toSend,"id="+conversationId,true);
+            if (response == null) {
+                return false;
+            } else {
+                JSONArray messageList = response.getJSONArray("data");
+                mPrivateMessageList = new LinkedList<>();
+                for(int i = 0; i < messageList.length(); i++)
+                {
+                    JSONObject m = messageList.getJSONObject(i);
+                    long imId =  m.getLong("sender");
+                    String message = m.getString("text");
+                    String id = m.getString("id");
+                    boolean present = MainChatFragment.isUserPresent(imId);
+
+                    if(!present)
+                        if(!fetchUserData(imId,ctxt))
+                            return false;
+
+                    User user = MainChatFragment.getUserById(imId);
+
+                    MessageItem curMes = new MessageItem(id,user,message);
+                    mPrivateMessageList.add(curMes);
+
+                }
+                return true;
+            }
+        } catch (JSONException e) {
+            return false;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
 

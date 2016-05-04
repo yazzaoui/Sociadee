@@ -52,6 +52,7 @@ public class PrivateDiscussionFragment extends ListFragment {
         };
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageBroadcastReceiver,
                 new IntentFilter(Parameters.PRIVATE_MESSAGE_RECEIVED));
+        mMessageList = new LinkedList<>();
     }
 
 
@@ -61,7 +62,7 @@ public class PrivateDiscussionFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_private_discussion, container, false);
 
-        mMessageList = new LinkedList<>();
+
         mMessageListAdapter = new MessageListAdapter(getActivity(), mMessageList);
         setListAdapter(mMessageListAdapter);
 
@@ -71,6 +72,7 @@ public class PrivateDiscussionFragment extends ListFragment {
     public void setConversation(String convId)
     {
         lastMessageId="";
+        mConversationId = convId;
         mMessageList.clear();
         fetchConversation();
     }
@@ -92,7 +94,7 @@ public class PrivateDiscussionFragment extends ListFragment {
         @Override
         protected Void doInBackground(Void... params) {
 
-            mNoError = mNetworkChat.getPrivateMessageList(mConversationId);
+            mNoError = mNetworkChat.getPrivateMessageList(mConversationId,getActivity());
 
             return null;
         }

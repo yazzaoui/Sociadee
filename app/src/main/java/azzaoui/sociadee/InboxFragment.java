@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,6 +37,15 @@ public class InboxFragment extends ListFragment {
     private BroadcastReceiver mMessageBroadcastReceiver;
     private LinkedList<PrivateDiscussionItem> mDiscussionList;
     private DiscussionListAdapter mDiscussionListAdapter;
+    public InboxClickCallback inboxClickCallback;
+
+
+    public interface InboxClickCallback
+    {
+        void inboxClick(String convid);
+    }
+
+
 
     public InboxFragment() {
         mNetworkChat = new NetworkChat();
@@ -49,6 +59,7 @@ public class InboxFragment extends ListFragment {
         };
         LocalBroadcastManager.getInstance(getActivity()).registerReceiver(mMessageBroadcastReceiver,
                 new IntentFilter(Parameters.PRIVATE_MESSAGE_RECEIVED));
+        mDiscussionList = new LinkedList<>();
     }
 
 
@@ -58,13 +69,19 @@ public class InboxFragment extends ListFragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_inbox, container, false);
 
-        mDiscussionList = new LinkedList<>();
+
         mDiscussionListAdapter = new DiscussionListAdapter(getActivity(), mDiscussionList);
         setListAdapter(mDiscussionListAdapter);
 
         fetchDiscussions();
 
         return v;
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        if(inboxClickCallback != null)
+            inboxClickCallback.inboxClick(mDiscussionListAdapter.getItem(position).id);
     }
 
     private void fetchDiscussions()
